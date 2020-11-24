@@ -1,0 +1,12 @@
+.nav {
+  ul {
+    display: flex;
+    li {
+      padding: 0 10px;
+      border-right: 1px solid #999;
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+}

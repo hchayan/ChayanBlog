@@ -1,15 +1,12 @@
 import React from "react";
-import PreviewArticles from "./preview/PreviewArticles";
-import PreviewInfo from "./preview/PreviewInfo";
-import PreviewMenu from "./preview/PreviewMenu";
+import Notice from "./preview/Notice";
+import Preview from "./preview/Preview";
 
 const Contents = () => {
   return (
     <div className="contents">
-      contents
-      <PreviewMenu />
-      <PreviewInfo />
-      <PreviewArticles />
+      <Notice />
+      <Preview />
     </div>
   );
 };

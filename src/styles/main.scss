@@ -14,4 +14,14 @@ code {
 
 .App {
   text-align: center;
+  background-color: #eee;
+}
+
+.contents {
+  background-color: #fff;
+  max-width: 1280px;
+  width: 100%;
+  min-width: 960px;
+  min-height: 100vh;
+  margin: 0 auto;
 }

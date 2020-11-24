@@ -1,11 +1,18 @@
 import React from "react";
 import Nav from "./Nav";
 
-const Header = () => {
+const Header = ({ loggedIn }) => {
   return (
     <div className="header">
-      header
-      <Nav />
+      <div className="header__column">Logo</div>
+      <div className="header__column">
+        <Nav />
+      </div>
+      <div className="header__column">
+        {loggedIn ? <div className="write-post">새 글 작성</div> : null}
+
+        <div className="profile"></div>
+      </div>
     </div>
   );
 };
