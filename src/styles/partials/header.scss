@@ -1,9 +1,26 @@
 .header {
   background-color: white;
-  height: 50px;
-  padding: 0 10px;
+  height: 70px;
   border-bottom: 1px solid #e9e9e9;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .header__column {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // 헤더 로고
+  .header-logo {
+    width: 160px;
+
+    img {
+      height: 95%;
+      width: 100%;
+      padding-top: 5%;
+    }
+  }
 }
