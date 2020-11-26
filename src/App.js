@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { HashRouter as Router, Route } from "react-router-dom";
 import Header from "components/Header";
 import Contents from "components/Contents";
 
@@ -7,8 +8,21 @@ function App() {
 
   return (
     <div className="App">
-      <Header loggedIn={loggedIn} />
-      <Contents />
+      <Router>
+        <Header loggedIn={loggedIn} />
+        <Route exact path="/">
+          <Contents />
+        </Route>
+        <Route exact path="/login">
+          login
+        </Route>
+        <Route exact path="/register">
+          register
+        </Route>
+        <Route exact path="/404">
+          404
+        </Route>
+      </Router>
     </div>
   );
 }
