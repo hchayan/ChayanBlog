@@ -1,6 +1,7 @@
 .header {
   background-color: white;
   height: 70px;
+  min-width: 768px;
   border-bottom: 1px solid #e9e9e9;
   display: flex;
   justify-content: space-between;
@@ -11,6 +12,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &:last-child {
+      padding-right: 20px;
+    }
+  }
+
+  // 로그인
+  .login {
+    width: 100%;
+    height: 100%;
+
+    &:hover a {
+      color: $color-main-text;
+    }
   }
 
   // 헤더 로고
@@ -21,5 +36,35 @@
       width: 100%;
       padding-top: 5%;
     }
+  }
+
+  // 새글 작성
+  .write-post {
+    height: 30px;
+    margin: 0 15px;
+    padding: 0;
+    border: 1px solid $bg-color-3;
+    border-radius: 5px;
+
+    &:hover {
+      border: 1px solid $color-main-bg;
+      transform: translateY(-1px);
+    }
+
+    &:hover a {
+      color: $color-main-text;
+    }
+
+    a {
+      width: 100px;
+      border: 1px $bg-color-3;
+    }
+  }
+  // 프로필
+  .header-profile {
+    width: 30px;
+    height: 30px;
+    background-color: $bg-color-1;
+    border-radius: 50% 50%;
   }
 }

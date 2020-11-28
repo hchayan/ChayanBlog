@@ -26,3 +26,14 @@ code {
   min-height: 100vh;
   margin: 0 auto;
 }
+
+a {
+  height: 100%;
+  width: 100%;
+  color: $text-color-sub1;
+  text-decoration: none;
+  font-size: $font-size-normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

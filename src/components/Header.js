@@ -15,9 +15,22 @@ const Header = ({ loggedIn }) => {
       </div>
 
       <div className="header__column">
-        {loggedIn ? <div className="write-post">새 글 작성</div> : null}
-
-        <div className="profile"></div>
+        {!loggedIn ? (
+          <>
+            <div className="write-post">
+              <Link to="/">새 글 작성</Link>
+            </div>
+            <Link to="/">
+              <div className="header-profile"></div>
+            </Link>
+          </>
+        ) : (
+          <>
+            <div class="login">
+              <Link to="/login">로그인</Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
