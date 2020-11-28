@@ -3,6 +3,8 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import Header from "components/Header";
 import Contents from "components/Contents";
 
+import Login from "components/page/Auth";
+
 import { authService } from "./blogFirebase";
 
 function App() {
@@ -11,12 +13,12 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header loggedIn={loggedIn} />
         <Route exact path="/">
+          <Header loggedIn={loggedIn} />
           <Contents />
         </Route>
         <Route exact path="/login">
-          login
+          <Login />
         </Route>
         <Route exact path="/register">
           register
