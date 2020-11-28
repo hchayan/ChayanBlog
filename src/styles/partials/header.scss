@@ -1,11 +1,21 @@
 .header {
   background-color: white;
   height: 70px;
-  min-width: 768px;
+  min-width: $min-width;
   border-bottom: 1px solid #e9e9e9;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
+  .header-container {
+    height: 70px;
+    width: 100%;
+    max-width: $max-width;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   .header__column {
     height: 70px;

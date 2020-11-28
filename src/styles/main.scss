@@ -20,9 +20,9 @@ code {
 
 .contents {
   background-color: #fff;
-  max-width: 1280px;
+  max-width: $max-width;
   width: 100%;
-  min-width: 960px;
+  min-width: $min-width;
   min-height: 100vh;
   margin: 0 auto;
 }

@@ -22,19 +22,26 @@
     margin: 5px 0;
   }
   .preview__articles {
-    width: 1280px;
+    max-width: $max-width;
+    min-width: $min-width;
     min-height: 600px;
     height: auto;
     background-color: #999;
     padding: 0 1%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 300px;
     justify-items: center;
     align-items: center;
+
     .preview__article {
       width: 250px;
       height: 90%;
       background-color: #fff;
+    }
+
+    @media screen and(max-width: $max-width) {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }
