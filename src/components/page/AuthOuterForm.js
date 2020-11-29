@@ -2,11 +2,7 @@ import React from "react";
 import { firebaseInstance, authService } from "blogFirebase";
 
 const AuthOuterForm = ({ newAccount, history }) => {
-  const onSocialClick = async (event) => {
-    const {
-      target: { name },
-    } = event;
-
+  const onSocialClick = async (name) => {
     // 1. provider 생성
     let provider;
     if (name === "google") {
@@ -24,18 +20,23 @@ const AuthOuterForm = ({ newAccount, history }) => {
 
   return (
     <>
-      <input
+      <button
         type="button"
         name="google"
-        onClick={onSocialClick}
-        value={newAccount ? "구글 회원가입" : "구글 로그인"}
-      />
-      <input
+        onClick={() => onSocialClick("google")}
+      >
+        <i class="fab fa-google" name="google"></i>
+        <p>구글 계정으로 {newAccount ? "회원가입" : "로그인"}</p>
+      </button>
+
+      <button
         type="button"
         name="github"
-        onClick={onSocialClick}
-        value={newAccount ? "github 회원가입" : "github  로그인"}
-      />
+        onClick={() => onSocialClick("github")}
+      >
+        <i class="fab fa-github"></i>
+        <p>깃허브 계정으로 {newAccount ? "회원가입" : "로그인"}</p>
+      </button>
     </>
   );
 };

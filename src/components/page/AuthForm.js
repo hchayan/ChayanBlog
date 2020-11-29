@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { authService } from "blogFirebase";
+import { Link } from "react-router-dom";
 
 const AuthForm = ({ newAccount, setNewAccount, history }) => {
   const [email, setEmail] = useState("");
@@ -40,7 +41,7 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
   };
 
   return (
-    <>
+    <div className="local-login">
       <form onSubmit={onSubmit}>
         <input
           name="email"
@@ -63,8 +64,15 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
         <input type="submit" value={newAccount ? "회원가입" : "로그인"} />
         {error}
       </form>
-      <span onClick={toggleAccount}>{newAccount ? "로그인" : "회원가입"}</span>
-    </>
+      <div className="link">
+        <span>
+          <Link to="/">&lt; 홈으로 이동</Link>
+        </span>
+        <span onClick={toggleAccount}>
+          {newAccount ? "로그인" : "회원가입"}
+        </span>
+      </div>
+    </div>
   );
 };
 
