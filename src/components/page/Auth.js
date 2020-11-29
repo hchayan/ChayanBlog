@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import AuthForm from "components/page/AuthForm";
 import AuthOuterForm from "components/page/AuthOuterForm";
+import { useHistory } from "react-router-dom";
 
 const Auth = () => {
   const [newAccount, setNewAccount] = useState(true);
+  let history = useHistory();
+
   return (
     <div className="login-container">
       <div className="login-container__column">
@@ -12,11 +15,15 @@ const Auth = () => {
       </div>
       <div className="login-container__column">
         <p>소셜 로그인</p>
-        <AuthOuterForm newAccount={newAccount} setNewAccount={setNewAccount} />
+        <AuthOuterForm
+          newAccount={newAccount}
+          setNewAccount={setNewAccount}
+          history={history}
+        />
       </div>
       <div className="login-container__column">
         <p>이메일로 로그인</p>
-        <AuthForm newAccount={newAccount} setNewAccount={setNewAccount} />
+        <AuthForm newAccount={newAccount} history={history} />
       </div>
     </div>
   );

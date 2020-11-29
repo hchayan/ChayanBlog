@@ -16,7 +16,7 @@ const Header = ({ loggedIn }) => {
         </div>
 
         <div className="header__column">
-          {!loggedIn ? (
+          {loggedIn ? (
             <>
               <div className="write-post">
                 <Link to="/">새 글 작성</Link>
