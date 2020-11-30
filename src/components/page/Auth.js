@@ -12,7 +12,10 @@ const Auth = () => {
       <div className="auth-container">
         <div className="auth-container__column">
           <div className="logo">
-            <img src="https://firebasestorage.googleapis.com/v0/b/chayanblog.appspot.com/o/static%2Flogo.svg?alt=media&token=1506f45c-8be3-40b1-8bb1-2c55f750109e" />
+            <img
+              alt="gogo"
+              src="https://firebasestorage.googleapis.com/v0/b/chayanblog.appspot.com/o/static%2Flogo.svg?alt=media&token=1506f45c-8be3-40b1-8bb1-2c55f750109e"
+            />
           </div>
           <h3>{newAccount ? "회원가입" : "로그인"}</h3>
         </div>

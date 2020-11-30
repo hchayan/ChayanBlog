@@ -9,6 +9,7 @@ import Header from "components/Header";
 import Contents from "components/Contents";
 
 import Auth from "components/page/Auth";
+import Write from "components/page/Write";
 
 import { authService } from "./blogFirebase";
 
@@ -47,7 +48,12 @@ function App() {
               <Route exact path="/login">
                 <Auth />
               </Route>
-            ) : null}
+            ) : (
+              <Route exact path="/write">
+                <Header loggedIn={loggedIn} userObj={userObj} />
+                <Write />
+              </Route>
+            )}
             <Redirect from="*" to="/" />
           </Switch>
         </Router>

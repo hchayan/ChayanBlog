@@ -28,7 +28,7 @@ const Header = ({ loggedIn, userObj }) => {
           {loggedIn ? (
             <>
               <div className="write-post">
-                <Link to="/">새 글 작성</Link>
+                <Link to="/write">새 글 작성</Link>
               </div>
 
               <div className="header-profile" onClick={toggleProfilePopup}>

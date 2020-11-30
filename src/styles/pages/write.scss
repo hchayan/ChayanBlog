@@ -1,0 +1,59 @@
+.write {
+  height: 95vh;
+  max-width: $max-width;
+  min-width: $min-width;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .write__column {
+    height: 100%;
+    width: 100%;
+    background-color: $bg-color-0;
+  }
+
+  // 왼쪽 form
+  .w-md-editor {
+    height: 90vh !important;
+  }
+
+  .w-md-editor-content {
+    height: calc(90vh - 30px) !important;
+  }
+
+  .w-md-editor-bar {
+    display: none;
+  }
+
+  .w-md-editor-input {
+    width: 49.5%;
+  }
+
+  .w-md-editor-preview {
+    width: 50.5%;
+  }
+
+  // 풀스크린
+  .w-md-editor-fullscreen {
+    height: 100% !important;
+
+    .w-md-editor-content {
+      height: 100% !important;
+    }
+  }
+
+  // markdown editor
+  .wmde-markdown {
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+    a {
+      display: inline;
+    }
+  }
+}
