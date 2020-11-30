@@ -76,5 +76,19 @@
     height: 30px;
     background-color: $bg-color-1;
     border-radius: 50% 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50% 50%;
+    }
+
+    i {
+      font-size: 1rem;
+      color: $bg-color-3;
+    }
   }
 }

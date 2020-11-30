@@ -3,7 +3,7 @@ import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import ProfilePopup from "./popup/ProfilePopup";
 
-const Header = ({ loggedIn }) => {
+const Header = ({ loggedIn, userObj }) => {
   const [profilePopup, setProfilePopup] = useState(false);
   const toggleProfilePopup = () => {
     setProfilePopup(!profilePopup);
@@ -28,14 +28,17 @@ const Header = ({ loggedIn }) => {
                 <Link to="/">새 글 작성</Link>
               </div>
               <Link to="/">
-                <div
-                  className="header-profile"
-                  onClick={toggleProfilePopup}
-                ></div>
+                <div className="header-profile" onClick={toggleProfilePopup}>
+                  {userObj.photoURL ? (
+                    <img src={userObj.photoURL} />
+                  ) : (
+                    <i class="fas fa-user"></i>
+                  )}
+                </div>
               </Link>
               {profilePopup ? (
                 <div className="profile-popup">
-                  <ProfilePopup />
+                  <ProfilePopup userObj={userObj} />
                 </div>
               ) : null}
             </>

@@ -14,12 +14,14 @@ import { authService } from "./blogFirebase";
 
 function App() {
   const [init, setInit] = useState(false);
+  const [userObj, setUserObj] = useState(null);
   const [loggedIn, setLoggedIn] = useState(authService.cuurentUser);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setLoggedIn(true);
+        setUserObj(user);
       } else {
         setLoggedIn(false);
       }
@@ -33,7 +35,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              <Header loggedIn={loggedIn} />
+              <Header loggedIn={loggedIn} userObj={userObj} />
               <Contents />
             </Route>
 
