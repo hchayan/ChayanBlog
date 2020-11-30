@@ -24,6 +24,7 @@
     align-items: center;
 
     &:last-child {
+      position: relative;
       padding-right: 20px;
     }
   }

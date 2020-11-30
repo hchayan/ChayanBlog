@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
+import ProfilePopup from "./popup/ProfilePopup";
 
 const Header = ({ loggedIn }) => {
+  const [profilePopup, setProfilePopup] = useState(false);
+  const toggleProfilePopup = () => {
+    setProfilePopup(!profilePopup);
+  };
+
   return (
     <div className="header">
       <div className="header-container">
@@ -22,8 +28,16 @@ const Header = ({ loggedIn }) => {
                 <Link to="/">새 글 작성</Link>
               </div>
               <Link to="/">
-                <div className="header-profile"></div>
+                <div
+                  className="header-profile"
+                  onClick={toggleProfilePopup}
+                ></div>
               </Link>
+              {profilePopup ? (
+                <div className="profile-popup">
+                  <ProfilePopup />
+                </div>
+              ) : null}
             </>
           ) : (
             <>
