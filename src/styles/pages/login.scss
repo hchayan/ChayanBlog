@@ -94,6 +94,7 @@
 
       // 내부 로그인
       .local-login {
+        width: 280px;
         form {
           display: flex;
           flex-direction: column;
@@ -122,6 +123,7 @@
 
         .link {
           margin: 0 5px;
+
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -130,6 +132,11 @@
             text-decoration: underline;
             cursor: pointer;
           }
+        }
+
+        .errorMessage {
+          margin-top: 15px;
+          color: orangered;
         }
       }
     }

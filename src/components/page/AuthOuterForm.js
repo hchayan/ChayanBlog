@@ -3,19 +3,27 @@ import { firebaseInstance, authService } from "blogFirebase";
 
 const AuthOuterForm = ({ newAccount, history }) => {
   const onSocialClick = async (name) => {
-    // 1. provider 생성
-    let provider;
-    if (name === "google") {
-      provider = new firebaseInstance.auth.GoogleAuthProvider();
-    } else if (name === "github") {
-      provider = new firebaseInstance.auth.GithubAuthProvider();
-    }
+    await authService
+      .setPersistence(firebaseInstance.auth.Auth.Persistence.SESSION)
+      .then(() => {
+        // 1. provider 생성
+        let provider;
+        if (name === "google") {
+          provider = new firebaseInstance.auth.GoogleAuthProvider();
+        } else if (name === "github") {
+          provider = new firebaseInstance.auth.GithubAuthProvider();
+        }
 
-    // 2. popup
-    await authService.signInWithPopup(provider);
-
-    // 3. redirect to home
-    history.push("/");
+        return provider;
+      })
+      .then((provider) => {
+        // 2. popup
+        return authService.signInWithPopup(provider);
+      })
+      .then(() => {
+        // 3. redirect to home
+        history.push("/");
+      });
   };
 
   return (

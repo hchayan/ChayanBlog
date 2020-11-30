@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { authService } from "blogFirebase";
+import { authService, firebaseInstance } from "blogFirebase";
 import { Link } from "react-router-dom";
 
 const AuthForm = ({ newAccount, setNewAccount, history }) => {
@@ -29,13 +29,20 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
         // create account
         // 계정 생성하면 사용자는 바로 로그인 된다 공식 문서에 써있어서 따로 로그인도 안해줘도댐
         await authService.createUserWithEmailAndPassword(email, password);
+        history.push("/login");
       } else {
         // login
-        await authService.signInWithEmailAndPassword(email, password);
+        await authService
+          .setPersistence(firebaseInstance.auth.Auth.Persistence.SESSION)
+          .then(function () {
+            return authService.signInWithEmailAndPassword(email, password);
+          })
+          .then(() => {
+            history.push("/");
+          });
       }
-
-      history.push("/");
     } catch (error) {
+      setError(error.message);
       console.log(error);
     }
   };
@@ -62,7 +69,6 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
           autoComplete={true}
         />
         <input type="submit" value={newAccount ? "회원가입" : "로그인"} />
-        {error}
       </form>
       <div className="link">
         <span>
@@ -72,6 +78,7 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
           {newAccount ? "로그인" : "회원가입"}
         </span>
       </div>
+      <div className="errorMessage">{error}</div>
     </div>
   );
 };

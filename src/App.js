@@ -41,9 +41,9 @@ function App() {
               404
             </Route>
 
-            {loggedIn ? (
-              <Route exact path="/register">
-                register
+            {!loggedIn ? (
+              <Route exact path="/login">
+                <Auth />
               </Route>
             ) : null}
             <Redirect from="*" to="/" />
