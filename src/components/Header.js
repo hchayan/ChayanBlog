@@ -29,7 +29,7 @@ const Header = ({ loggedIn, userObj }) => {
               </div>
               <Link to="/">
                 <div className="header-profile" onClick={toggleProfilePopup}>
-                  {userObj.photoURL ? (
+                  {userObj && userObj.photoURL ? (
                     <img src={userObj.photoURL} />
                   ) : (
                     <i class="fas fa-user"></i>

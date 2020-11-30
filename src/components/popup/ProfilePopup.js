@@ -32,6 +32,11 @@ const ProfilePopup = ({ userObj }) => {
     setNameChangeState(!nameChangeState);
   };
 
+  // 프로필 이미지 업로드
+  const onChangeImg = async () => {
+    console.log("프로필 이미지 변경은 나중에");
+  };
+
   // 로그아웃
   const onLogOutClick = () => authService.signOut();
 
@@ -40,13 +45,20 @@ const ProfilePopup = ({ userObj }) => {
       <div className="profile-popup__column">
         <div className="profile-img">
           <div className="profile-img--info">
-            {userObj.photoURL ? (
+            {userObj && userObj.photoURL ? (
               <img src={userObj.photoURL} />
             ) : (
               <i class="fas fa-user"></i>
             )}
           </div>
-          <button className="profile-img--edit">업로드</button>
+
+          <label for="profile_file">업로드</label>
+          <input
+            id="profile_file"
+            type="file"
+            accept="image/*"
+            onChange={onChangeImg}
+          />
         </div>
       </div>
       <div className="profile-popup__column">
