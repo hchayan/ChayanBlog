@@ -15,7 +15,10 @@ const Header = ({ loggedIn, userObj }) => {
         <div className="header__column">
           <div className=" header-logo">
             <Link to="/">
-              <img src="https://firebasestorage.googleapis.com/v0/b/chayanblog.appspot.com/o/static%2Flogo.svg?alt=media&token=1506f45c-8be3-40b1-8bb1-2c55f750109e" />
+              <img
+                alt="로고"
+                src="https://firebasestorage.googleapis.com/v0/b/chayanblog.appspot.com/o/static%2Flogo.svg?alt=media&token=1506f45c-8be3-40b1-8bb1-2c55f750109e"
+              />
             </Link>
           </div>
           <Nav />
@@ -27,15 +30,17 @@ const Header = ({ loggedIn, userObj }) => {
               <div className="write-post">
                 <Link to="/">새 글 작성</Link>
               </div>
-              <Link to="/">
-                <div className="header-profile" onClick={toggleProfilePopup}>
+
+              <div className="header-profile" onClick={toggleProfilePopup}>
+                <Link to="/">
                   {userObj && userObj.photoURL ? (
-                    <img src={userObj.photoURL} />
+                    <img alt="프로필" src={userObj.photoURL} />
                   ) : (
                     <i class="fas fa-user"></i>
                   )}
-                </div>
-              </Link>
+                </Link>
+              </div>
+
               {profilePopup ? (
                 <div className="profile-popup">
                   <ProfilePopup userObj={userObj} />

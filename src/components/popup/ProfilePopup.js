@@ -46,13 +46,13 @@ const ProfilePopup = ({ userObj }) => {
         <div className="profile-img">
           <div className="profile-img--info">
             {userObj && userObj.photoURL ? (
-              <img src={userObj.photoURL} />
+              <img alt="프로필" src={userObj.photoURL} />
             ) : (
               <i class="fas fa-user"></i>
             )}
           </div>
 
-          <label for="profile_file">업로드</label>
+          <label htmlFor="profile_file">업로드</label>
           <input
             id="profile_file"
             type="file"
