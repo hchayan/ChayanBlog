@@ -10,14 +10,14 @@
 <a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/d5e20e9e3ed085b01f8f9646147dd362ba7f3897d477133c2137b4fe3f83a180/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c616e6775616765732f746f702f48616e7377696e642f43686179616e426c6f673f636f6c6f723d79656c6c6f77" class="rich-diff-level-one"><img alt="GitHub top language" src="https://camo.githubusercontent.com/d5e20e9e3ed085b01f8f9646147dd362ba7f3897d477133c2137b4fe3f83a180/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c616e6775616765732f746f702f48616e7377696e642f43686179616e426c6f673f636f6c6f723d79656c6c6f77" data-canonical-src="https://img.shields.io/github/languages/top/Hanswind/ChayanBlog?color=yellow" style="max-width:100%;"></a>
 </p>
 
-   
-          
+
 <h3 align='middle'> 개인 정리용 블로그 웹 프로젝트</h3>
 <p align='middle'>
 📝 <strong>개인 정리 노트</strong> 및 <strong>포스트 정리</strong>를 위한 블로그 구축 프로젝트입니다<br/><br />
    <strong>현재 진행도 👨‍💻</strong><br/>
-    <progress value="5" max="100"></progress>&nbsp;5%
+    <progress value="10" max="100"></progress>&nbsp;10%
 </p>
+
 
 
 
