@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { useHistory } from "react-router-dom";
+
+import { dbService } from "blogFirebase";
 
 const Write = () => {
+  // 게시글 정보
+  const [tags, setTags] = useState(["javascript", "css", "html"]);
+  const [categories, setCategories] = useState([
+    "개인포스트",
+    "React 기본개념",
+    "블로그 구축 토이 프로젝트",
+  ]);
+
   const [markdownContent, setMarkdownContent] = useState(`
   원하는 내용을 적어주세요
   `);
 
-  const [tags, setTags] = useState(["javascript", "css", "html"]);
-
-  const [categories, setCategories] = useState(["1", "2", "3"]);
+  let history = useHistory();
 
   const onChangeTitle = (e) => {
     const {
@@ -22,7 +31,20 @@ const Write = () => {
 
   const onChangeThumbnail = () => {};
 
-  const onSubmit = () => {};
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    await dbService.collection("posts").add({
+      thumbnailId: null,
+      postTag: tags,
+      postTypes: categories,
+      contents: markdownContent,
+      createdAt: Date.now(),
+      modifiedAt: Date.now(),
+    });
+
+    history.push("/");
+  };
 
   return (
     <div className="write">
@@ -67,7 +89,7 @@ const Write = () => {
                         <div className="tag-list" name={tag}>
                           {tag}
                           <div className="tag-delete">
-                            <i class="fas fa-times"></i>
+                            <i className="fas fa-times"></i>
                           </div>
                         </div>
                       );
