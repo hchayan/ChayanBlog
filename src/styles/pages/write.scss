@@ -2,6 +2,8 @@
   height: 95vh;
   max-width: $max-width;
   min-width: $min-width;
+  min-height: 1000px;
+  background-color: $bg-color-0;
   margin: 10px auto;
   display: flex;
   flex-direction: column;
@@ -11,7 +13,14 @@
   .write__column {
     height: 100%;
     width: 100%;
-    background-color: $bg-color-0;
+
+    &:first-child {
+      height: 250px;
+    }
+
+    &:last-child {
+      height: calc(100% - 250px);
+    }
   }
 
   // write-form
@@ -21,6 +30,59 @@
 
     form {
       height: 100%;
+    }
+
+    .write-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 10px 0;
+      padding: 0 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .write-title__column {
+        width: 33%;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+          font-size: 0.9rem;
+          color: $text-color-sub1;
+        }
+
+        &:first-child {
+          justify-content: flex-start;
+        }
+
+        &:last-child {
+          justify-content: flex-end;
+
+          button {
+            width: 100px;
+            height: 100%;
+            background-color: $bg-color-0;
+            margin-left: 10px;
+            border: 1px solid $bg-color-2;
+            border-radius: 20px;
+            padding: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+
+            &:last-child {
+              background-color: $color-main-bg;
+              color: $bg-color-0;
+            }
+          }
+        }
+      }
+    }
+
+    .write-contents {
+      height: 200px;
+      padding: 5px 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -30,12 +92,17 @@
 
         &:first-child {
           width: 20%;
+          min-width: 240px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         &:last-child {
           width: 80%;
         }
 
+        // 썸네일 영역
         .thumbnail-preview {
           position: relative;
           width: 240px;
@@ -69,11 +136,142 @@
             height: 0;
           }
         }
+
+        // 제목 입력 영역
+        .form-title {
+          input {
+            height: 70px;
+            width: 100%;
+            border: 0;
+            padding: 0 10px;
+            outline: none;
+            font-size: 2rem;
+            font-weight: bold;
+          }
+        }
+
+        // 태그 입력 영역
+        .write-tags {
+          padding: 0 10px;
+          margin-bottom: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .tags-list {
+            width: 85%;
+            background-color: $bg-color-0;
+            padding: 5px 10px;
+            border: 1px solid $bg-color-1;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            .tag-list {
+              margin-right: 5px;
+              padding: 5px 10px;
+              border: 1px solid $bg-color-2;
+              border-radius: 20px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              .tag-delete {
+                font-size: 0.7rem;
+                color: $text-color-sub1;
+                margin-left: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                &:hover {
+                  color: $color-delete;
+                }
+              }
+            }
+          }
+
+          .write-add-tags {
+            height: 36px;
+            width: 120px;
+            margin-left: 15px;
+            padding: 5px;
+            border: 1px solid $bg-color-2;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        // 카테고리 입력 영역
+        .write-category {
+          padding: 0 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .cate-lists {
+            width: 85%;
+            background-color: $bg-color-0;
+            padding: 5px 10px;
+            border: 1px solid $bg-color-1;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            .cate-list {
+              margin-right: 5px;
+              padding: 5px 10px;
+              border: 1px solid $bg-color-2;
+              border-radius: 20px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              .cate-delete {
+                font-size: 0.7rem;
+                color: $text-color-sub1;
+                margin-left: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                &:hover {
+                  color: $color-delete;
+                }
+              }
+            }
+          }
+
+          .write-cate-tags {
+            height: 36px;
+            width: 120px;
+            margin-left: 15px;
+            padding: 5px;
+            border: 1px solid $bg-color-2;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
       }
     }
   }
 
   // .w-md-editor
+  .w-md-editor {
+    height: 100% !important;
+
+    .w-md-editor-content {
+      height: calc(100% - 30px) !important;
+    }
+  }
 
   .w-md-editor-bar {
     display: none;
