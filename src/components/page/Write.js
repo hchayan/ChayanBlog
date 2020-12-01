@@ -10,6 +10,16 @@ const Write = () => {
 
   const [categories, setCategories] = useState(["1", "2", "3"]);
 
+  const onChangeTitle = (e) => {
+    const {
+      target: { value },
+    } = e;
+
+    // 제목용 '# '를 최초 한번만 찾는 정규식
+    const titleRegex = new RegExp("(.*-1.*|.*# .*)");
+    setMarkdownContent(`# ${value}` + markdownContent.replace(titleRegex, ""));
+  };
+
   const onChangeThumbnail = () => {};
 
   const onSubmit = () => {};
@@ -43,7 +53,11 @@ const Write = () => {
               </div>
               <div className="write-form__column">
                 <div className="form-title">
-                  <input type="text" placeholder="제목을 입력하세요" />
+                  <input
+                    type="text"
+                    placeholder="제목을 입력하세요"
+                    onChange={onChangeTitle}
+                  />
                 </div>
 
                 <div className="write-tags">
