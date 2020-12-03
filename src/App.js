@@ -51,7 +51,7 @@ function App() {
             ) : (
               <Route exact path="/write">
                 <Header loggedIn={loggedIn} userObj={userObj} />
-                <Write />
+                <Write userObj={userObj} />
               </Route>
             )}
             <Redirect from="*" to="/" />

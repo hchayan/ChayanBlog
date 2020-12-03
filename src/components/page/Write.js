@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import MDEditor from "@uiw/react-md-editor";
 import { useHistory } from "react-router-dom";
 
-import { dbService } from "blogFirebase";
+import { dbService, storageService } from "blogFirebase";
 
-const Write = () => {
+import WriteInfo from "./WriteInfo";
+import WriteForm from "./WriteForm";
+import WriteAddon from "./WriteAddon";
+
+// ======================================================================
+const Write = ({ userObj }) => {
   // 게시글 정보
-  const [tags, setTags] = useState(["javascript", "css", "html"]);
+  const [thmubnailURL, setThumbnailURL] = useState("");
+  const [objectURL, setObjectURL] = useState([]);
+  const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([
     "개인포스트",
     "React 기본개념",
@@ -15,27 +21,48 @@ const Write = () => {
 
   const [markdownContent, setMarkdownContent] = useState(`
   원하는 내용을 적어주세요
-  `);
+    `);
 
   let history = useHistory();
 
-  const onChangeTitle = (e) => {
+  // 로컬 이미지 업로드
+
+  const onChangeImage = async (e) => {
+    // 로컬 파일 읽어 변화 감지
     const {
-      target: { value },
+      target: { files }, // event.target.files
     } = e;
 
-    // 제목용 '# '를 최초 한번만 찾는 정규식
-    const titleRegex = new RegExp("(.*-1.*|.*# .*)");
-    setMarkdownContent(`# ${value}` + markdownContent.replace(titleRegex, ""));
+    const theFile = files[0];
+
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader(); // 공식 File API
+      reader.readAsDataURL(theFile);
+
+      reader.onerror = () => {
+        reject(false);
+      };
+      reader.onloadend = (finishedEvent) => {
+        // 아래 readURL 종료후 실행
+        const {
+          currentTarget: { result }, // result = finishedEvent.currantTarget.result
+        } = finishedEvent;
+
+        resolve(result);
+      };
+    });
   };
 
-  const onChangeThumbnail = () => {};
-
+  // 게시글 업로드
   const onSubmit = async (event) => {
     event.preventDefault();
 
+    // 1. 썸네일 있으면 사진 업로드후, 해당 URL을 받아옴
+
+    // 2.db에 게시글 정보 업로드
     await dbService.collection("posts").add({
-      thumbnailId: null,
+      thumbnailId: thmubnailURL,
+      objId: objectURL,
       postTag: tags,
       postTypes: categories,
       contents: markdownContent,
@@ -49,79 +76,34 @@ const Write = () => {
   return (
     <div className="write">
       <div className="write__column">
-        <div className="write-form">
-          <form onSubmit={onSubmit}>
-            <div className="write-title">
-              <div className="write-title__column addon"></div>
-              <div className="write-title__column">게시글 작성</div>
-              <div className="write-title__column submits">
-                <button>임시저장</button>
-                <button type="submit">완료</button>
-              </div>
-            </div>
-            <div className="write-contents">
-              <div className="write-form__column">
-                <div className="write-thumbnail">
-                  <div className="thumbnail-preview">
-                    <label htmlFor="write-thumbnail">썸네일 업로드</label>
-                    <input
-                      type="file"
-                      id="write-thumbnail"
-                      accept="image/*"
-                      onChange={onChangeThumbnail}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="write-form__column">
-                <div className="form-title">
-                  <input
-                    type="text"
-                    placeholder="제목을 입력하세요"
-                    onChange={onChangeTitle}
-                  />
-                </div>
-
-                <div className="write-tags">
-                  <div className="tags-list">
-                    {tags.map((tag) => {
-                      return (
-                        <div className="tag-list" name={tag}>
-                          {tag}
-                          <div className="tag-delete">
-                            <i className="fas fa-times"></i>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="write-add-tags">태그 추가</div>
-                </div>
-                <div className="write-category">
-                  <div className="cate-lists">
-                    {categories.map((category) => {
-                      return (
-                        <div className="cate-list">
-                          {category}
-                          <div className="cate-delete">
-                            <i class="fas fa-times"></i>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="write-cate-tags">카테고리 추가</div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+        <WriteInfo
+          userObj={userObj}
+          thmubnailURL={thmubnailURL}
+          onChangeImage={onChangeImage}
+          setThumbnailURL={setThumbnailURL}
+          markdownContent={markdownContent}
+          setMarkdownContent={setMarkdownContent}
+          categories={categories}
+          setCategories={setCategories}
+          tags={tags}
+          setTags={setTags}
+          onSubmit={onSubmit}
+        />
       </div>
       <div className="write__column">
-        <MDEditor
-          value={markdownContent}
-          onChange={setMarkdownContent}
-          height={810}
+        <WriteAddon
+          userObj={userObj}
+          onChangeImage={onChangeImage}
+          objectURL={objectURL}
+          setObjectURL={setObjectURL}
+          markdownContent={markdownContent}
+          setMarkdownContent={setMarkdownContent}
+        />
+        <WriteForm
+          userObj={userObj}
+          onChangeImage={onChangeImage}
+          markdownContent={markdownContent}
+          setMarkdownContent={setMarkdownContent}
         />
       </div>
     </div>
