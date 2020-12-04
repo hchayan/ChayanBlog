@@ -157,14 +157,16 @@
 
         // 태그 입력 영역
         .write-tags {
+          position: relative;
+          height: 40px;
           padding: 0 10px;
           margin-bottom: 10px;
           display: flex;
-          justify-content: center;
           align-items: center;
 
           .tags-list {
             width: 85%;
+            height: 100%;
             background-color: $bg-color-0;
             padding: 5px 10px;
             border: 1px solid $bg-color-1;
@@ -172,6 +174,7 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            overflow-x: auto;
 
             .tag-list {
               margin-right: 5px;
@@ -181,6 +184,7 @@
               display: flex;
               justify-content: space-between;
               align-items: center;
+              white-space: nowrap;
 
               .tag-delete {
                 font-size: 0.7rem;
@@ -199,7 +203,7 @@
           }
 
           .write-add-tags {
-            height: 36px;
+            height: 100%;
             width: 120px;
             margin-left: 15px;
             padding: 5px;
@@ -208,18 +212,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $color-main-bg;
+              color: $text-color-white;
+              border: 1px none;
+            }
           }
         }
 
         // 카테고리 입력 영역
         .write-category {
+          position: relative;
+          height: 40px;
           padding: 0 10px;
           display: flex;
-          justify-content: center;
           align-items: center;
 
           .cate-lists {
             width: 85%;
+            height: 100%;
             background-color: $bg-color-0;
             padding: 5px 10px;
             border: 1px solid $bg-color-1;
@@ -227,15 +240,20 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            overflow-x: auto;
 
             .cate-list {
+              width: auto;
               margin-right: 5px;
               padding: 5px 10px;
               border: 1px solid $bg-color-2;
               border-radius: 20px;
               display: flex;
+              flex-basis: auto;
+              flex-wrap: nowrap;
               justify-content: space-between;
               align-items: center;
+              white-space: nowrap;
 
               .cate-delete {
                 font-size: 0.7rem;
@@ -254,8 +272,8 @@
           }
 
           .write-cate-tags {
-            height: 36px;
-            width: 120px;
+            height: 100%;
+            min-width: 120px;
             margin-left: 15px;
             padding: 5px;
             border: 1px solid $bg-color-2;
@@ -263,6 +281,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $color-main-bg;
+              color: $text-color-white;
+              border: 1px none;
+            }
           }
         }
       }
@@ -289,7 +314,6 @@
 
       &:hover {
         background-color: $color-main-bg;
-
         border: 1px none;
       }
 

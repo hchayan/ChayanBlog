@@ -13,11 +13,7 @@ const Write = ({ userObj }) => {
   const [thmubnailURL, setThumbnailURL] = useState("");
   const [objectURL, setObjectURL] = useState([]);
   const [tags, setTags] = useState([]);
-  const [categories, setCategories] = useState([
-    "개인포스트",
-    "React 기본개념",
-    "블로그 구축 토이 프로젝트",
-  ]);
+  const [categories, setCategories] = useState([]);
 
   const [markdownContent, setMarkdownContent] = useState(`
   원하는 내용을 적어주세요
@@ -27,7 +23,7 @@ const Write = ({ userObj }) => {
 
   // 로컬 이미지 업로드
 
-  const onChangeImage = async (e) => {
+  const onChangeImage = async e => {
     // 로컬 파일 읽어 변화 감지
     const {
       target: { files }, // event.target.files
@@ -42,7 +38,7 @@ const Write = ({ userObj }) => {
       reader.onerror = () => {
         reject(false);
       };
-      reader.onloadend = (finishedEvent) => {
+      reader.onloadend = finishedEvent => {
         // 아래 readURL 종료후 실행
         const {
           currentTarget: { result }, // result = finishedEvent.currantTarget.result
@@ -54,7 +50,7 @@ const Write = ({ userObj }) => {
   };
 
   // 게시글 업로드
-  const onSubmit = async (event) => {
+  const onSubmit = async event => {
     event.preventDefault();
 
     // 1. 썸네일 있으면 사진 업로드후, 해당 URL을 받아옴

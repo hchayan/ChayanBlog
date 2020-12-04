@@ -19,7 +19,7 @@ const WriteInfo = ({
   onSubmit,
 }) => {
   // 게시글 제목 적용
-  const onChangeTitle = (e) => {
+  const onChangeTitle = e => {
     const {
       target: { value },
     } = e;
@@ -29,7 +29,7 @@ const WriteInfo = ({
     setMarkdownContent(`# ${value}` + markdownContent.replace(titleRegex, ""));
   };
 
-  const uploadThumbnail = async (e) => {
+  const uploadThumbnail = async e => {
     if (e) {
       const result = await onChangeImage(e);
 
@@ -48,6 +48,13 @@ const WriteInfo = ({
     }
   };
 
+  // 태그 제거
+  const removeTag = e => {
+    const name = e.target.parentNode.getAttribute("name");
+
+    setTags(tags => tags.filter(tag => tag !== name));
+  };
+
   // 썸네일 이미지 업로드
   const deleteTumbnail = async () => {
     await storageService.refFromURL(thmubnailURL).delete();
@@ -57,13 +64,27 @@ const WriteInfo = ({
   const [tagPopup, setTagPopup] = useState(false);
 
   const toggleTagPopup = () => {
+    if (catePopup) {
+      setCatePopup(!catePopup);
+    }
+
     setTagPopup(!tagPopup);
+  };
+
+  // 카테고리 제거
+  const removeCate = e => {
+    const name = e.target.parentNode.getAttribute("name");
+
+    setCategories(categories => categories.filter(cate => cate !== name));
   };
 
   // 카테고리 창 열기
   const [catePopup, setCatePopup] = useState(false);
 
   const toggleCatePopup = () => {
+    if (tagPopup) {
+      setTagPopup(!tagPopup);
+    }
     setCatePopup(!catePopup);
   };
 
@@ -106,38 +127,46 @@ const WriteInfo = ({
 
             <div className="write-tags">
               <div className="tags-list">
-                {tags.map((tag) => {
+                {tags.map(tag => {
                   return (
                     <div className="tag-list" name={tag}>
                       {tag}
-                      <div className="tag-delete">
+                      <div
+                        className="tag-delete"
+                        name={tag}
+                        onClick={removeTag}
+                      >
                         <i className="fas fa-times"></i>
                       </div>
                     </div>
                   );
                 })}
-                {tagPopup ? <TagsPopup tags={tags} setTags={setTags} /> : null}
               </div>
+              {tagPopup ? <TagsPopup tags={tags} setTags={setTags} /> : null}
               <div className="write-add-tags" onClick={toggleTagPopup}>
                 태그 추가
               </div>
             </div>
             <div className="write-category">
               <div className="cate-lists">
-                {categories.map((category) => {
+                {categories.map(category => {
                   return (
                     <div className="cate-list">
                       {category}
-                      <div className="cate-delete">
+                      <div
+                        className="cate-delete"
+                        name={category}
+                        onClick={removeCate}
+                      >
                         <i className="fas fa-times"></i>
                       </div>
                     </div>
                   );
                 })}
-                {catePopup ? (
-                  <CatePopup cates={categories} setCates={setCategories} />
-                ) : null}
               </div>
+              {catePopup ? (
+                <CatePopup cates={categories} setCates={setCategories} />
+              ) : null}
               <div className="write-cate-tags" onClick={toggleCatePopup}>
                 카테고리 추가
               </div>
