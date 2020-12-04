@@ -15,6 +15,7 @@ const Write = ({ userObj }) => {
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  const [markdownTitle, setMarkdownTitle] = useState(``);
   const [markdownContent, setMarkdownContent] = useState(`
   원하는 내용을 적어주세요
     `);
@@ -61,9 +62,12 @@ const Write = ({ userObj }) => {
         objId: objectURL,
         postTag: tags,
         postTypes: categories,
+        title: markdownTitle,
         contents: markdownContent,
         createdAt: Date.now(),
         modifiedAt: Date.now(),
+        user: userObj,
+        commentsId: [],
       });
 
       history.push("/");
@@ -80,6 +84,8 @@ const Write = ({ userObj }) => {
           thmubnailURL={thmubnailURL}
           onChangeImage={onChangeImage}
           setThumbnailURL={setThumbnailURL}
+          markdownTitle={markdownTitle}
+          setMarkdownTitle={setMarkdownTitle}
           markdownContent={markdownContent}
           setMarkdownContent={setMarkdownContent}
           categories={categories}

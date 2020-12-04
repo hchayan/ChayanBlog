@@ -8,6 +8,8 @@ import CatePopup from "components/popup/CatePopup";
 const WriteInfo = ({
   userObj,
   onChangeImage,
+  markdownTitle,
+  setMarkdownTitle,
   markdownContent,
   setMarkdownContent,
   thmubnailURL,
@@ -26,7 +28,7 @@ const WriteInfo = ({
 
     // 제목용 '# '를 최초 한번만 찾는 정규식
     const titleRegex = new RegExp("(.*-1.*|.*# .*)");
-    setMarkdownContent(`# ${value}` + markdownContent.replace(titleRegex, ""));
+    setMarkdownTitle(`# ${value}` + markdownTitle.replace(titleRegex, ""));
   };
 
   const uploadThumbnail = async e => {
