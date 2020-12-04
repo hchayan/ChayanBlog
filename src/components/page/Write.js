@@ -53,20 +53,23 @@ const Write = ({ userObj }) => {
   const onSubmit = async event => {
     event.preventDefault();
 
-    // 1. 썸네일 있으면 사진 업로드후, 해당 URL을 받아옴
+    // 1. 정말로 게시할지 물어보기
+    if (window.confirm("작성하신 게시글을 정말로 게시하시겠습니까?")) {
+      // 2.db에 게시글 정보 업로드
+      await dbService.collection("posts").add({
+        thumbnailId: thmubnailURL,
+        objId: objectURL,
+        postTag: tags,
+        postTypes: categories,
+        contents: markdownContent,
+        createdAt: Date.now(),
+        modifiedAt: Date.now(),
+      });
 
-    // 2.db에 게시글 정보 업로드
-    await dbService.collection("posts").add({
-      thumbnailId: thmubnailURL,
-      objId: objectURL,
-      postTag: tags,
-      postTypes: categories,
-      contents: markdownContent,
-      createdAt: Date.now(),
-      modifiedAt: Date.now(),
-    });
+      history.push("/");
 
-    history.push("/");
+      alert("게시글이 작성되었습니다");
+    }
   };
 
   return (
