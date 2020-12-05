@@ -66,7 +66,9 @@ const Write = ({ userObj }) => {
         contents: markdownContent,
         createdAt: Date.now(),
         modifiedAt: Date.now(),
-        user: userObj,
+        userId: userObj.uid,
+        userName: userObj.displayName,
+        userImage: userObj.photoURL,
         commentsId: [],
       });
 

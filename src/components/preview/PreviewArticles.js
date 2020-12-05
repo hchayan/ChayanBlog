@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
 const PreviewArticles = () => {
+  let dummyCount = 15;
   const [articles, setArticles] = useState([]);
 
   const getArticles = async () => {
@@ -13,11 +14,12 @@ const PreviewArticles = () => {
         id: article.id,
       };
 
-      setArticles(prev => [aritlcleObject, ...prev]);
+      setArticles(prev => [...prev, aritlcleObject]);
     });
   };
 
   useEffect(() => {
+    setArticles([]);
     getArticles();
   }, []);
 
@@ -25,6 +27,9 @@ const PreviewArticles = () => {
     <div className="preview__articles">
       {articles.map(article => {
         return <PreviewArticle article={article} />;
+      })}
+      {[...Array(dummyCount - articles.length)].map((element, index) => {
+        return <div className="preview__article preview__dummy"></div>;
       })}
     </div>
   );

@@ -29,8 +29,8 @@
     background-color: $bg-color-0;
     padding: 0 1%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 300px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 300px;
     justify-items: center;
     align-items: center;
 
@@ -44,6 +44,7 @@
 
       &:hover {
         background-color: rgba(0, 0, 0, 0.04);
+        transform: translateY(-2px);
       }
 
       .article-thumbnail {
@@ -79,12 +80,13 @@
           .article-category {
             display: inline-block;
             font-size: 0.75em;
-            border: 1px solid $bg-color-2;
+            border: 1px none;
             border-radius: 5px;
             margin: 2px;
             padding: 3px;
             background-color: rgba(0, 0, 0, 0.2);
             color: $text-color-white;
+            opacity: 0.8;
           }
         }
       }
@@ -240,13 +242,28 @@
           }
 
           i {
+            font-size: 0.6rem;
             color: $bg-color-3;
           }
         }
       }
     }
 
+    .preview__dummy {
+      border: 1px none;
+      background-color: $bg-color-dummy;
+      cursor: default;
+      &:hover {
+        background-color: $bg-color-dummy;
+        transform: none;
+      }
+    }
+
     @media screen and(max-width: $max-width) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media screen and(max-width: $max-width-2) {
       grid-template-columns: repeat(3, 1fr);
     }
   }

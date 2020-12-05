@@ -15,9 +15,9 @@ code {
 
 .App {
   text-align: center;
-  background-color: #eee;
+  background-color: $bg-color-0;
   box-sizing: border-box;
-  height: calc(100vh + 70px);
+  //height: calc(100vh + 70px);
   color: $text-color-main;
 }
 

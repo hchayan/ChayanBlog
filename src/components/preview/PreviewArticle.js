@@ -27,15 +27,17 @@ const PreviewArticle = ({ article }) => {
             new Date(article.modifiedAt).getMonth() + 1
           }월 ${new Date(article.modifiedAt).getDate()}일`}
         </div>
-        <div className="article-user">
-          {article.user ? (
-            <img src={article.user.photoURL} />
+        <div
+          className="article-user"
+          title={article.userName ? article.userName : "익명"}
+        >
+          {article.userImage ? (
+            <img src={article.userImage} />
           ) : (
-            <i class="fas fa-user"></i>
+            <i className="fas fa-user"></i>
           )}
         </div>
       </div>
-      {console.log(article)}
     </div>
   );
 };
