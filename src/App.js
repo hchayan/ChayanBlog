@@ -10,6 +10,7 @@ import Contents from "components/Contents";
 
 import Auth from "components/page/Auth";
 import Write from "components/page/Write";
+import Post from "components/page/Post";
 
 import { authService } from "./blogFirebase";
 
@@ -43,6 +44,8 @@ function App() {
             <Route exact path="/404">
               404
             </Route>
+
+            <Route path="/post/:id" component={Post} />
 
             {!loggedIn ? (
               <Route exact path="/login">
