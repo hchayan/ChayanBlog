@@ -32,13 +32,11 @@ const Header = ({ loggedIn, userObj }) => {
               </div>
 
               <div className="header-profile" onClick={toggleProfilePopup}>
-                <Link to="/">
-                  {userObj && userObj.photoURL ? (
-                    <img alt="프로필" src={userObj.photoURL} />
-                  ) : (
-                    <i class="fas fa-user"></i>
-                  )}
-                </Link>
+                {userObj && userObj.photoURL ? (
+                  <img alt="프로필" src={userObj.photoURL} />
+                ) : (
+                  <i class="fas fa-user"></i>
+                )}
               </div>
 
               {profilePopup ? (

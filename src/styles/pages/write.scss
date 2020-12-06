@@ -399,6 +399,13 @@
 
   .w-md-editor-preview {
     width: 50.5%;
+    max-width: $post-width;
+  }
+
+  .w-md-editor-show-preview {
+    .w-md-editor-preview {
+      margin: 0 $post-margin;
+    }
   }
 
   // 풀스크린
@@ -407,20 +414,6 @@
 
     .w-md-editor-content {
       height: 100% !important;
-    }
-  }
-
-  // markdown editor
-  .wmde-markdown {
-    strong {
-      font-weight: bold;
-    }
-
-    em {
-      font-style: italic;
-    }
-    a {
-      display: inline;
     }
   }
 }

@@ -168,13 +168,13 @@
         nav,
         section,
         video {
-          font-size: 0.75rem;
-          font-weight: normal;
-          margin: 0;
-          padding-right: 6px;
-          border: 0;
-          display: inline;
-          word-break: break-all;
+          font-size: 0.75rem !important;
+          font-weight: normal !important;
+          margin: 0 !important;
+          padding-right: 6px !important;
+          border: 0 !important;
+          display: inline !important;
+          word-break: break-all !important;
         }
         hr,
         br,

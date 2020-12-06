@@ -35,9 +35,9 @@ function App() {
     <div className="App">
       {init ? (
         <Router>
+          <Header loggedIn={loggedIn} userObj={userObj} />
           <Switch>
             <Route exact path="/">
-              <Header loggedIn={loggedIn} userObj={userObj} />
               <Contents />
             </Route>
 
@@ -53,11 +53,10 @@ function App() {
               </Route>
             ) : (
               <Route exact path="/write">
-                <Header loggedIn={loggedIn} userObj={userObj} />
                 <Write userObj={userObj} />
               </Route>
             )}
-            <Redirect from="*" to="/" />
+            <Redirect from="*" to="/404" />
           </Switch>
         </Router>
       ) : (

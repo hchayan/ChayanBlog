@@ -1,0 +1,117 @@
+.post {
+  min-width: $min-width;
+  max-width: $max-width;
+  margin: 0 auto;
+
+  .post-wrapper {
+    width: $post-width;
+    min-width: $post-width;
+    margin: 0 auto;
+    margin-top: 50px;
+
+    .post-head {
+      text-align: left;
+      padding: 20px 0;
+      border-bottom: 1px solid $bg-color-2;
+
+      .post-categories {
+        padding: 5px 0;
+        overflow-x: auto;
+        white-space: nowrap;
+
+        // 스크롪바 안보이지만 동작
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .post-category {
+          display: inline-block;
+          margin: 0 3px;
+          border: 1px none;
+          background-color: rgba($color-b-1, 0.1);
+          color: $color-b-1;
+          border-radius: 5px;
+          padding: 4px 10px;
+          font-size: 0.75rem;
+          font-weight: bold;
+        }
+      }
+
+      .post-title {
+        padding: 10px 0;
+        font-weight: bold;
+        font-size: 2.2rem;
+      }
+
+      .post-info {
+        margin: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+
+        .post-info__column {
+          .post-tags {
+            width: 512px;
+            padding: 5px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+
+            // 스크롪바 안보이지만 동작
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+
+            &::-webkit-scrollbar {
+              display: none;
+            }
+
+            .post-tag {
+              display: inline-block;
+              margin: 0 3px;
+              border-radius: 5px;
+              padding: 4px 10px;
+              background-color: rgba($color-g-1, 0.3);
+              color: $color-g-3;
+            }
+          }
+
+          &:last-child {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            .post-date {
+              color: $text-color-sub1;
+              margin-right: 8px;
+              font-weight: normal;
+            }
+
+            .post-user {
+              color: $color-main-text;
+            }
+          }
+        }
+      }
+    }
+
+    .post-main {
+      padding: 30px 0;
+
+      .post-thumbnail {
+        margin: 10px 0;
+        img {
+          width: 100%;
+        }
+      }
+
+      .post-contents {
+        padding-top: 60px;
+        text-align: left;
+      }
+    }
+  }
+}
