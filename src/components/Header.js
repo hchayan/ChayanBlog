@@ -35,7 +35,7 @@ const Header = ({ loggedIn, userObj }) => {
                 {userObj && userObj.photoURL ? (
                   <img alt="프로필" src={userObj.photoURL} />
                 ) : (
-                  <i class="fas fa-user"></i>
+                  <i className="fas fa-user"></i>
                 )}
               </div>
 
@@ -47,7 +47,7 @@ const Header = ({ loggedIn, userObj }) => {
             </>
           ) : (
             <>
-              <div class="login">
+              <div className="login">
                 <Link to="/login">로그인</Link>
               </div>
             </>

@@ -14,7 +14,11 @@ const PreviewArticle = ({ article }) => {
           )}
           <div className="article-categories">
             {article.postTypes.map(type => {
-              return <div className="article-category">{type}</div>;
+              return (
+                <div key={type} className="article-category">
+                  {type}
+                </div>
+              );
             })}
           </div>
         </div>
@@ -24,7 +28,11 @@ const PreviewArticle = ({ article }) => {
         </div>
         <div className="article-tags">
           {article.postTag.map(tag => {
-            return <div className="article-tag">{tag}</div>;
+            return (
+              <div key={tag} className="article-tag">
+                {tag}
+              </div>
+            );
           })}
         </div>
         <div className="article-info">

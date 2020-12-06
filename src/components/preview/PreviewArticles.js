@@ -26,10 +26,12 @@ const PreviewArticles = () => {
   return (
     <div className="preview__articles">
       {articles.map(article => {
-        return <PreviewArticle article={article} />;
+        return <PreviewArticle key={article.id} article={article} />;
       })}
       {[...Array(dummyCount - articles.length)].map((element, index) => {
-        return <div className="preview__article preview__dummy"></div>;
+        return (
+          <div key={index} className="preview__article preview__dummy"></div>
+        );
       })}
     </div>
   );

@@ -8,7 +8,6 @@ const Post = ({ match }) => {
   const [postInfo, setPostInfo] = useState({});
 
   const getPost = async () => {
-    console.log(postID);
     const post = await dbService
       .collection("posts")
       .where("title", "==", `# ${postID}`)
@@ -24,8 +23,6 @@ const Post = ({ match }) => {
         thumbnail: doc.data().thumbnailId,
         contents: doc.data().contents,
       });
-
-      console.log(postInfo);
     });
   };
 
@@ -40,7 +37,11 @@ const Post = ({ match }) => {
           <div className="post-categories">
             {postInfo["types"] &&
               postInfo["types"].map(type => {
-                return <div className="post-category">{type}</div>;
+                return (
+                  <div key={type} className="post-category">
+                    {type}
+                  </div>
+                );
               })}
           </div>
           <div className="post-title">
@@ -51,7 +52,11 @@ const Post = ({ match }) => {
               <div className="post-tags">
                 {postInfo["tags"] &&
                   postInfo["tags"].map(tag => {
-                    return <div className="post-tag">{tag}</div>;
+                    return (
+                      <div key={tag} className="post-tag">
+                        {tag}
+                      </div>
+                    );
                   })}
               </div>
             </div>
