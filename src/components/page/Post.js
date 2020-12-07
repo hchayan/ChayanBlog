@@ -24,7 +24,7 @@ const Post = ({ match, setArticleObj }) => {
         thumbnail: doc.data().thumbnailId,
         contents: doc.data().contents,
       });
-      setArticleObj(doc.data());
+      setArticleObj({ id: doc.id, ...doc.data() });
     });
   };
 

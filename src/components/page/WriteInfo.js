@@ -27,8 +27,8 @@ const WriteInfo = ({
     } = e;
 
     // 제목용 '# '를 최초 한번만 찾는 정규식
-    const titleRegex = new RegExp("(.*-1.*|.*# .*)");
-    setMarkdownTitle(`# ${value}` + markdownTitle.replace(titleRegex, ""));
+    //const titleRegex = new RegExp("(.*-1.*|.*# .*)");
+    setMarkdownTitle(value);
   };
 
   const uploadThumbnail = async e => {
@@ -124,6 +124,7 @@ const WriteInfo = ({
                 type="text"
                 placeholder="제목을 입력하세요"
                 onChange={onChangeTitle}
+                value={markdownTitle}
               />
             </div>
 

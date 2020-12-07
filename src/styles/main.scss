@@ -44,6 +44,14 @@ a {
   align-items: center;
 }
 
+button {
+  &:active,
+  &:hover,
+  &:focus {
+    outline: 0;
+  }
+}
+
 // 스크롤바
 /* width */
 
