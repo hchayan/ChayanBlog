@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Prompt } from "react-router-dom";
 
 import { dbService } from "blogFirebase";
 
@@ -17,6 +17,7 @@ const Write = ({ userObj, articleObj }) => {
 
   const [markdownTitle, setMarkdownTitle] = useState(``);
   const [markdownContent, setMarkdownContent] = useState(``);
+  const [isBlocking, setIsBlocking] = useState(false);
 
   let history = useHistory();
 
@@ -34,6 +35,11 @@ const Write = ({ userObj, articleObj }) => {
 
   // 1. 우선, 글의 user와 현재로그인되있는 user 일치하는지 확인 (불일치시 article로)
   const checkUserVaild = () => {
+    if (articleObj === null) {
+      alert("게시글을 새로고침하면 오류 발생 ");
+
+      history.push("/");
+    }
     if (articleObj && articleObj.userId !== userObj.uid) {
       alert("글을 수정할 권한이 없습니다");
 
@@ -46,6 +52,7 @@ const Write = ({ userObj, articleObj }) => {
 
   useEffect(() => {
     checkUserVaild();
+    setIsBlocking(true);
   }, []);
 
   // Write 기능
@@ -79,6 +86,7 @@ const Write = ({ userObj, articleObj }) => {
   // 게시글 업로드
   const onSubmit = async event => {
     event.preventDefault();
+    setIsBlocking(false);
 
     // write or edit 여부
     if (articleObj === null) {
@@ -161,6 +169,10 @@ const Write = ({ userObj, articleObj }) => {
           setMarkdownContent={setMarkdownContent}
         />
       </div>
+      <Prompt
+        when={isBlocking}
+        message="정말로 페이지를 나가시겠습니까?  페이지를 나가면 작성중인 페이지를 읽어버립니다"
+      />
     </div>
   );
 };
