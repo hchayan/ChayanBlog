@@ -96,6 +96,39 @@
         }
       }
 
+      .article-no-thumbnail {
+        width: 100%;
+        overflow-y: scroll;
+        height: 52px;
+
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none; /* Chrome, Safari, Opera*/
+        }
+
+        .article-categories {
+          width: 100%;
+          padding: 5px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          text-align: left;
+
+          .article-category {
+            display: inline-block;
+            font-size: 0.75em;
+            border: 1px none;
+            border-radius: 5px;
+            margin: 2px;
+            padding: 3px;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: $text-color-white;
+            opacity: 0.8;
+          }
+        }
+      }
+
       .article-title {
         font-size: 0.85rem;
         line-height: 1.2;
@@ -188,10 +221,15 @@
         }
       }
 
+      .article-blank {
+        height: 80px;
+      }
+
       .article-tags {
         font-size: 0.75em;
         height: 25px;
         margin: 3px 10px;
+        margin-bottom: 1px;
         padding: 2px 0;
         display: flex;
         justify-content: flex-start;

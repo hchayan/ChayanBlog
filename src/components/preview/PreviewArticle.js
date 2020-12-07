@@ -8,24 +8,40 @@ const PreviewArticle = ({ article }) => {
   return (
     <Link to={`/post/${article.title.substring(2)}`}>
       <div className="preview__article">
-        <div className="article-thumbnail">
-          {article.thumbnailId === "" ? null : (
-            <img src={article.thumbnailId} />
-          )}
-          <div className="article-categories">
-            {article.postTypes.map(type => {
-              return (
-                <div key={type} className="article-category">
-                  {type}
-                </div>
-              );
-            })}
+        {article.thumbnailId !== "" ? (
+          <div className="article-thumbnail">
+            <img src={article.thumbnailId} alt="thumbnail" />
+            <div className="article-categories">
+              {article.postTypes.map(type => {
+                return (
+                  <div key={type} className="article-category">
+                    {type}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="article-no-thumbnail">
+            <div className="article-categories">
+              {article.postTypes.map(type => {
+                return (
+                  <div key={type} className="article-category">
+                    {type}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <div className="article-title">{article.title.substring(2)}</div>
         <div className="article-contents">
           <MDEditor.Markdown source={article.contents} />
         </div>
+        {article.thumbnailId === "" ? (
+          <div className="article-blank"></div>
+        ) : null}
         <div className="article-tags">
           {article.postTag.map(tag => {
             return (
