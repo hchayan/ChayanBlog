@@ -84,6 +84,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: 0.2s all;
 
     img {
       width: 100%;
@@ -94,6 +96,10 @@
     i {
       font-size: 1rem;
       color: $bg-color-3;
+    }
+
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }

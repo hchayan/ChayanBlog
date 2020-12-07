@@ -24,7 +24,11 @@ const Write = ({ userObj, articleObj }) => {
   // edit 기능
   // 2. article 내용 불러오기
   const loadArticle = () => {
-    if (articleObj !== null) {
+    if (
+      articleObj &&
+      articleObj !== null &&
+      Object.keys(articleObj).length > 0
+    ) {
       setMarkdownTitle(articleObj.title.substring(2));
       setMarkdownContent(articleObj.contents);
       setThumbnailURL(articleObj.thumbnailId);
@@ -40,7 +44,13 @@ const Write = ({ userObj, articleObj }) => {
 
       history.push("/");
     }
-    if (articleObj && articleObj.userId !== userObj.uid) {
+
+    if (
+      articleObj &&
+      articleObj !== null &&
+      Object.keys(articleObj).length > 0 &&
+      articleObj.userId !== userObj.uid
+    ) {
       alert("글을 수정할 권한이 없습니다");
 
       history.push("/");

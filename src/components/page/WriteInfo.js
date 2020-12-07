@@ -38,6 +38,7 @@ const WriteInfo = ({
       if (thmubnailURL !== "") {
         await deleteTumbnail();
       }
+
       // 업로드
       if (result) {
         const attachmentRef = storageService
