@@ -49,7 +49,12 @@ function App() {
             <Route
               path="/post/:id"
               render={routerProps => (
-                <Post match={routerProps.match} setArticleObj={setArticleObj} />
+                <Post
+                  match={routerProps.match}
+                  userObj={userObj}
+                  articleObj={articleObj}
+                  setArticleObj={setArticleObj}
+                />
               )}
             />
 
@@ -60,7 +65,7 @@ function App() {
             ) : (
               <>
                 <Route exact path="/write">
-                  <Write userObj={userObj} articleObj={null} />
+                  <Write userObj={userObj} articleObj={{}} />
                 </Route>
                 <Route exact path="/edit">
                   <Write userObj={userObj} articleObj={articleObj} />

@@ -4,7 +4,7 @@ import { dbService } from "blogFirebase.js";
 import MDEditor from "@uiw/react-md-editor";
 import { Link } from "react-router-dom";
 
-const Post = ({ match, setArticleObj }) => {
+const Post = ({ match, userObj, articleObj, setArticleObj }) => {
   const postID = match.params.id;
   const [postInfo, setPostInfo] = useState({});
 
@@ -69,9 +69,12 @@ const Post = ({ match, setArticleObj }) => {
                 }월 ${new Date(postInfo["date"]).getDate()}일`}
               </div>
               <div className="post-user">{postInfo["user"]}</div>
-              <div className="post-edit">
-                <Link to="/edit">글 수정</Link>
-              </div>
+
+              {articleObj && userObj && articleObj.userId === userObj.uid ? (
+                <div className="post-edit">
+                  <Link to="/edit">글 수정</Link>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
