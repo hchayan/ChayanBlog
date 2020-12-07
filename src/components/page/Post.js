@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { dbService } from "blogFirebase.js";
+import { dbService, storageService } from "blogFirebase.js";
 
 import MDEditor from "@uiw/react-md-editor";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Post = ({ match, userObj, articleObj, setArticleObj }) => {
+  let history = useHistory();
+
   const postID = match.params.id;
   const [postInfo, setPostInfo] = useState({});
 
@@ -23,9 +25,29 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
         tags: doc.data().postTag,
         thumbnail: doc.data().thumbnailId,
         contents: doc.data().contents,
+        objId: doc.data().objId,
       });
       setArticleObj({ id: doc.id, ...doc.data() });
     });
+  };
+
+  const deletePost = async () => {
+    console.log();
+    if (window.confirm("정말로 게시글을 삭제 하시겠습니까?")) {
+      // 게시글 사진 삭제
+      await storageService.refFromURL(postInfo.thumbnail).delete();
+      // 게시글 object파일들 삭제
+      await postInfo["objId"].forEach(obj => {
+        console.log(obj);
+        storageService.refFromURL(obj).delete();
+      });
+      // 게시글 삭제
+      await dbService.doc(`/posts/${articleObj.id}`).delete();
+
+      alert("게시글이 제거되었습니다.");
+
+      history.push("/");
+    }
   };
 
   useEffect(() => {
@@ -71,8 +93,13 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
               <div className="post-user">{postInfo["user"]}</div>
 
               {articleObj && userObj && articleObj.userId === userObj.uid ? (
-                <div className="post-edit">
-                  <Link to="/edit">글 수정</Link>
+                <div className="post-manage">
+                  <div className="post-edit">
+                    <Link to="/edit">수정</Link>
+                  </div>
+                  <div className="post-delete" onClick={deletePost}>
+                    삭제
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -81,7 +108,7 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
 
         <div className="post-main">
           <div className="post-thumbnail">
-            <img src={postInfo["thumbnail"]} />
+            <img src={postInfo["thumbnail"]} alt="thumbnail" />
           </div>
           <div className="post-contents">
             <MDEditor.Markdown source={postInfo["contents"]} />

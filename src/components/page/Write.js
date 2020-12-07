@@ -97,9 +97,8 @@ const Write = ({ userObj, articleObj }) => {
   const onSubmit = async event => {
     event.preventDefault();
     setIsBlocking(false);
-
     // write or edit 여부
-    if (articleObj === null) {
+    if (Object.keys(articleObj).length === 0) {
       // write일때,
       // 1. 정말로 게시할지 물어보기
       if (window.confirm("작성하신 게시글을 정말로 게시하시겠습니까?")) {

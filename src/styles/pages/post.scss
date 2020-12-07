@@ -96,15 +96,31 @@
               color: $color-main-text;
             }
 
-            .post-edit {
-              margin-left: 20px;
+            .post-manage {
+              width: 55px;
+              margin-left: 10px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              .post-edit {
+                a {
+                  font-size: 0.75rem;
+                  text-decoration: underline;
 
-              a {
+                  &:hover {
+                    color: $color-b-2;
+                  }
+                }
+              }
+
+              .post-delete {
                 font-size: 0.75rem;
+                color: $text-color-sub1;
+                cursor: pointer;
                 text-decoration: underline;
 
                 &:hover {
-                  color: $color-b-2;
+                  color: $color-delete;
                 }
               }
             }
