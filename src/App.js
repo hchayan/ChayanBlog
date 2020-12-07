@@ -17,6 +17,7 @@ import { authService } from "./blogFirebase";
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
+  const [articleObj, setArticleObj] = useState(null);
   const [loggedIn, setLoggedIn] = useState(authService.cuurentUser);
 
   useEffect(() => {
@@ -45,16 +46,26 @@ function App() {
               404
             </Route>
 
-            <Route path="/post/:id" component={Post} />
+            <Route
+              path="/post/:id"
+              render={routerProps => (
+                <Post match={routerProps.match} setArticleObj={setArticleObj} />
+              )}
+            />
 
             {!loggedIn ? (
               <Route exact path="/login">
                 <Auth />
               </Route>
             ) : (
-              <Route exact path="/write">
-                <Write userObj={userObj} />
-              </Route>
+              <>
+                <Route exact path="/write">
+                  <Write userObj={userObj} articleObj={null} />
+                </Route>
+                <Route exact path="/edit">
+                  <Write userObj={userObj} articleObj={articleObj} />
+                </Route>
+              </>
             )}
             <Redirect from="*" to="/404" />
           </Switch>

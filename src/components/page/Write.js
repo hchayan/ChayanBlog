@@ -8,7 +8,7 @@ import WriteForm from "./WriteForm";
 import WriteAddon from "./WriteAddon";
 
 // ======================================================================
-const Write = ({ userObj }) => {
+const Write = ({ userObj, articleObj }) => {
   // 게시글 정보
   const [thmubnailURL, setThumbnailURL] = useState("");
   const [objectURL, setObjectURL] = useState([]);
@@ -16,14 +16,21 @@ const Write = ({ userObj }) => {
   const [categories, setCategories] = useState([]);
 
   const [markdownTitle, setMarkdownTitle] = useState(``);
-  const [markdownContent, setMarkdownContent] = useState(`
-  원하는 내용을 적어주세요
-    `);
+  const [markdownContent, setMarkdownContent] = useState(``);
 
   let history = useHistory();
 
-  // 로컬 이미지 업로드
+  // edit 기능
+  // 1. 우선, 글의 user와 현재로그인되있는 user 일치하는지 확인 (불일치시 article로)
+  console.log(articleObj);
+  // 2. article 내용 불러오기
 
+  // 3. 날짜 수정 영역 불러오기
+
+  // 4. 완료시 수정완료 물어보기 처리
+
+  // Write 기능
+  // 로컬 이미지 업로드
   const onChangeImage = async e => {
     // 로컬 파일 읽어 변화 감지
     const {

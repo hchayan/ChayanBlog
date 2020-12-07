@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { dbService } from "blogFirebase.js";
 
 import MDEditor from "@uiw/react-md-editor";
+import { Link } from "react-router-dom";
 
-const Post = ({ match }) => {
+const Post = ({ match, setArticleObj }) => {
   const postID = match.params.id;
   const [postInfo, setPostInfo] = useState({});
 
@@ -13,7 +14,7 @@ const Post = ({ match }) => {
       .where("title", "==", `# ${postID}`)
       .get();
 
-    post.forEach(doc => {
+    await post.forEach(doc => {
       setPostInfo({
         types: doc.data().postTypes,
         title: doc.data().title,
@@ -23,6 +24,7 @@ const Post = ({ match }) => {
         thumbnail: doc.data().thumbnailId,
         contents: doc.data().contents,
       });
+      setArticleObj(doc.data());
     });
   };
 
@@ -67,6 +69,9 @@ const Post = ({ match }) => {
                 }월 ${new Date(postInfo["date"]).getDate()}일`}
               </div>
               <div className="post-user">{postInfo["user"]}</div>
+              <div className="post-edit">
+                <Link to="/edit">글 수정</Link>
+              </div>
             </div>
           </div>
         </div>
