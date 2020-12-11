@@ -125,7 +125,7 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
             <img src={postInfo["thumbnail"]} alt="thumbnail" />
           </div>
           <div className="post-contents">
-            <TocNav contents={postInfo["contents"]} />
+            <TocNav url={match.params.id} contents={postInfo["contents"]} />
             <MDEditor.Markdown source={postInfo["contents"]} />
           </div>
         </div>
