@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { dbService, storageService } from "blogFirebase.js";
+import TocNav from "TocNav.js";
 
 import MDEditor from "@uiw/react-md-editor";
 import { Link, useHistory } from "react-router-dom";
@@ -9,6 +10,17 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
 
   const postID = match.params.id;
   const [postInfo, setPostInfo] = useState({});
+
+  const insertTitleName = () => {
+    const toCheck = ["h1", "h2", "h3", "h4", "h5", "h6"];
+
+    toCheck.forEach(checkTag => {
+      const title = document.querySelectorAll(checkTag);
+      title.forEach(node => {
+        node.setAttribute("id", node.innerHTML);
+      });
+    });
+  };
 
   const getPost = async () => {
     const post = await dbService
@@ -29,6 +41,8 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
       });
       setArticleObj({ id: doc.id, ...doc.data() });
     });
+
+    insertTitleName();
   };
 
   const deletePost = async () => {
@@ -111,6 +125,7 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
             <img src={postInfo["thumbnail"]} alt="thumbnail" />
           </div>
           <div className="post-contents">
+            <TocNav contents={postInfo["contents"]} />
             <MDEditor.Markdown source={postInfo["contents"]} />
           </div>
         </div>

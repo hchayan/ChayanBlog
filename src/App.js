@@ -72,7 +72,6 @@ function App() {
                 </Route>
               </>
             )}
-            <Redirect from="*" to="/404" />
           </Switch>
         </Router>
       ) : (

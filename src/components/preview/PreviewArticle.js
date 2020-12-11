@@ -51,6 +51,7 @@ const PreviewArticle = ({ article }) => {
             );
           })}
         </div>
+
         <div className="article-info">
           <div className="article-modifiedAt">
             {`${new Date(article.modifiedAt).getFullYear()}년 ${
