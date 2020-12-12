@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { dbService, storageService } from "blogFirebase.js";
 import TocNav from "TocNav.js";
 
@@ -10,6 +10,7 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
 
   const postID = match.params.id;
   const [postInfo, setPostInfo] = useState({});
+  const tocRef = useRef();
 
   const insertTitleName = () => {
     const toCheck = ["h1", "h2", "h3", "h4", "h5", "h6"];
@@ -125,8 +126,18 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
             <img src={postInfo["thumbnail"]} alt="thumbnail" />
           </div>
           <div className="post-contents">
-            <TocNav url={match.params.id} contents={postInfo["contents"]} />
-            <MDEditor.Markdown source={postInfo["contents"]} />
+            <div className="post-toc">
+              <TocNav
+                tocRef={tocRef}
+                url={match.params.id}
+                mdContents={
+                  Object.keys(postInfo).length > 0 ? postInfo["contents"] : ""
+                }
+              />
+            </div>
+            <div className="post-content" ref={tocRef}>
+              <MDEditor.Markdown source={postInfo["contents"]} />
+            </div>
           </div>
         </div>
       </div>
