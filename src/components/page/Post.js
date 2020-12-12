@@ -18,7 +18,11 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
     toCheck.forEach(checkTag => {
       const title = document.querySelectorAll(checkTag);
       title.forEach(node => {
-        node.setAttribute("id", node.innerHTML);
+        console.log(node.innerHTML.replace(/[\s|?]/g, "-"));
+        node.setAttribute(
+          "id",
+          node.innerHTML.replace(/[\s|?]/g, "-").toLowerCase()
+        );
       });
     });
   };
