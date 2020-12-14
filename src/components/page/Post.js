@@ -8,8 +8,9 @@ import { Link, useHistory } from "react-router-dom";
 const Post = ({ match, userObj, articleObj, setArticleObj }) => {
   let history = useHistory();
 
-  const postID = match.params.id;
+  const [loading, setLoading] = useState(true);
   const [postInfo, setPostInfo] = useState({});
+  const postID = match.params.id;
   const tocRef = useRef();
 
   const insertTitleName = () => {
@@ -25,6 +26,8 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
         );
       });
     });
+
+    setLoading(false);
   };
 
   const getPost = async () => {
@@ -76,77 +79,85 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
   return (
     <div className="post">
       <div className="post-wrapper">
-        <div className="post-wrapper__column">
-          <div className="post-head">
-            <div className="post-categories">
-              {postInfo["types"] &&
-                postInfo["types"].map(type => {
-                  return (
-                    <div key={type} className="post-category">
-                      {type}
-                    </div>
-                  );
-                })}
-            </div>
-            <div className="post-title">
-              {postInfo["title"] && postInfo["title"].substring(2)}
-            </div>
-            <div className="post-info">
-              <div className="post-info__column">
-                <div className="post-tags">
-                  {postInfo["tags"] &&
-                    postInfo["tags"].map(tag => {
+        {!loading ? (
+          <>
+            <div className="post-wrapper__column">
+              <div className="post-head">
+                <div className="post-categories">
+                  {postInfo["types"] &&
+                    postInfo["types"].map(type => {
                       return (
-                        <div key={tag} className="post-tag">
-                          {tag}
+                        <div key={type} className="post-category">
+                          {type}
                         </div>
                       );
                     })}
                 </div>
-              </div>
-              <div className="post-info__column">
-                <div className="post-date">
-                  {`${new Date(postInfo["date"]).getFullYear()}년 ${
-                    new Date(postInfo["date"]).getMonth() + 1
-                  }월 ${new Date(postInfo["date"]).getDate()}일`}
+                <div className="post-title">
+                  {postInfo["title"] && postInfo["title"].substring(2)}
                 </div>
-                <div className="post-user">{postInfo["user"]}</div>
-
-                {articleObj && userObj && articleObj.userId === userObj.uid ? (
-                  <div className="post-manage">
-                    <div className="post-edit">
-                      <Link to="/edit">수정</Link>
-                    </div>
-                    <div className="post-delete" onClick={deletePost}>
-                      삭제
+                <div className="post-info">
+                  <div className="post-info__column">
+                    <div className="post-tags">
+                      {postInfo["tags"] &&
+                        postInfo["tags"].map(tag => {
+                          return (
+                            <div key={tag} className="post-tag">
+                              {tag}
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
+                  <div className="post-info__column">
+                    <div className="post-date">
+                      {`${new Date(postInfo["date"]).getFullYear()}년 ${
+                        new Date(postInfo["date"]).getMonth() + 1
+                      }월 ${new Date(postInfo["date"]).getDate()}일`}
+                    </div>
+                    <div className="post-user">{postInfo["user"]}</div>
 
-          <div className="post-main">
-            <div className="post-toc"></div>
-            <div className="post-thumbnail">
-              <img src={postInfo["thumbnail"]} alt="thumbnail" />
-            </div>
-            <div className="post-contents">
-              <div className="post-content" ref={tocRef}>
-                <MDEditor.Markdown source={postInfo["contents"]} />
+                    {articleObj &&
+                    userObj &&
+                    articleObj.userId === userObj.uid ? (
+                      <div className="post-manage">
+                        <div className="post-edit">
+                          <Link to="/edit">수정</Link>
+                        </div>
+                        <div className="post-delete" onClick={deletePost}>
+                          삭제
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+
+              <div className="post-main">
+                <div className="post-toc"></div>
+                <div className="post-thumbnail">
+                  <img src={postInfo["thumbnail"]} alt="thumbnail" />
+                </div>
+                <div className="post-contents">
+                  <div className="post-content" ref={tocRef}>
+                    <MDEditor.Markdown source={postInfo["contents"]} />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="post-wrapper__column">
-          <TocNav
-            tocRef={tocRef}
-            url={match.params.id}
-            mdContents={
-              Object.keys(postInfo).length > 0 ? postInfo["contents"] : ""
-            }
-          />
-        </div>
+            <div className="post-wrapper__column">
+              <TocNav
+                tocRef={tocRef}
+                url={match.params.id}
+                mdContents={
+                  Object.keys(postInfo).length > 0 ? postInfo["contents"] : ""
+                }
+              />
+            </div>
+          </>
+        ) : (
+          <div className="loading">로딩중</div>
+        )}
       </div>
     </div>
   );
