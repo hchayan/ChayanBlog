@@ -1,7 +1,7 @@
 import React from "react";
 
 const Notice = () => {
-  return <div className="notice">notice</div>;
+  return <div className="notice"></div>;
 };
 
 export default Notice;

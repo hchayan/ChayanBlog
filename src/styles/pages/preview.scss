@@ -1,9 +1,10 @@
 // main page - notice area
 .notice {
   width: 100%;
-  height: 200px;
-  background-color: #dddddd;
+  height: 300px;
+  background-color: $bg-color-0;
   margin-top: 20px;
+  border: 1px solid $bg-color-1;
 }
 
 // main page - preview area
