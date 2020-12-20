@@ -13,9 +13,22 @@
   margin-top: 20px;
   min-height: 100%;
 
-  .preview__menu {
+  .preview-menu {
     height: 40px;
     background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .preview-menu__column {
+      .preview-menu-nav {
+        ul {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
   }
   .preview__info {
     height: 40px;
