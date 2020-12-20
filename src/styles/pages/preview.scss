@@ -9,23 +9,77 @@
 
 // main page - preview area
 .preview {
-  background-color: #dddddd;
+  background-color: $bg-color-0;
   margin-top: 20px;
   min-height: 100%;
 
   .preview-menu {
     height: 40px;
-    background-color: #eee;
+    background-color: $bg-color-0;
+    border: 1px solid $bg-color-2;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .preview-menu__column {
+      height: 100%;
+
       .preview-menu-nav {
+        height: 100%;
         ul {
+          height: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          li {
+            height: 100%;
+            a {
+              padding: 0 5px;
+              &:hover {
+                color: $color-main-text;
+              }
+            }
+          }
+        }
+      }
+
+      .search-bar {
+        height: 100%;
+        form {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          input[type="text"] {
+            height: 28px;
+            border: 1px solid $bg-color-2;
+            border-radius: 5px;
+            padding: 0 10px;
+            cursor: pointer;
+
+            &::placeholder {
+              font-size: 0.75rem;
+            }
+
+            &:focus {
+              outline-color: $color-g-3;
+            }
+          }
+
+          input[type="submit"] {
+            height: 28px;
+            background-color: $bg-color-0;
+            margin: 0 5px;
+            border: 1px solid $bg-color-2;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $color-main-bg;
+              color: $bg-color-0;
+              border: 1px solid $color-main-bg;
+            }
+          }
         }
       }
     }

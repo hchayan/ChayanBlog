@@ -28,7 +28,7 @@ const PreviewMenu = () => {
       <div className="preview-menu__column">
         <div className="search-bar">
           <form>
-            <input tpye="text" placeholder="원하는 내용을 검색하세요" />
+            <input type="text" placeholder="원하는 내용을 검색하세요" />
             <input type="submit" value="검색" />
           </form>
         </div>
