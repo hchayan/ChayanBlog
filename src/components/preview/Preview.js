@@ -1,4 +1,5 @@
 import React from "react";
+import { Router, Route } from "react-router-dom";
 import PreviewMenu from "./PreviewMenu.js";
 import PreviewInfo from "./PreviewInfo.js";
 import PreviewArticles from "./PreviewArticles.js";
@@ -8,7 +9,13 @@ const Preview = () => {
     <div className="preview">
       <PreviewMenu />
       <PreviewInfo />
-      <PreviewArticles />
+      <Route path="/category">
+        <PreviewArticles />
+      </Route>
+      <Route
+        path="/category/:tag"
+        render={routerProps => <PreviewArticles match={routerProps.match} />}
+      />
     </div>
   );
 };

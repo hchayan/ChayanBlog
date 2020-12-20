@@ -41,6 +41,9 @@ function App() {
             <Route exact path="/">
               <Contents />
             </Route>
+            <Route path="/category">
+              <Contents />
+            </Route>
 
             <Route exact path="/404">
               404
