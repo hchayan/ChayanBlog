@@ -16,8 +16,7 @@ const CatePopup = ({ cates, setCates }) => {
     }
   };
 
-  const addDBCategory = async e => {
-    e.preventDefault();
+  const addDBCategory = async () => {
     await dbService
       .collection("statics")
       .doc("categories")
@@ -30,13 +29,12 @@ const CatePopup = ({ cates, setCates }) => {
   };
 
   const loadDBCategory = async () => {
-    const dbCategories = await dbService
+    const dbLoadCategories = await dbService
       .collection("statics")
       .doc("categories")
       .get();
 
-    setdbCates(dbCategories.data().name);
-    console.log(dbCates);
+    setdbCates(dbLoadCategories.data().name);
   };
 
   useEffect(() => {
