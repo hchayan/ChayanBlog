@@ -12,7 +12,8 @@ const CatePopup = ({ cates, setCates }) => {
   const addCategoryOnPost = async e => {
     e.preventDefault();
     if (!cates.includes(e.target.value)) {
-      setCates([...cates, e.target.value]);
+      setCates([e.target.value]);
+      //setCates([...cates, e.target.value]);
     }
   };
 
