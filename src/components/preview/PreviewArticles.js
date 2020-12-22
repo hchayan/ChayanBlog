@@ -8,8 +8,9 @@ const PreviewArticles = ({ match, selectedCategory }) => {
   const [filteredArticles, setFilteredArticles] = useState([]);
 
   const getArticles = async () => {
+    setArticles([]);
     const dbArticles = await dbService.collection("posts").get();
-    dbArticles.forEach(article => {
+    await dbArticles.forEach(article => {
       const aritlcleObject = {
         ...article.data(),
         id: article.id,
@@ -17,7 +18,6 @@ const PreviewArticles = ({ match, selectedCategory }) => {
 
       setArticles(prev => [...prev, aritlcleObject]);
     });
-    setFilteredArticles(articles);
   };
 
   const filterArticles = () => {
@@ -31,9 +31,12 @@ const PreviewArticles = ({ match, selectedCategory }) => {
   };
 
   useEffect(() => {
-    setArticles([]);
     getArticles();
   }, []);
+
+  useEffect(() => {
+    setFilteredArticles(articles);
+  }, [articles]);
 
   useEffect(() => {
     filterArticles();

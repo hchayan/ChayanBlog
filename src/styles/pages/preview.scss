@@ -26,6 +26,27 @@
 
       .preview-menu-nav {
         height: 100%;
+
+        select {
+          height: 100%;
+
+          border: 1px none;
+          border-right: 1px solid $bg-color-2;
+          padding: 0 10px;
+          outline: none;
+          font-size: 1rem;
+          color: $text-color-main;
+          cursor: pointer;
+
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+
+          option {
+            height: 38px;
+            text-align-last: center;
+          }
+        }
       }
 
       .search-bar {
