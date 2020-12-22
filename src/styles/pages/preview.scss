@@ -26,21 +26,6 @@
 
       .preview-menu-nav {
         height: 100%;
-        ul {
-          height: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          li {
-            height: 100%;
-            a {
-              padding: 0 5px;
-              &:hover {
-                color: $color-main-text;
-              }
-            }
-          }
-        }
       }
 
       .search-bar {

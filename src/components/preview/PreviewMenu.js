@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
+import { dbService } from "blogFirebase.js";
 
-const PreviewMenu = () => {
-  const [menuNav, setMenuNav] = useState([
-    { name: "전체", tag: "all" },
-    { name: "포스트", tag: "post" },
-    { name: "기본개념", tag: "basic" },
-    { name: "클론코딩", tag: "clone" },
-    { name: "태그", tag: "tag" },
-  ]);
+const PreviewMenu = ({ setSelectedCategory }) => {
+  const [menuNav, setMenuNav] = useState([]);
+
+  const onChangeCategory = e => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const loadDBCategory = async () => {
+    const dbLoadCategories = await dbService
+      .collection("statics")
+      .doc("categories")
+      .get();
+    setMenuNav(dbLoadCategories.data().name);
+  };
+
+  useEffect(() => {
+    loadDBCategory();
+  }, []);
 
   return (
     <div className="preview-menu">
       <div className="preview-menu__column">
         <div className="preview-menu-nav">
+          <select onChange={onChangeCategory}>
+            <option value="all">전체</option>
+            {menuNav.map(menu => {
+              return <option value={menu}>{menu}</option>;
+            })}
+          </select>
           <ul>
             {menuNav.map(menu => {
               return (
