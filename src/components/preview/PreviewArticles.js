@@ -2,7 +2,7 @@ import { dbService } from "blogFirebase.js";
 import React, { useEffect, useState } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
-const PreviewArticles = ({ match, selectedCategory }) => {
+const PreviewArticles = ({ match, selectedCategory, setPostCount }) => {
   let dummyCount = 15;
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
@@ -30,6 +30,10 @@ const PreviewArticles = ({ match, selectedCategory }) => {
     );
   };
 
+  const countPostLength = () => {
+    setPostCount(filteredArticles.length);
+  };
+
   useEffect(() => {
     getArticles();
   }, []);
@@ -41,6 +45,10 @@ const PreviewArticles = ({ match, selectedCategory }) => {
   useEffect(() => {
     filterArticles();
   }, [selectedCategory]);
+
+  useEffect(() => {
+    countPostLength();
+  }, [filteredArticles]);
 
   return (
     <div className="preview__articles">

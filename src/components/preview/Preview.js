@@ -6,13 +6,17 @@ import PreviewArticles from "./PreviewArticles.js";
 
 const Preview = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [postCount, setPostCount] = useState(0);
 
   return (
     <div className="preview">
       <PreviewMenu setSelectedCategory={setSelectedCategory} />
-      <PreviewInfo />
+      <PreviewInfo postCount={postCount} />
       <Route path={["/", "/category"]}>
-        <PreviewArticles selectedCategory={selectedCategory} />
+        <PreviewArticles
+          selectedCategory={selectedCategory}
+          setPostCount={setPostCount}
+        />
       </Route>
       <Route
         path="/category/:tag"
@@ -20,6 +24,7 @@ const Preview = () => {
           <PreviewArticles
             match={routerProps.match}
             selectedCategory={selectedCategory}
+            setPostCount={setPostCount}
           />
         )}
       />

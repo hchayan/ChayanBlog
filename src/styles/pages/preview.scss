@@ -91,9 +91,20 @@
     }
   }
   .preview__info {
-    height: 40px;
-    background-color: #eee;
-    margin: 5px 0;
+    height: 30px;
+    background-color: $bg-color-0;
+    margin-top: 5px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+
+    .preview__info__column {
+      span {
+        color: $color-main-text;
+      }
+    }
   }
   .preview__articles {
     max-width: $max-width;
