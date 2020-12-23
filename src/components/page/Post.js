@@ -19,7 +19,6 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
     toCheck.forEach(checkTag => {
       const title = document.querySelectorAll(checkTag);
       title.forEach(node => {
-        console.log(node.innerHTML.replace(/[\s|?]/g, "-"));
         node.setAttribute(
           "id",
           node.innerHTML.replace(/[\s|?]/g, "-").toLowerCase()
@@ -54,13 +53,11 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
   };
 
   const deletePost = async () => {
-    console.log();
     if (window.confirm("정말로 게시글을 삭제 하시겠습니까?")) {
       // 게시글 사진 삭제
       await storageService.refFromURL(postInfo.thumbnail).delete();
       // 게시글 object파일들 삭제
       await postInfo["objId"].forEach(obj => {
-        console.log(obj);
         storageService.refFromURL(obj).delete();
       });
       // 게시글 삭제
@@ -79,72 +76,70 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
   return (
     <div className="post">
       <div className="post-wrapper">
-        {!loading ? (
-          <>
-            <div className="post-wrapper__column">
-              <div className="post-head">
-                <div className="post-categories">
-                  {postInfo["types"] &&
-                    postInfo["types"].map(type => {
+        <div className="post-wrapper__column">
+          <div className="post-head">
+            <div className="post-categories">
+              {postInfo["types"] &&
+                postInfo["types"].map(type => {
+                  return (
+                    <div key={type} className="post-category">
+                      {type}
+                    </div>
+                  );
+                })}
+            </div>
+            <div className="post-title">
+              {postInfo["title"] && postInfo["title"].substring(2)}
+            </div>
+            <div className="post-info">
+              <div className="post-info__column">
+                <div className="post-tags">
+                  {postInfo["tags"] &&
+                    postInfo["tags"].map(tag => {
                       return (
-                        <div key={type} className="post-category">
-                          {type}
+                        <div key={tag} className="post-tag">
+                          {tag}
                         </div>
                       );
                     })}
                 </div>
-                <div className="post-title">
-                  {postInfo["title"] && postInfo["title"].substring(2)}
-                </div>
-                <div className="post-info">
-                  <div className="post-info__column">
-                    <div className="post-tags">
-                      {postInfo["tags"] &&
-                        postInfo["tags"].map(tag => {
-                          return (
-                            <div key={tag} className="post-tag">
-                              {tag}
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </div>
-                  <div className="post-info__column">
-                    <div className="post-date">
-                      {`${new Date(postInfo["date"]).getFullYear()}년 ${
-                        new Date(postInfo["date"]).getMonth() + 1
-                      }월 ${new Date(postInfo["date"]).getDate()}일`}
-                    </div>
-                    <div className="post-user">{postInfo["user"]}</div>
-
-                    {articleObj &&
-                    userObj &&
-                    articleObj.userId === userObj.uid ? (
-                      <div className="post-manage">
-                        <div className="post-edit">
-                          <Link to="/edit">수정</Link>
-                        </div>
-                        <div className="post-delete" onClick={deletePost}>
-                          삭제
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
               </div>
+              <div className="post-info__column">
+                <div className="post-date">
+                  {`${new Date(postInfo["date"]).getFullYear()}년 ${
+                    new Date(postInfo["date"]).getMonth() + 1
+                  }월 ${new Date(postInfo["date"]).getDate()}일`}
+                </div>
+                <div className="post-user">{postInfo["user"]}</div>
 
-              <div className="post-main">
-                <div className="post-toc"></div>
-                <div className="post-thumbnail">
-                  <img src={postInfo["thumbnail"]} alt="thumbnail" />
-                </div>
-                <div className="post-contents">
-                  <div className="post-content" ref={tocRef}>
-                    <MDEditor.Markdown source={postInfo["contents"]} />
+                {articleObj && userObj && articleObj.userId === userObj.uid ? (
+                  <div className="post-manage">
+                    <div className="post-edit">
+                      <Link to="/edit">수정</Link>
+                    </div>
+                    <div className="post-delete" onClick={deletePost}>
+                      삭제
+                    </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
+          </div>
+
+          <div className="post-main">
+            <div className="post-toc"></div>
+            <div className="post-thumbnail">
+              <img src={postInfo["thumbnail"]} alt="thumbnail" />
+            </div>
+            <div className="post-contents">
+              <div className="post-content" ref={tocRef}>
+                <MDEditor.Markdown source={postInfo["contents"]} />
+              </div>
+            </div>
+          </div>
+        </div>
+        {!loading ? (
+          <>
             <div className="post-wrapper__column">
               <TocNav
                 tocRef={tocRef}
