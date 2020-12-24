@@ -16,7 +16,7 @@ const PreviewArticles = ({ match, selectedCategory, setPostCount }) => {
         id: article.id,
       };
 
-      setArticles(prev => [...prev, aritlcleObject]);
+      setArticles(prev => [aritlcleObject, ...prev]);
     });
   };
 
