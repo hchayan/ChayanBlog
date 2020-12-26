@@ -15,7 +15,7 @@
 <p align='middle'>
 📝 <strong>개인 정리 노트</strong> 및 <strong>포스트 정리</strong>를 위한 블로그 구축 프로젝트입니다<br/><br />
    <strong>현재 진행도 👨‍💻</strong><br/>
-    <progress value="10" max="100"></progress>&nbsp;10%
+    <progress value="50" max="100"></progress>&nbsp;50%
 </p>
 
 
