@@ -6,13 +6,12 @@ const Nav = () => {
     <div className="nav">
       <ul>
         <li>
-          <Link to="/">blog</Link>
+          <Link to="/">블로그</Link>
         </li>
         <li>
-          <Link to="/404">404</Link>
-        </li>
-        <li>
-          <Link to="/404">404</Link>
+          <a href="https://github.com/Hanswind" target="_blank">
+            깃허브
+          </a>
         </li>
       </ul>
     </div>
