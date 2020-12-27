@@ -104,8 +104,17 @@
       span {
         color: $color-main-text;
       }
+
+      &:last-child {
+        cursor: pointer;
+
+        &:hover {
+          font-weight: bold;
+        }
+      }
     }
   }
+
   .preview__articles {
     max-width: $max-width;
     min-width: $min-width;

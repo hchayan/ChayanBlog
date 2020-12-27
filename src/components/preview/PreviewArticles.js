@@ -2,7 +2,12 @@ import { dbService } from "blogFirebase.js";
 import React, { useEffect, useState } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
-const PreviewArticles = ({ match, selectedCategory, setPostCount }) => {
+const PreviewArticles = ({
+  match,
+  selectedCategory,
+  setPostCount,
+  orderBy,
+}) => {
   let dummyCount = 15;
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
@@ -31,6 +36,14 @@ const PreviewArticles = ({ match, selectedCategory, setPostCount }) => {
           "all" === selectedCategory
       )
     );
+
+    if (!orderBy) {
+      reverseFilterArticles();
+    }
+  };
+
+  const reverseFilterArticles = () => {
+    setFilteredArticles(prev => [...prev].reverse());
   };
 
   const countPostLength = () => {
@@ -50,11 +63,17 @@ const PreviewArticles = ({ match, selectedCategory, setPostCount }) => {
   }, [selectedCategory]);
 
   useEffect(() => {
+    reverseFilterArticles();
+  }, [orderBy]);
+
+  useEffect(() => {
     countPostLength();
   }, [filteredArticles]);
 
   return (
-    <div className="preview__articles">
+    <div
+      className={orderBy ? "preview__articles" : "preview__articles reverse"}
+    >
       {filteredArticles.map(article => {
         return <PreviewArticle key={article.id} article={article} />;
       })}
