@@ -9,7 +9,10 @@ const PreviewArticles = ({ match, selectedCategory, setPostCount }) => {
 
   const getArticles = async () => {
     setArticles([]);
-    const dbArticles = await dbService.collection("posts").get();
+    const dbArticles = await dbService
+      .collection("posts")
+      .orderBy("modifiedAt", "asc")
+      .get();
     await dbArticles.forEach(article => {
       const aritlcleObject = {
         ...article.data(),
