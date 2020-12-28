@@ -32,7 +32,7 @@ const PreviewArticles = ({
       });
       setArticles(tmpArticles);
     } catch (error) {
-      setError("게시글들을 불러오지 못했습니다. 에러코드 : " + error);
+      setError("게시글들을 불러오지 못했습니다 : " + error);
     }
   };
 
