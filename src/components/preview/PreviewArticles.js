@@ -1,5 +1,5 @@
 import { dbService } from "blogFirebase.js";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
 const PreviewArticles = ({
@@ -10,80 +10,93 @@ const PreviewArticles = ({
 }) => {
   let dummyCount = 15;
   const [articles, setArticles] = useState([]);
-  const [filteredArticles, setFilteredArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState(null);
+  const [error, setError] = useState(null);
 
   const getArticles = async () => {
-    setArticles([]);
-    const dbArticles = await dbService
-      .collection("posts")
-      .orderBy("modifiedAt", "asc")
-      .get();
-    await dbArticles.forEach(article => {
-      const aritlcleObject = {
-        ...article.data(),
-        id: article.id,
-      };
+    try {
+      setArticles([]);
+      const dbArticles = await dbService
+        .collection("posts")
+        .orderBy("modifiedAt", "asc")
+        .get();
 
-      setArticles(prev => [aritlcleObject, ...prev]);
-    });
-  };
+      let tmpArticles = [];
+      await dbArticles.forEach(article => {
+        const aritlcleObject = {
+          ...article.data(),
+          id: article.id,
+        };
 
-  const filterArticles = () => {
-    setFilteredArticles(
-      articles.filter(
-        article =>
-          article.postTypes[0] === selectedCategory ||
-          "all" === selectedCategory
-      )
-    );
-
-    if (!orderBy) {
-      reverseFilterArticles();
+        tmpArticles.unshift(aritlcleObject);
+      });
+      setArticles(tmpArticles);
+    } catch (error) {
+      setError("게시글들을 불러오지 못했습니다. 에러코드 : " + error);
     }
   };
 
-  const reverseFilterArticles = () => {
-    setFilteredArticles(prev => [...prev].reverse());
+  const filterArticles = async () => {
+    const newArticles = await articles.filter(
+      article =>
+        article.postTypes[0] === selectedCategory || "all" === selectedCategory
+    );
+
+    if (newArticles.length === 0) {
+      setFilteredArticles([]);
+    } else {
+      setFilteredArticles(newArticles);
+    }
   };
 
-  const countPostLength = () => {
-    setPostCount(filteredArticles.length);
+  const reverseArticles = () => {
+    articles && setArticles(prev => [...prev].reverse());
+  };
+
+  const countPosts = () => {
+    filteredArticles && setPostCount(filteredArticles.length);
   };
 
   useEffect(() => {
     getArticles();
   }, []);
 
-  useEffect(() => {
-    setFilteredArticles(articles);
-  }, [articles]);
-
-  useEffect(() => {
+  useMemo(() => {
     filterArticles();
-  }, [selectedCategory]);
+  }, [articles, selectedCategory]);
 
-  useEffect(() => {
-    reverseFilterArticles();
+  useMemo(() => {
+    reverseArticles();
   }, [orderBy]);
 
-  useEffect(() => {
-    countPostLength();
+  useMemo(() => {
+    countPosts();
   }, [filteredArticles]);
 
   return (
-    <div
-      className={orderBy ? "preview__articles" : "preview__articles reverse"}
-    >
-      {filteredArticles.map(article => {
-        return <PreviewArticle key={article.id} article={article} />;
-      })}
+    <>
+      {error ? (
+        <div className="error">{error}</div>
+      ) : filteredArticles && filteredArticles.length === 0 ? (
+        <div>게시글이 존재하지 않습니다</div>
+      ) : (
+        <div className="preview__articles">
+          {filteredArticles &&
+            filteredArticles.map(article => {
+              return <PreviewArticle key={article.id} article={article} />;
+            })}
 
-      {[...Array(dummyCount - articles.length)].map((element, index) => {
-        return (
-          <div key={index} className="preview__article preview__dummy"></div>
-        );
-      })}
-    </div>
+          {[...Array(dummyCount - articles.length)].map(index => {
+            return (
+              <div
+                key={index}
+                className="preview__article preview__dummy"
+              ></div>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };
 

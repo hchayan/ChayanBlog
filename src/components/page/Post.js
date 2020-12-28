@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { dbService, storageService } from "blogFirebase.js";
 import TocNav from "TocNav.js";
+import Comments from "./Comments.js";
 
 import MDEditor from "@uiw/react-md-editor";
 import { Link, useHistory } from "react-router-dom";
@@ -136,6 +137,10 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
                 <MDEditor.Markdown source={postInfo["contents"]} />
               </div>
             </div>
+          </div>
+
+          <div className="post-comments">
+            <Comments />
           </div>
         </div>
         {!loading ? (
