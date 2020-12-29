@@ -22,7 +22,7 @@ const Write = ({ userObj, articleObj }) => {
 
   let history = useHistory();
 
-  // edit 기능들
+  // edit 기능
   const loadArticle = () => {
     if (
       articleObj &&
@@ -41,7 +41,6 @@ const Write = ({ userObj, articleObj }) => {
   const checkUserVaild = () => {
     if (articleObj === null) {
       alert("게시글을 새로고침하면 오류 발생 ");
-
       history.push("/");
     }
 
@@ -52,7 +51,6 @@ const Write = ({ userObj, articleObj }) => {
       articleObj.userId !== userObj.uid
     ) {
       alert("글을 수정할 권한이 없습니다");
-
       history.push("/");
     }
     loadArticle();
@@ -63,7 +61,6 @@ const Write = ({ userObj, articleObj }) => {
     setIsBlocking(true);
   }, []);
 
-  // Write 기능들
   // 로컬 이미지 업로드
   const onChangeImage = async e => {
     const {
@@ -104,62 +101,66 @@ const Write = ({ userObj, articleObj }) => {
     }
   };
 
+  const writePostOnDB = async () => {
+    // 1. 정말로 게시할지 물어보기
+    if (window.confirm("작성하신 게시글을 정말로 게시하시겠습니까?")) {
+      const vaild = checkSubmitVaild();
+      if (vaild) {
+        alert(vaild);
+      } else {
+        // 2.db에 게시글 정보 업로드
+        await dbService.collection("posts").add({
+          thumbnailId: thmubnailURL,
+          objId: objectURL,
+          postTag: tags,
+          postTypes: categories,
+          title: `# ${markdownTitle}`,
+          contents: markdownContent,
+          createdAt: Date.now(),
+          modifiedAt: Date.now(),
+          userId: userObj.uid,
+          userName: userObj.displayName,
+          userImage: userObj.photoURL,
+          commentsId: [],
+        });
+
+        history.push("/");
+        alert("게시글이 작성되었습니다");
+      }
+    }
+  };
+
+  const editPostOnDB = async () => {
+    if (window.confirm("정말로 게시글을 수정 하시겠습니까?")) {
+      const vaild = checkSubmitVaild();
+      if (vaild) {
+        alert(vaild);
+      } else {
+        await dbService.doc(`/posts/${articleObj.id}`).update({
+          thumbnailId: thmubnailURL,
+          objId: objectURL,
+          postTag: tags,
+          postTypes: categories,
+          title: `# ${markdownTitle}`,
+          contents: markdownContent,
+          modifiedAt: Date.now(),
+        });
+
+        history.push("/");
+        alert("게시글이 수정되었습니다");
+      }
+    }
+  };
+
   // 게시글 업로드
-  const onSubmit = async event => {
-    event.preventDefault();
+  const onSubmit = e => {
+    e.preventDefault();
     setIsBlocking(false);
-    // write or edit 여부
+
     if (Object.keys(articleObj).length === 0) {
-      // 1. 정말로 게시할지 물어보기
-      if (window.confirm("작성하신 게시글을 정말로 게시하시겠습니까?")) {
-        const vaild = checkSubmitVaild();
-        if (vaild) {
-          alert(vaild);
-        } else {
-          // 2.db에 게시글 정보 업로드
-          await dbService.collection("posts").add({
-            thumbnailId: thmubnailURL,
-            objId: objectURL,
-            postTag: tags,
-            postTypes: categories,
-            title: `# ${markdownTitle}`,
-            contents: markdownContent,
-            createdAt: Date.now(),
-            modifiedAt: Date.now(),
-            userId: userObj.uid,
-            userName: userObj.displayName,
-            userImage: userObj.photoURL,
-            commentsId: [],
-          });
-
-          history.push("/");
-
-          alert("게시글이 작성되었습니다");
-        }
-      }
+      writePostOnDB();
     } else {
-      // edit일때,
-      if (window.confirm("정말로 게시글을 수정 하시겠습니까?")) {
-        const vaild = checkSubmitVaild();
-        if (vaild) {
-          alert(vaild);
-        } else {
-          // 4. 완료시 수정완료 물어보기 처리(변화한거만 처리)
-          await dbService.doc(`/posts/${articleObj.id}`).update({
-            thumbnailId: thmubnailURL,
-            objId: objectURL,
-            postTag: tags,
-            postTypes: categories,
-            title: `# ${markdownTitle}`,
-            contents: markdownContent,
-            modifiedAt: Date.now(),
-          });
-
-          history.push("/");
-
-          alert("게시글이 수정되었습니다");
-        }
-      }
+      editPostOnDB();
     }
   };
 
