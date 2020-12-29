@@ -298,7 +298,8 @@
           font-size: 0.75rem !important;
           font-weight: normal !important;
           margin: 0 !important;
-          padding-right: 6px !important;
+          padding: 0 !important;
+          padding-right: 1px !important;
           border: 0 !important;
           display: inline !important;
           word-break: break-all !important;
@@ -307,7 +308,7 @@
         br,
         pre,
         code {
-          display: none;
+          display: none !important;
         }
 
         .wmde-markdown {
