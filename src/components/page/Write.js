@@ -106,53 +106,61 @@ const Write = ({ userObj, articleObj }) => {
   };
 
   const writePostOnDB = async () => {
-    // 1. 정말로 게시할지 물어보기
-    if (window.confirm("작성하신 게시글을 정말로 게시하시겠습니까?")) {
-      const vaild = checkSubmitVaild();
-      if (vaild) {
-        alert(vaild);
-      } else {
-        // 2.db에 게시글 정보 업로드
-        await dbService.collection("posts").add({
-          thumbnailId: thmubnailURL,
-          objId: objectURL,
-          postTag: tags,
-          postTypes: categories,
-          title: `# ${markdownTitle}`,
-          contents: markdownContent,
-          createdAt: Date.now(),
-          modifiedAt: Date.now(),
-          userId: userObj.uid,
-          userName: userObj.displayName,
-          userImage: userObj.photoURL,
-          commentsId: [],
-        });
+    try {
+      // 1. 정말로 게시할지 물어보기
+      if (window.confirm("작성하신 게시글을 정말로 게시하시겠습니까?")) {
+        const vaild = checkSubmitVaild();
+        if (vaild) {
+          alert(vaild);
+        } else {
+          // 2.db에 게시글 정보 업로드
+          await dbService.collection("posts").add({
+            thumbnailId: thmubnailURL,
+            objId: objectURL,
+            postTag: tags,
+            postTypes: categories,
+            title: `# ${markdownTitle}`,
+            contents: markdownContent,
+            createdAt: Date.now(),
+            modifiedAt: Date.now(),
+            userId: userObj.uid,
+            userName: userObj.displayName,
+            userImage: userObj.photoURL,
+            commentsId: [],
+          });
 
-        history.push("/");
-        alert("게시글이 작성되었습니다");
+          history.push("/");
+          alert("게시글이 작성되었습니다");
+        }
       }
+    } catch (error) {
+      alert("게시글을 작성하는데 오류가 발생했습니다. 오류코드 : " + error);
     }
   };
 
   const editPostOnDB = async () => {
-    if (window.confirm("정말로 게시글을 수정 하시겠습니까?")) {
-      const vaild = checkSubmitVaild();
-      if (vaild) {
-        alert(vaild);
-      } else {
-        await dbService.doc(`/posts/${articleObj.id}`).update({
-          thumbnailId: thmubnailURL,
-          objId: objectURL,
-          postTag: tags,
-          postTypes: categories,
-          title: `# ${markdownTitle}`,
-          contents: markdownContent,
-          modifiedAt: Date.now(),
-        });
+    try {
+      if (window.confirm("정말로 게시글을 수정 하시겠습니까?")) {
+        const vaild = checkSubmitVaild();
+        if (vaild) {
+          alert(vaild);
+        } else {
+          await dbService.doc(`/posts/${articleObj.id}`).update({
+            thumbnailId: thmubnailURL,
+            objId: objectURL,
+            postTag: tags,
+            postTypes: categories,
+            title: `# ${markdownTitle}`,
+            contents: markdownContent,
+            modifiedAt: Date.now(),
+          });
 
-        history.push("/");
-        alert("게시글이 수정되었습니다");
+          history.push("/");
+          alert("게시글이 수정되었습니다");
+        }
       }
+    } catch (error) {
+      alert("게시글을 수정하는데 오류가 발생했습니다. 오류코드 : " + error);
     }
   };
 
