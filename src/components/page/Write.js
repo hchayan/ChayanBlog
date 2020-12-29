@@ -63,28 +63,32 @@ const Write = ({ userObj, articleObj }) => {
 
   // 로컬 이미지 업로드
   const onChangeImage = async e => {
-    const {
-      target: { files },
-    } = e;
+    try {
+      const {
+        target: { files },
+      } = e;
 
-    const theFile = files[0];
+      const theFile = files[0];
 
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader(); // 공식 File API
-      reader.readAsDataURL(theFile);
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader(); // 공식 File API
+        reader.readAsDataURL(theFile);
 
-      reader.onerror = () => {
-        reject(false);
-      };
-      reader.onloadend = finishedEvent => {
-        // 아래 readURL 종료후 실행
-        const {
-          currentTarget: { result }, // result = finishedEvent.currantTarget.result
-        } = finishedEvent;
+        reader.onerror = () => {
+          reject(false);
+        };
+        reader.onloadend = finishedEvent => {
+          // 아래 readURL 종료후 실행
+          const {
+            currentTarget: { result }, // result = finishedEvent.currantTarget.result
+          } = finishedEvent;
 
-        resolve(result);
-      };
-    });
+          resolve(result);
+        };
+      });
+    } catch (error) {
+      alert("이미지를 불러오는데 오류가 발생했습니다. 오류코드 : " + error);
+    }
   };
 
   const checkSubmitVaild = () => {

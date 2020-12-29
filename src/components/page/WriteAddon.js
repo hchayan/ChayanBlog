@@ -11,21 +11,23 @@ const WriteAddon = ({
   setMarkdownContent,
 }) => {
   const uploadImage = async e => {
-    if (e) {
-      const result = await onChangeImage(e);
+    try {
+      if (e) {
+        const result = await onChangeImage(e);
 
-      // 업로드
-      if (result) {
-        const attachmentRef = storageService
-          .ref()
-          .child(`/posts/images/${userObj.uid}/${uuidv4()}`); // 저장경로설정 '사용자id/랜덤파일이름'
-        const response = await attachmentRef.putString(result, "data_url"); // (저장할파일, 데이터 형식)
-        const imageURL = await response.ref.getDownloadURL();
+        if (result) {
+          const attachmentRef = storageService
+            .ref()
+            .child(`/posts/images/${userObj.uid}/${uuidv4()}`); // 저장경로설정 '사용자id/랜덤파일이름'
+          const response = await attachmentRef.putString(result, "data_url"); // (저장할파일, 데이터 형식)
+          const imageURL = await response.ref.getDownloadURL();
 
-        setMarkdownContent(markdownContent + `![](${imageURL})`);
-        setObjectURL([...objectURL, imageURL]);
-        console.log(objectURL);
+          setMarkdownContent(markdownContent + `![](${imageURL})`);
+          setObjectURL([...objectURL, imageURL]);
+        }
       }
+    } catch (error) {
+      alert("이미지를 추가하는데 오류가 발생했습니다. 에러코드 : " + error);
     }
   };
 

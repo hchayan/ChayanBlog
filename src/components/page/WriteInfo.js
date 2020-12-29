@@ -32,22 +32,26 @@ const WriteInfo = ({
   };
 
   const uploadThumbnail = async e => {
-    if (e) {
-      const result = await onChangeImage(e);
+    try {
+      if (e) {
+        const result = await onChangeImage(e);
 
-      if (thmubnailURL !== "") {
-        await deleteTumbnail();
-      }
+        if (thmubnailURL !== "") {
+          await deleteTumbnail();
+        }
 
-      // 업로드
-      if (result) {
-        const attachmentRef = storageService
-          .ref()
-          .child(`/posts/thumbnails/${userObj.uid}/${uuidv4()}`); // 저장경로설정 '사용자id/랜덤파일이름'
-        const response = await attachmentRef.putString(result, "data_url"); // (저장할파일, 데이터 형식)
-        const tmpThumbnailURL = await response.ref.getDownloadURL();
-        setThumbnailURL(tmpThumbnailURL);
+        // 업로드
+        if (result) {
+          const attachmentRef = storageService
+            .ref()
+            .child(`/posts/thumbnails/${userObj.uid}/${uuidv4()}`); // 저장경로설정 '사용자id/랜덤파일이름'
+          const response = await attachmentRef.putString(result, "data_url"); // (저장할파일, 데이터 형식)
+          const tmpThumbnailURL = await response.ref.getDownloadURL();
+          setThumbnailURL(tmpThumbnailURL);
+        }
       }
+    } catch (error) {
+      alert("썸네일 이미지를 업로드하는데 오류가 발생했습니다 : " + error);
     }
   };
 
