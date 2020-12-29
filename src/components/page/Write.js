@@ -17,12 +17,12 @@ const Write = ({ userObj, articleObj }) => {
 
   const [markdownTitle, setMarkdownTitle] = useState(``);
   const [markdownContent, setMarkdownContent] = useState(``);
+
   const [isBlocking, setIsBlocking] = useState(false);
 
   let history = useHistory();
 
-  // edit 기능
-  // 2. article 내용 불러오기
+  // edit 기능들
   const loadArticle = () => {
     if (
       articleObj &&
@@ -37,7 +37,7 @@ const Write = ({ userObj, articleObj }) => {
     }
   };
 
-  // 1. 우선, 글의 user와 현재로그인되있는 user 일치하는지 확인 (불일치시 article로)
+  // 글의 user와 현재로그인되있는 user 일치하는지 확인 (불일치시 article로)
   const checkUserVaild = () => {
     if (articleObj === null) {
       alert("게시글을 새로고침하면 오류 발생 ");
@@ -58,19 +58,16 @@ const Write = ({ userObj, articleObj }) => {
     loadArticle();
   };
 
-  // 3. 날짜 수정 영역 불러오기
-
   useEffect(() => {
     checkUserVaild();
     setIsBlocking(true);
   }, []);
 
-  // Write 기능
+  // Write 기능들
   // 로컬 이미지 업로드
   const onChangeImage = async e => {
-    // 로컬 파일 읽어 변화 감지
     const {
-      target: { files }, // event.target.files
+      target: { files },
     } = e;
 
     const theFile = files[0];
@@ -93,52 +90,75 @@ const Write = ({ userObj, articleObj }) => {
     });
   };
 
+  const checkSubmitVaild = () => {
+    if (markdownTitle.length === 0) {
+      return "게시글의 제목이 없습니다.";
+    }
+
+    if (markdownContent.length === 0) {
+      return "게시글의 내용이 없습니다.";
+    }
+
+    if (categories.length === 0) {
+      return "게시글은 무조건 카테고리를 지정해줘야 합니다.";
+    }
+  };
+
   // 게시글 업로드
   const onSubmit = async event => {
     event.preventDefault();
     setIsBlocking(false);
     // write or edit 여부
     if (Object.keys(articleObj).length === 0) {
-      // write일때,
       // 1. 정말로 게시할지 물어보기
       if (window.confirm("작성하신 게시글을 정말로 게시하시겠습니까?")) {
-        // 2.db에 게시글 정보 업로드
-        await dbService.collection("posts").add({
-          thumbnailId: thmubnailURL,
-          objId: objectURL,
-          postTag: tags,
-          postTypes: categories,
-          title: `# ${markdownTitle}`,
-          contents: markdownContent,
-          createdAt: Date.now(),
-          modifiedAt: Date.now(),
-          userId: userObj.uid,
-          userName: userObj.displayName,
-          userImage: userObj.photoURL,
-          commentsId: [],
-        });
+        const vaild = checkSubmitVaild();
+        if (vaild) {
+          alert(vaild);
+        } else {
+          // 2.db에 게시글 정보 업로드
+          await dbService.collection("posts").add({
+            thumbnailId: thmubnailURL,
+            objId: objectURL,
+            postTag: tags,
+            postTypes: categories,
+            title: `# ${markdownTitle}`,
+            contents: markdownContent,
+            createdAt: Date.now(),
+            modifiedAt: Date.now(),
+            userId: userObj.uid,
+            userName: userObj.displayName,
+            userImage: userObj.photoURL,
+            commentsId: [],
+          });
 
-        history.push("/");
+          history.push("/");
 
-        alert("게시글이 작성되었습니다");
+          alert("게시글이 작성되었습니다");
+        }
       }
     } else {
       // edit일때,
       if (window.confirm("정말로 게시글을 수정 하시겠습니까?")) {
-        // 4. 완료시 수정완료 물어보기 처리(변화한거만 처리)
-        await dbService.doc(`/posts/${articleObj.id}`).update({
-          thumbnailId: thmubnailURL,
-          objId: objectURL,
-          postTag: tags,
-          postTypes: categories,
-          title: `# ${markdownTitle}`,
-          contents: markdownContent,
-          modifiedAt: Date.now(),
-        });
+        const vaild = checkSubmitVaild();
+        if (vaild) {
+          alert(vaild);
+        } else {
+          // 4. 완료시 수정완료 물어보기 처리(변화한거만 처리)
+          await dbService.doc(`/posts/${articleObj.id}`).update({
+            thumbnailId: thmubnailURL,
+            objId: objectURL,
+            postTag: tags,
+            postTypes: categories,
+            title: `# ${markdownTitle}`,
+            contents: markdownContent,
+            modifiedAt: Date.now(),
+          });
 
-        history.push("/");
+          history.push("/");
 
-        alert("게시글이 수정되었습니다");
+          alert("게시글이 수정되었습니다");
+        }
       }
     }
   };

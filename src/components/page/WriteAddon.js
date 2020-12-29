@@ -10,7 +10,7 @@ const WriteAddon = ({
   markdownContent,
   setMarkdownContent,
 }) => {
-  const uploadImage = async (e) => {
+  const uploadImage = async e => {
     if (e) {
       const result = await onChangeImage(e);
 
@@ -24,6 +24,7 @@ const WriteAddon = ({
 
         setMarkdownContent(markdownContent + `![](${imageURL})`);
         setObjectURL([...objectURL, imageURL]);
+        console.log(objectURL);
       }
     }
   };
