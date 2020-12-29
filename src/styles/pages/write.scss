@@ -71,10 +71,15 @@
             padding: 5px;
             font-size: 0.8rem;
             font-weight: bold;
+            cursor: pointer;
 
             &:last-child {
               background-color: $color-main-bg;
               color: $bg-color-0;
+            }
+
+            &:hover {
+              background-color: $color-g-3;
             }
           }
         }
@@ -82,7 +87,6 @@
     }
 
     .write-contents {
-      height: 200px;
       padding: 5px 0;
       display: flex;
       justify-content: center;
@@ -96,7 +100,7 @@
           min-width: 240px;
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: flex-start;
         }
 
         &:last-child {
@@ -180,11 +184,12 @@
             .tag-list {
               margin-right: 5px;
               padding: 5px 10px;
-              border: 1px solid $bg-color-2;
+              border: 1px solid $color-g-3;
               border-radius: 20px;
               display: flex;
               justify-content: space-between;
               align-items: center;
+              color: $color-g-3;
               white-space: nowrap;
 
               .tag-delete {
@@ -229,10 +234,11 @@
           height: 40px;
           padding: 0 10px;
           display: flex;
+          justify-content: flex-start;
           align-items: center;
 
           .cate-lists {
-            width: 85%;
+            width: 50%;
             height: 100%;
             background-color: $bg-color-0;
             padding: 5px 10px;
@@ -247,13 +253,14 @@
               width: auto;
               margin-right: 5px;
               padding: 5px 10px;
-              border: 1px solid $bg-color-2;
+              border: 1px solid $color-b-1;
               border-radius: 20px;
               display: flex;
               flex-basis: auto;
               flex-wrap: nowrap;
               justify-content: space-between;
               align-items: center;
+              color: $color-b-1;
               white-space: nowrap;
 
               .cate-delete {

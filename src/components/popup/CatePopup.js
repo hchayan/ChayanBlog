@@ -1,7 +1,7 @@
 import { dbService } from "blogFirebase";
 import React, { useEffect, useState } from "react";
 
-const CatePopup = ({ cates, setCates }) => {
+const CatePopup = ({ cates, setCates, setCatePopup }) => {
   const [inputCategory, setInputCategory] = useState("");
   const [dbCates, setdbCates] = useState([]);
 
@@ -15,6 +15,7 @@ const CatePopup = ({ cates, setCates }) => {
       setCates([e.target.value]);
       //setCates([...cates, e.target.value]);
     }
+    setCatePopup(false);
   };
 
   const addDBCategory = async () => {
@@ -54,11 +55,14 @@ const CatePopup = ({ cates, setCates }) => {
         <input type="button" value="추가" onClick={addDBCategory} />
       </div>
       <div className="cates-popup__column cates-list--btn">
-        {dbCates.map(cate => {
-          return (
-            <input type="button" value={cate} onClick={addCategoryOnPost} />
-          );
-        })}
+        <select onChange={addCategoryOnPost}>
+          <option disabled selected>
+            === 카테고리를 선택해주세요 ===
+          </option>
+          {dbCates.map(cate => {
+            return <option value={cate}>{cate}</option>;
+          })}
+        </select>
       </div>
     </div>
   );

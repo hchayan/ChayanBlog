@@ -106,14 +106,23 @@
   }
 
   .cates-list--btn {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    display: flex;
     justify-items: center;
     align-items: center;
 
-    input[type="button"] {
-      width: 80%;
-      margin: 5px 0;
+    select {
+      width: 95.5%;
+      padding: 5px;
+      border: 1px solid $bg-color-3;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      cursor: pointer;
+
+      &:focus,
+      &:visited {
+        outline: none;
+      }
     }
   }
 }

@@ -102,7 +102,6 @@ const WriteInfo = ({
           <div className="write-title__column addon"></div>
           <div className="write-title__column">게시글 작성</div>
           <div className="write-title__column submits">
-            <button>임시저장</button>
             <button type="submit">완료</button>
           </div>
         </div>
@@ -124,6 +123,35 @@ const WriteInfo = ({
             </div>
           </div>
           <div className="write-form__column">
+            <div className="write-category">
+              <div className="cate-lists">
+                {categories.map(category => {
+                  return (
+                    <div className="cate-list">
+                      {category}
+                      <div
+                        className="cate-delete"
+                        name={category}
+                        onClick={removeCate}
+                      >
+                        <i className="fas fa-times"></i>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {catePopup ? (
+                <CatePopup
+                  cates={categories}
+                  setCates={setCategories}
+                  setCatePopup={setCatePopup}
+                />
+              ) : null}
+              <div className="write-cate-tags" onClick={toggleCatePopup}>
+                카테고리 선택
+              </div>
+            </div>
+
             <div className="form-title">
               <input
                 type="text"
@@ -153,30 +181,6 @@ const WriteInfo = ({
               {tagPopup ? <TagsPopup tags={tags} setTags={setTags} /> : null}
               <div className="write-add-tags" onClick={toggleTagPopup}>
                 태그 추가
-              </div>
-            </div>
-            <div className="write-category">
-              <div className="cate-lists">
-                {categories.map(category => {
-                  return (
-                    <div className="cate-list">
-                      {category}
-                      <div
-                        className="cate-delete"
-                        name={category}
-                        onClick={removeCate}
-                      >
-                        <i className="fas fa-times"></i>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              {catePopup ? (
-                <CatePopup cates={categories} setCates={setCategories} />
-              ) : null}
-              <div className="write-cate-tags" onClick={toggleCatePopup}>
-                카테고리 추가
               </div>
             </div>
           </div>
