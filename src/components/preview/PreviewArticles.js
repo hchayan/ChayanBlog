@@ -4,50 +4,14 @@ import PreviewArticle from "./PreviewArticle.js";
 
 const PreviewArticles = ({
   match,
-  selectedCategory,
   setPostCount,
   orderBy,
+  articles,
+  setArticles,
+  filteredArticles,
+  error,
 }) => {
   let dummyCount = 15;
-  const [articles, setArticles] = useState([]);
-  const [filteredArticles, setFilteredArticles] = useState(null);
-  const [error, setError] = useState(null);
-
-  const getArticles = async () => {
-    try {
-      setArticles([]);
-      const dbArticles = await dbService
-        .collection("posts")
-        .orderBy("modifiedAt", "asc")
-        .get();
-
-      let tmpArticles = [];
-      await dbArticles.forEach(article => {
-        const aritlcleObject = {
-          ...article.data(),
-          id: article.id,
-        };
-
-        tmpArticles.unshift(aritlcleObject);
-      });
-      setArticles(tmpArticles);
-    } catch (error) {
-      setError("게시글들을 불러오지 못했습니다 : " + error);
-    }
-  };
-
-  const filterArticles = async () => {
-    const newArticles = await articles.filter(
-      article =>
-        article.postTypes[0] === selectedCategory || "all" === selectedCategory
-    );
-
-    if (newArticles.length === 0) {
-      setFilteredArticles([]);
-    } else {
-      setFilteredArticles(newArticles);
-    }
-  };
 
   const reverseArticles = () => {
     articles && setArticles(prev => [...prev].reverse());
@@ -56,14 +20,6 @@ const PreviewArticles = ({
   const countPosts = () => {
     filteredArticles && setPostCount(filteredArticles.length);
   };
-
-  useEffect(() => {
-    getArticles();
-  }, []);
-
-  useMemo(() => {
-    filterArticles();
-  }, [articles, selectedCategory]);
 
   useMemo(() => {
     reverseArticles();
