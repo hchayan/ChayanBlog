@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Header from "components/Header";
 import Contents from "components/Contents";
+import Footer from "components/Footer";
 
 import Auth from "components/page/Auth";
 import Write from "components/page/Write";
@@ -76,6 +77,7 @@ function App() {
               </>
             )}
           </Switch>
+          <Footer />
         </Router>
       ) : (
         <div className="Loading">페이지 로딩중...</div>

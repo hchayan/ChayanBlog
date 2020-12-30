@@ -1,0 +1,14 @@
+footer {
+  height: 80px;
+  background-color: $bg-color-dark-0;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: $text-color-sub1;
+    margin: 5px 0;
+  }
+}

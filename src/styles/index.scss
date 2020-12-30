@@ -6,7 +6,7 @@
 // partials
 @import "./partials/header.scss";
 @import "./partials/nav.scss";
-@import "./partials/profilePopup.scss";
+@import "./partials/footer.scss";
 
 // blocks
 
@@ -17,4 +17,6 @@
 @import "./pages/post.scss";
 
 // popup
+@import "./partials/profilePopup.scss";
+
 @import "./pages/popup.scss";
