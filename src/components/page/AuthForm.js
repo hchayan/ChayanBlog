@@ -6,11 +6,9 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [error, setError] = useState("");
+  const toggleAccount = () => setNewAccount(prev => !prev);
 
-  const toggleAccount = () => setNewAccount((prev) => !prev);
-
-  const onChange = (event) => {
+  const onChange = event => {
     const {
       target: { name, value },
     } = event;
@@ -22,7 +20,7 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
     }
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = async event => {
     event.preventDefault();
     try {
       if (newAccount) {
@@ -42,8 +40,7 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
           });
       }
     } catch (error) {
-      setError(error.message);
-      console.log(error);
+      alert("이메일 인증 처리중 오류가 발생했습니다 : " + error);
     }
   };
 
@@ -78,7 +75,6 @@ const AuthForm = ({ newAccount, setNewAccount, history }) => {
           {newAccount ? "로그인" : "회원가입"}
         </span>
       </div>
-      <div className="errorMessage">{error}</div>
     </div>
   );
 };

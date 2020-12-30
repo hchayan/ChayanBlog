@@ -2,28 +2,32 @@ import React from "react";
 import { firebaseInstance, authService } from "blogFirebase";
 
 const AuthOuterForm = ({ newAccount, history }) => {
-  const onSocialClick = async (name) => {
-    await authService
-      .setPersistence(firebaseInstance.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        // 1. provider 생성
-        let provider;
-        if (name === "google") {
-          provider = new firebaseInstance.auth.GoogleAuthProvider();
-        } else if (name === "github") {
-          provider = new firebaseInstance.auth.GithubAuthProvider();
-        }
+  const onSocialClick = async name => {
+    try {
+      await authService
+        .setPersistence(firebaseInstance.auth.Auth.Persistence.SESSION)
+        .then(() => {
+          // 1. provider 생성
+          let provider;
+          if (name === "google") {
+            provider = new firebaseInstance.auth.GoogleAuthProvider();
+          } else if (name === "github") {
+            provider = new firebaseInstance.auth.GithubAuthProvider();
+          }
 
-        return provider;
-      })
-      .then((provider) => {
-        // 2. popup
-        return authService.signInWithPopup(provider);
-      })
-      .then(() => {
-        // 3. redirect to home
-        history.push("/");
-      });
+          return provider;
+        })
+        .then(provider => {
+          // 2. popup
+          return authService.signInWithPopup(provider);
+        })
+        .then(() => {
+          // 3. redirect to home
+          history.push("/");
+        });
+    } catch (error) {
+      alert("외부 인증 과정중 문제가 발생했습니다 : " + error);
+    }
   };
 
   return (

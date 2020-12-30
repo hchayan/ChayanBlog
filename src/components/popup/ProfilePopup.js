@@ -9,7 +9,7 @@ const ProfilePopup = ({ userObj }) => {
   const [nameChangeState, setNameChangeState] = useState(false);
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { value },
     } = e;
@@ -20,7 +20,7 @@ const ProfilePopup = ({ userObj }) => {
     setNameChangeState(!nameChangeState);
   };
 
-  const onSubmitName = async (event) => {
+  const onSubmitName = async event => {
     event.stopPropagation();
 
     if (userObj.displayName !== newDisplayName) {
@@ -34,7 +34,7 @@ const ProfilePopup = ({ userObj }) => {
 
   // 프로필 이미지 업로드
   const onChangeImg = async () => {
-    console.log("프로필 이미지 변경은 나중에");
+    alert("프로필 이미지 변경 업데이트 예정");
   };
 
   // 로그아웃
