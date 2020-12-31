@@ -2,7 +2,7 @@
 
 
 
-<p align='middle'><a>https://dev.chayan.io/</a></p>
+<p align='middle'><a target="_blank" href="https://dev.chayan.io">dev.chayan.io</a></p>
 
 <p align='middle'><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/a78a6d16926bff16b2f41e1f82a4eec19415f55cd5ed83664f99cc2598c7f182/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6173742d636f6d6d69742f48616e7377696e642f43686179616e426c6f67"><img src="https://camo.githubusercontent.com/a78a6d16926bff16b2f41e1f82a4eec19415f55cd5ed83664f99cc2598c7f182/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6173742d636f6d6d69742f48616e7377696e642f43686179616e426c6f67" alt="GitHub last commit" data-canonical-src="https://img.shields.io/github/last-commit/Hanswind/ChayanBlog" style="max-width:100%;"></a>
 <a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/9e29db64a0deb7b8d16f9cab2627e4dc9a3e16a510455e544317ff6b5e1c6d4d/68747470733a2f2f696d672e736869656c64732e696f2f746f6b65692f6c696e65732f6769746875622f48616e7377696e642f43686179616e426c6f67"><img src="https://camo.githubusercontent.com/9e29db64a0deb7b8d16f9cab2627e4dc9a3e16a510455e544317ff6b5e1c6d4d/68747470733a2f2f696d672e736869656c64732e696f2f746f6b65692f6c696e65732f6769746875622f48616e7377696e642f43686179616e426c6f67" alt="Lines of code" data-canonical-src="https://img.shields.io/tokei/lines/github/Hanswind/ChayanBlog" style="max-width:100%;"></a>
