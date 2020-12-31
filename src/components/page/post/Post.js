@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Helmet } from "react-helmet";
 import { dbService, storageService } from "blogFirebase.js";
 import TocNav from "TocNav.js";
 import Comments from "../../comment/Comments.js";
@@ -87,6 +88,26 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
 
   return (
     <div className="post">
+      <Helmet
+        meta={[
+          { name: "description", content: "Description of page" },
+          { property: "og:type", content: postInfo && postInfo["types"] },
+          {
+            property: "og:title",
+            content:
+              postInfo && postInfo["title"] && postInfo["title"].substring(2),
+          },
+          { property: "og:image", content: postInfo && postInfo["thumbnail"] },
+          { property: "og:url", content: "http://example.com/example" },
+        ]}
+      >
+        <title>
+          {postInfo && postInfo["title"]
+            ? `${postInfo["types"]} - ${postInfo["title"].substring(2)}`
+            : "포스트"}{" "}
+          | 차얀 블로그
+        </title>
+      </Helmet>
       {loading ? (
         <div className="Loading">{error}</div>
       ) : (

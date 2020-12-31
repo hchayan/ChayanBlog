@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import {
   HashRouter as Router,
   Redirect,
@@ -35,6 +36,10 @@ function App() {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>홈 | 차얀 블로그</title>
+        <meta name="description" content="Chayan Blog" />
+      </Helmet>
       {init ? (
         <Router>
           <Header loggedIn={loggedIn} userObj={userObj} />

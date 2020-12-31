@@ -28,7 +28,7 @@ const Header = ({ loggedIn, userObj }) => {
           {loggedIn ? (
             <>
               <div className="write-post">
-                {userObj.uid === process.env.REACT_APP_MASTERUID ? (
+                {userObj && userObj.uid === process.env.REACT_APP_MASTERUID ? (
                   <Link to="/write">새 글 작성</Link>
                 ) : (
                   <a onClick={() => alert("글을 작성할 권한이 없습니다.")}>

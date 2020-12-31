@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useHistory, Prompt } from "react-router-dom";
 
 import { dbService } from "blogFirebase";
@@ -178,6 +179,9 @@ const Write = ({ userObj, articleObj }) => {
 
   return (
     <div className="write">
+      <Helmet>
+        <title>작성 | 차얀 블로그</title>
+      </Helmet>
       <div className="write__column">
         <WriteInfo
           userObj={userObj}
