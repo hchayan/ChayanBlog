@@ -9,9 +9,9 @@ import Header from "components/Header";
 import Contents from "components/Contents";
 import Footer from "components/Footer";
 
-import Auth from "components/page/Auth";
-import Write from "components/page/Write";
-import Post from "components/page/Post";
+import Auth from "components/page/auth/Auth";
+import Write from "components/page/write/Write";
+import Post from "components/page/post/Post";
 
 import { authService } from "./blogFirebase";
 

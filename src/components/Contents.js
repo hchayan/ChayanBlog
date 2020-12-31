@@ -1,6 +1,6 @@
 import React from "react";
-import Notice from "./preview/Notice";
-import Preview from "./preview/Preview";
+import Notice from "./page/preview/Notice";
+import Preview from "./page/preview/Preview";
 
 const Contents = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AuthForm from "components/page/AuthForm";
-import AuthOuterForm from "components/page/AuthOuterForm";
+import AuthForm from "components/page/auth/AuthForm";
+import AuthOuterForm from "components/page/auth/AuthOuterForm";
 import { useHistory } from "react-router-dom";
 
 const Auth = () => {
