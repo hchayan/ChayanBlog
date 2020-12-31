@@ -1,6 +1,7 @@
 @import "./config/reset.scss";
 @import "./config/_variables.scss";
 @import "./config/wnde.scss";
+
 @import "./main.scss";
 
 // partials
@@ -12,11 +13,11 @@
 
 // pages
 @import "./pages/preview.scss";
-@import "./pages/login.scss";
+@import "./pages/auth.scss";
 @import "./pages/write.scss";
 @import "./pages/post.scss";
 
 // popup
-@import "./partials/profilePopup.scss";
-
-@import "./pages/popup.scss";
+@import "./popups/profilePopup.scss";
+@import "./popups/tagsPopup.scss";
+@import "./popups/categoryPopup.scss";

@@ -44,6 +44,10 @@
           -moz-appearance: none;
           appearance: none;
 
+          &:hover {
+            background-color: rgba($bg-color-1, 0.5);
+          }
+
           option {
             height: 38px;
             text-align-last: center;
