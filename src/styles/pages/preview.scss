@@ -148,7 +148,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: rgba($bg-color-dark-0, 0.04);
         transform: translateY(-2px);
       }
 
@@ -189,7 +189,7 @@
             border-radius: 5px;
             margin: 2px;
             padding: 3px;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba($bg-color-dark-0, 0.5);
             color: $text-color-white;
             opacity: 0.8;
           }
