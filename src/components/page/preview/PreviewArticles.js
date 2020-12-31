@@ -2,32 +2,8 @@ import { dbService } from "blogFirebase.js";
 import React, { useMemo } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
-const PreviewArticles = ({
-  match,
-  setPostCount,
-  orderBy,
-  articles,
-  setArticles,
-  filteredArticles,
-  error,
-}) => {
+const PreviewArticles = ({ match, articles, filteredArticles, error }) => {
   let dummyCount = 15;
-
-  const reverseArticles = () => {
-    articles && setArticles(prev => [...prev].reverse());
-  };
-
-  const countPosts = () => {
-    filteredArticles && setPostCount(filteredArticles.length);
-  };
-
-  useMemo(() => {
-    reverseArticles();
-  }, [orderBy]);
-
-  useMemo(() => {
-    countPosts();
-  }, [filteredArticles]);
 
   return (
     <>

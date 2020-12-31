@@ -16,6 +16,7 @@ const Preview = () => {
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState(null);
 
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const getArticles = async () => {
@@ -54,10 +55,27 @@ const Preview = () => {
       } else {
         setFilteredArticles(newArticles);
       }
+      setLoading(true);
     } catch (error) {
       setError("게시글들을 불러오지 못했습니다 : " + error);
     }
   };
+
+  const reverseArticles = () => {
+    articles && setArticles(prev => [...prev].reverse());
+  };
+
+  const countPosts = () => {
+    filteredArticles && setPostCount(filteredArticles.length);
+  };
+
+  useMemo(() => {
+    reverseArticles();
+  }, [orderBy]);
+
+  useMemo(() => {
+    countPosts();
+  }, [filteredArticles]);
 
   const filterArticlesWithSearch = async keyword => {
     try {
@@ -84,7 +102,7 @@ const Preview = () => {
     getArticles();
   }, []);
 
-  useMemo(() => {
+  useEffect(() => {
     filterArticles();
   }, [articles, selectedCategory]);
 
@@ -103,11 +121,7 @@ const Preview = () => {
       />
       <Route path={["/", "/category"]}>
         <PreviewArticles
-          selectedCategory={selectedCategory}
-          setPostCount={setPostCount}
-          orderBy={orderBy}
           articles={articles}
-          setArticles={setArticles}
           filteredArticles={filteredArticles}
           error={error}
         />
@@ -117,11 +131,7 @@ const Preview = () => {
         render={routerProps => (
           <PreviewArticles
             match={routerProps.match}
-            selectedCategory={selectedCategory}
-            setPostCount={setPostCount}
-            orderBy={orderBy}
             articles={articles}
-            setArticles={setArticles}
             filteredArticles={filteredArticles}
             error={error}
           />

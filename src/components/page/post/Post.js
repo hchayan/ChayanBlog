@@ -50,9 +50,6 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
         setArticleObj({ id: doc.id, ...doc.data() });
       });
 
-      if (articleObj === null) {
-        throw Error;
-      }
       await insertTitleName();
       setLoading(false);
     } catch (error) {
