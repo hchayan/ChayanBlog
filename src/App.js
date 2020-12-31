@@ -58,11 +58,12 @@ function App() {
                   userObj={userObj}
                   articleObj={articleObj}
                   setArticleObj={setArticleObj}
+                  redirect
                 />
               )}
             />
 
-            {!loggedIn ? (
+            {!loggedIn || userObj.uid !== process.env.REACT_APP_MASTERUID ? (
               <Route exact path="/login">
                 <Auth />
               </Route>
@@ -76,6 +77,7 @@ function App() {
                 </Route>
               </>
             )}
+            <Redirect to="/" />
           </Switch>
           <Footer />
         </Router>

@@ -50,10 +50,14 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
         setArticleObj({ id: doc.id, ...doc.data() });
       });
 
+      if (articleObj === null) {
+        throw Error;
+      }
       await insertTitleName();
       setLoading(false);
     } catch (error) {
-      setError("게시글을 불러오지 못했습니다 : " + error);
+      alert("게시글을 불러오지 못했습니다 : " + error.message);
+      history.push("/");
     }
   };
 

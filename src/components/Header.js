@@ -28,7 +28,13 @@ const Header = ({ loggedIn, userObj }) => {
           {loggedIn ? (
             <>
               <div className="write-post">
-                <Link to="/write">새 글 작성</Link>
+                {userObj.uid === process.env.REACT_APP_MASTERUID ? (
+                  <Link to="/write">새 글 작성</Link>
+                ) : (
+                  <a onClick={() => alert("글을 작성할 권한이 없습니다.")}>
+                    새 글 작성
+                  </a>
+                )}
               </div>
 
               <div className="header-profile" onClick={toggleProfilePopup}>
