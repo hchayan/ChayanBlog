@@ -1,0 +1,129 @@
+@media screen and (max-width: $post-width) {
+  // header
+  .header {
+    width: 100%;
+    height: 40px;
+    min-width: $mobile-min-width;
+    .header-container {
+      width: 100%;
+      height: 100%;
+      .header__column {
+        height: 100%;
+
+        .header-logo {
+          width: 80px;
+          height: 100%;
+
+          img {
+            padding-top: 8%;
+          }
+        }
+
+        a {
+          font-size: 0.8rem;
+        }
+
+        .write-post {
+          height: 25px;
+          width: 80px;
+          a {
+            width: auto;
+          }
+        }
+
+        .header-profile {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+
+  // profile-popup
+  .profile-popup {
+    width: 200px;
+    top: 35px;
+    font-size: 0.8rem;
+
+    .profile-popup--container {
+      height: 100%;
+      flex-direction: column;
+
+      .profile-popup__column {
+        height: 100%;
+      }
+    }
+  }
+
+  // contents
+  .contents {
+    min-width: $mobile-min-width;
+    padding-top: 40px;
+
+    .notice {
+      height: 30vw;
+      min-height: 100px;
+      background-size: 120% auto;
+    }
+
+    .preview {
+      .preview-menu {
+        .preview-menu__column {
+          .preview-menu-nav {
+            width: 100px;
+
+            select {
+              width: 100%;
+              font-size: 0.75rem;
+            }
+          }
+        }
+      }
+
+      .preview__articles {
+        grid-template-columns: repeat(1, 1fr);
+        min-width: $mobile-min-width;
+
+        .preview__dummy {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // post mobild scss
+  .post {
+    width: 100%;
+    min-width: $mobile-min-width;
+
+    .post-wrapper {
+      .post-wrapper__column {
+        &:first-child {
+          width: 100%;
+          min-width: $mobile-min-width;
+
+          .post-head {
+            width: 100%;
+            padding: 20px 10px;
+
+            .post-info {
+              height: 50px;
+              flex-direction: column;
+
+              align-items: flex-start;
+              .post-info__column {
+                &:last-child {
+                  align-self: flex-end;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .post-contents {
+      padding: 0 5px;
+    }
+  }
+}
