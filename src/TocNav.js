@@ -11,7 +11,6 @@ const TocNav = ({ tocRef, url, mdContents }) => {
   const getTitle = async () => {
     const contents = tocRef.current;
     // contents dom to stirng
-    console.log(contents);
     if (contents !== null) {
       const titleRegex = /<[hH][\d](.*?[hH][\d]>)/g;
       const titles = await contents.matchAll(titleRegex);
@@ -26,9 +25,7 @@ const TocNav = ({ tocRef, url, mdContents }) => {
 
   const test = () => {
     setContentFlag(true);
-
     setTocContent(document.querySelectorAll(".post-toc a"));
-    console.log(tocContent);
   };
 
   useEffect(() => {

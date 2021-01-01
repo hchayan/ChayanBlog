@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { dbService, storageService } from "blogFirebase.js";
 import TocNav from "TocNav.js";
@@ -18,7 +18,6 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
 
   const insertTitleName = () => {
     const toCheck = ["h1", "h2", "h3", "h4", "h5", "h6"];
-
     toCheck.forEach(checkTag => {
       const title = document.querySelectorAll(checkTag);
       title.forEach(node => {
@@ -51,7 +50,6 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
         setArticleObj({ id: doc.id, ...doc.data() });
       });
 
-      await insertTitleName();
       setLoading(false);
     } catch (error) {
       alert("게시글을 불러오지 못했습니다 : " + error.message);
@@ -86,6 +84,10 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
     getPost();
   }, []);
 
+  useEffect(() => {
+    insertTitleName();
+  }, [loading]);
+
   return (
     <div className="post">
       <Helmet
@@ -98,7 +100,7 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
               postInfo && postInfo["title"] && postInfo["title"].substring(2),
           },
           { property: "og:image", content: postInfo && postInfo["thumbnail"] },
-          { property: "og:url", content: "http://example.com/example" },
+          { property: "og:url", content: "https://dev.chayan.io" },
         ]}
       >
         <title>
