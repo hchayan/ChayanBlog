@@ -18,14 +18,20 @@
     <progress value="50" max="100"></progress>&nbsp;50%
 </p>
 
-### 서론
+### 👨‍💻 서론
 -----
+[블로그 프로젝트 구현하기](https://dev.chayan.io/post/%EB%B8%94%EB%A1%9C%EA%B7%B8%20%EA%B5%AC%ED%98%84%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%ED%9A%8C%EA%B3%A0)
 
-[블로그 프로젝트 서론](https://dev.chayan.io/post/%EB%B8%94%EB%A1%9C%EA%B7%B8%20%EA%B5%AC%ED%98%84%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%ED%9A%8C%EA%B3%A0)
+
+
+
+
+
+
 
 <br />
 
-### 화면 구성 UI
+### 💻 화면 구성 UI
 ------
 
 |          메인 페이지 [ / ]           |
@@ -35,6 +41,8 @@
 |  ![](documents/objects/view.JPG)   |
 |     **게시글 작성 및 수정 페이지**     |
 |  ![](documents/objects/write.JPG)  |
-|        **🔨 추후 업데이트 🔨**         |
+|        **인증(로그인, 회원가입)**        |
+| ![](documents/objects/auth.JPG) |
+| **🔨 추후 업데이트 🔨** |
 | 유저 글 목록, 유저 기본 정보 등 |
 
