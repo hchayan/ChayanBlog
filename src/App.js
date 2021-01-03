@@ -6,7 +6,6 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import config from "./config.js";
 import Header from "./components/Header";
 import Contents from "./components/Contents";
 import Footer from "./components/Footer";
@@ -69,7 +68,8 @@ function App() {
               )}
             />
 
-            {!loggedIn || (userObj && userObj.uid !== config.masterUID) ? (
+            {!loggedIn ||
+            (userObj && userObj.uid !== process.env.REACT_APP_MASTERUID) ? (
               <Route exact path="/login">
                 <Auth />
               </Route>

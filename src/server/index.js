@@ -1,4 +1,4 @@
-require("@babel/register")({
+require("server/@babel/register")({
   presets: ["@babel/preset-env", "@babel/preset-react"],
   plugins: [
     [
@@ -11,10 +11,10 @@ require("@babel/register")({
   ],
 });
 
-const React = require("react");
-const ReactDOMServer = require("react-dom/server");
-const App = require("../src/App").default;
-const express = require("express");
+const React = require("server/react");
+const ReactDOMServer = require("server/react-dom/server");
+const App = require("../App").default;
+const express = require("server/express");
 const path = require("path");
 const fs = require("fs");
 
