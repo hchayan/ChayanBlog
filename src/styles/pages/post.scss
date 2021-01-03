@@ -147,6 +147,24 @@
           .post-contents {
             padding-top: 60px;
             text-align: left;
+
+            .colorscripter-code {
+              table {
+                width: 100%;
+
+                td {
+                  &:first-child {
+                    width: 35px;
+                  }
+
+                  &:last-child {
+                    a {
+                      display: none;
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
