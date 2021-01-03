@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Route } from "react-router-dom";
 
-import { dbService } from "blogFirebase.js";
+import { dbService } from "../../../blogFirebase.js";
 
 import PreviewMenu from "./PreviewMenu.js";
 import PreviewInfo from "./PreviewInfo.js";

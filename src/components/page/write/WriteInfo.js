@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
-import { storageService } from "blogFirebase";
-import TagsPopup from "components/popup/TagsPopup";
-import CatePopup from "components/popup/CatePopup";
+import { storageService } from "../../../blogFirebase";
+import TagsPopup from "../../popup/TagsPopup";
+import CatePopup from "../../popup/CatePopup";
 
 const WriteInfo = ({
   userObj,

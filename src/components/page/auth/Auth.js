@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import AuthForm from "components/page/auth/AuthForm";
-import AuthOuterForm from "components/page/auth/AuthOuterForm";
+import AuthForm from "../../page/auth/AuthForm";
+import AuthOuterForm from "../../page/auth/AuthOuterForm";
 import { useHistory } from "react-router-dom";
 
 const Auth = () => {

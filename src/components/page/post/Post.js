@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import { Helmet } from "react-helmet";
-import { dbService, storageService } from "blogFirebase.js";
-import TocNav from "TocNav.js";
+import { dbService, storageService } from "../../../blogFirebase.js";
+import TocNav from "../../../TocNav.js";
 import Comments from "../../comment/Comments.js";
 
 import MDEditor from "@uiw/react-md-editor";

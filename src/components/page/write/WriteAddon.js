@@ -1,6 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { storageService } from "blogFirebase";
+import { storageService } from "../../../blogFirebase";
 
 const WriteAddon = ({
   userObj,

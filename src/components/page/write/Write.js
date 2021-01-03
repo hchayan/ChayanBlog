@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useHistory, Prompt } from "react-router-dom";
 
-import { dbService } from "blogFirebase";
+import { dbService } from "../../../blogFirebase";
 
 import WriteInfo from "./WriteInfo";
 import WriteForm from "./WriteForm";

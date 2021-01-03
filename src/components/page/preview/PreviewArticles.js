@@ -1,4 +1,4 @@
-import { dbService } from "blogFirebase.js";
+import { dbService } from "../../../blogFirebase.js";
 import React, { useMemo } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 

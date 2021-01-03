@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { authService } from "blogFirebase";
+import { authService } from "../../blogFirebase.js";
 
 const ProfilePopup = ({ userObj }) => {
   const postCount = 0;

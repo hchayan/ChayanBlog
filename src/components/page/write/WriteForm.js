@@ -1,4 +1,5 @@
 import React from "react";
+
 import MDEditor, {
   commands,
   ICommand,
@@ -13,7 +14,7 @@ const WriteForm = ({
   setMarkdownContent,
 }) => {
   //custom md toolbar menu
-  const title1: ICommand = {
+  const title1 = {
     name: "title1",
     keyCommand: "title1",
     buttonProps: { "aria-label": "Insert title1" },
@@ -22,7 +23,7 @@ const WriteForm = ({
         H1
       </div>
     ),
-    execute: (state: TextState, api: TextApi) => {
+    execute: (state, api) => {
       let modifyText = `# ${state.selectedText}\n`;
       if (!state.selectedText) {
         modifyText = `# `;
@@ -31,7 +32,7 @@ const WriteForm = ({
     },
   };
 
-  const title2: ICommand = {
+  const title2 = {
     name: "title2",
     keyCommand: "title2",
     buttonProps: { "aria-label": "Insert title2" },
@@ -40,7 +41,7 @@ const WriteForm = ({
         H2
       </div>
     ),
-    execute: (state: TextState, api: TextApi) => {
+    execute: (state, api) => {
       let modifyText = `## ${state.selectedText}\n`;
       if (!state.selectedText) {
         modifyText = `## `;
@@ -49,7 +50,7 @@ const WriteForm = ({
     },
   };
 
-  const title3: ICommand = {
+  const title3 = {
     name: "title3",
     keyCommand: "title3",
     buttonProps: { "aria-label": "Insert title3" },
@@ -58,7 +59,7 @@ const WriteForm = ({
         H3
       </div>
     ),
-    execute: (state: TextState, api: TextApi) => {
+    execute: (state, api) => {
       let modifyText = `### ${state.selectedText}\n`;
       if (!state.selectedText) {
         modifyText = `### `;

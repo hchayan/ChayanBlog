@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { authService, firebaseInstance } from "blogFirebase";
+import { authService, firebaseInstance } from "../../../blogFirebase.js";
 import { Link } from "react-router-dom";
 
 const AuthForm = ({ newAccount, setNewAccount, history }) => {

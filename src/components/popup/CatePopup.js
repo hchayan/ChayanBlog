@@ -1,4 +1,4 @@
-import { dbService } from "blogFirebase";
+import { dbService } from "../../blogFirebase";
 import React, { useEffect, useState } from "react";
 
 const CatePopup = ({ cates, setCates, setCatePopup }) => {

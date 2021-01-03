@@ -6,13 +6,14 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import Header from "components/Header";
-import Contents from "components/Contents";
-import Footer from "components/Footer";
+import config from "./config.js";
+import Header from "./components/Header";
+import Contents from "./components/Contents";
+import Footer from "./components/Footer";
 
-import Auth from "components/page/auth/Auth";
-import Write from "components/page/write/Write";
-import Post from "components/page/post/Post";
+import Auth from "./components/page/auth/Auth";
+import Write from "./components/page/write/Write";
+import Post from "./components/page/post/Post";
 
 import { authService } from "./blogFirebase";
 
@@ -37,6 +38,7 @@ function App() {
   return (
     <div className="App">
       <Helmet>
+        <html lang="kr" />
         <title>홈 | 차얀 블로그</title>
         <meta name="description" content="Chayan Blog" />
       </Helmet>
@@ -67,8 +69,7 @@ function App() {
               )}
             />
 
-            {!loggedIn ||
-            (userObj && userObj.uid !== process.env.REACT_APP_MASTERUID) ? (
+            {!loggedIn || (userObj && userObj.uid !== config.masterUID) ? (
               <Route exact path="/login">
                 <Auth />
               </Route>

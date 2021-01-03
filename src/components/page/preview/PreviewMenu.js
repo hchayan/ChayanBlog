@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
-import { dbService } from "blogFirebase.js";
+import { dbService } from "../../../blogFirebase.js";
 
 const PreviewMenu = ({
   setSelectedCategory,

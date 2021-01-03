@@ -1,5 +1,5 @@
 import React from "react";
-import { firebaseInstance, authService } from "blogFirebase";
+import { firebaseInstance, authService } from "../../../blogFirebase";
 
 const AuthOuterForm = ({ newAccount, history }) => {
   const onSocialClick = async name => {
