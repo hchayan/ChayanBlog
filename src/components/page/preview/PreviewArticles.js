@@ -1,10 +1,7 @@
-import { dbService } from "../../../blogFirebase.js";
 import React, { useMemo } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
 const PreviewArticles = ({ match, articles, filteredArticles, error }) => {
-  let dummyCount = 15;
-
   return (
     <>
       {error ? (
@@ -17,15 +14,6 @@ const PreviewArticles = ({ match, articles, filteredArticles, error }) => {
             filteredArticles.map(article => {
               return <PreviewArticle key={article.id} article={article} />;
             })}
-
-          {[...Array(dummyCount - articles.length)].map(index => {
-            return (
-              <div
-                key={index}
-                className="preview__article preview__dummy"
-              ></div>
-            );
-          })}
         </div>
       )}
     </>
