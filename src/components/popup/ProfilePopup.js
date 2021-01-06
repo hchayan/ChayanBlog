@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { authService } from "../../blogFirebase.js";
 
-const ProfilePopup = ({ userObj }) => {
-  const postCount = 0;
+const ProfilePopup = ({ userObj, dbService, articles }) => {
   const commentCount = 0;
 
   // 프로필 닉네임 수정
   const [nameChangeState, setNameChangeState] = useState(false);
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const [postCount, setPostCount] = useState(0);
 
   const onChange = e => {
     const {
@@ -43,6 +43,16 @@ const ProfilePopup = ({ userObj }) => {
     authService.signOut();
     alert("로그아웃 되었습니다");
   };
+
+  const getPostCount = async () => {
+    articles.forEach(article => {
+      setPostCount(prev => prev + 1);
+    });
+  };
+
+  useEffect(() => {
+    getPostCount();
+  }, []);
 
   return (
     <div className="profile-popup--container">

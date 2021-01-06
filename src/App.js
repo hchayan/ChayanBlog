@@ -14,13 +14,15 @@ import Auth from "./components/page/auth/Auth";
 import Write from "./components/page/write/Write";
 import Post from "./components/page/post/Post";
 
-import { authService } from "./blogFirebase";
+import { authService, dbService } from "./blogFirebase";
 
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
   const [articleObj, setArticleObj] = useState(null);
   const [loggedIn, setLoggedIn] = useState(authService.cuurentUser);
+
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     authService.onAuthStateChanged(user => {
@@ -50,10 +52,10 @@ function App() {
       ></Helmet>
       {init ? (
         <Router>
-          <Header loggedIn={loggedIn} userObj={userObj} />
+          <Header loggedIn={loggedIn} userObj={userObj} articles={articles} />
           <Switch>
             <Route exact path="/">
-              <Contents />
+              <Contents articles={articles} setArticles={setArticles} />
             </Route>
             <Route path="/category">
               <Contents />

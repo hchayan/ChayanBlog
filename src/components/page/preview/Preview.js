@@ -7,13 +7,12 @@ import PreviewMenu from "./PreviewMenu.js";
 import PreviewInfo from "./PreviewInfo.js";
 import PreviewArticles from "./PreviewArticles.js";
 
-const Preview = () => {
+const Preview = ({ articles, setArticles }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchKeyword, setSearchKeyword] = useState(null);
   const [postCount, setPostCount] = useState(0);
   const [orderBy, setOrderBy] = useState(true);
 
-  const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState(null);
 
   const [loading, setLoading] = useState(false);
