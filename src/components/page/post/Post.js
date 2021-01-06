@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import { Helmet } from "react-helmet";
-import { dbService, storageService } from "../../../blogFirebase.js";
+import {
+  dbService,
+  storageService,
+  firebaseInstance,
+} from "../../../blogFirebase.js";
 import TocNav from "../../../TocNav.js";
 import Comments from "../../comment/Comments.js";
 
@@ -13,8 +17,53 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [postInfo, setPostInfo] = useState({});
+  const [marked, setMarked] = useState(false);
   const postID = match.params.id;
   const tocRef = useRef();
+
+  const checkBookmarked = async () => {
+    try {
+      await dbService
+        .collection("bookmark")
+        .doc(userObj.uid)
+        .get()
+        .then(doc => {
+          if (doc.data().postsId.includes(articleObj.id)) {
+            setMarked(true);
+          }
+        });
+    } catch (error) {
+      alert("북마크 정보를 불러오는데 실패했습니다.");
+    }
+  };
+
+  useEffect(() => {
+    checkBookmarked();
+  }, []);
+
+  const bookmarkPost = async () => {
+    try {
+      const userBookmark = await dbService
+        .collection("bookmark")
+        .doc(userObj.uid);
+      if (!marked) {
+        userBookmark.update({
+          postsId: firebaseInstance.firestore.FieldValue.arrayUnion(
+            articleObj.id
+          ),
+        });
+      } else {
+        userBookmark.update({
+          postsId: firebaseInstance.firestore.FieldValue.arrayRemove(
+            articleObj.id
+          ),
+        });
+      }
+      setMarked(prev => !prev);
+    } catch (error) {
+      console.log("북마크 작업 실패", error);
+    }
+  };
 
   const insertTitleName = () => {
     const toCheck = ["h1", "h2", "h3", "h4", "h5", "h6"];
@@ -46,6 +95,7 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
           thumbnail: doc.data().thumbnailId,
           contents: doc.data().contents,
           objId: doc.data().objId,
+          likes: doc.data().likes,
         });
         setArticleObj({ id: doc.id, ...doc.data() });
       });
@@ -177,14 +227,24 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
                 </div>
               </div>
             </div>
+            <div className="post-sidebar">
+              <div className="post__column">
+                <div className="post-addon">
+                  <div
+                    className="post-like"
+                    title={marked ? "글 북마크 취소" : "글 북마크"}
+                    onClick={bookmarkPost}
+                  >
+                    {marked ? (
+                      <i class="fas fa-bookmark"></i>
+                    ) : (
+                      <i class="far fa-bookmark"></i>
+                    )}
+                  </div>
+                </div>
+              </div>
 
-            <div className="post-comments">
-              <Comments />
-            </div>
-          </div>
-          {!loading ? (
-            <>
-              <div className="post-wrapper__column">
+              <div className="post__column">
                 <TocNav
                   tocRef={tocRef}
                   url={match.params.id}
@@ -193,10 +253,8 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
                   }
                 />
               </div>
-            </>
-          ) : (
-            <div className="loading">로딩중</div>
-          )}
+            </div>
+          </div>
         </div>
       )}
     </div>
