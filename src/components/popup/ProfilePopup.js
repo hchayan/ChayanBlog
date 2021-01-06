@@ -16,12 +16,13 @@ const ProfilePopup = ({ userObj }) => {
     setNewDisplayName(value);
   };
 
-  const onClickNameChange = () => {
+  const onClickNameChange = e => {
+    e.preventDefault();
     setNameChangeState(!nameChangeState);
   };
 
-  const onSubmitName = async event => {
-    event.stopPropagation();
+  const onSubmitName = async e => {
+    e.preventDefault();
 
     if (userObj.displayName !== newDisplayName) {
       await userObj.updateProfile({
@@ -38,7 +39,10 @@ const ProfilePopup = ({ userObj }) => {
   };
 
   // 로그아웃
-  const onLogOutClick = () => authService.signOut();
+  const onLogOutClick = () => {
+    authService.signOut();
+    alert("로그아웃 되었습니다");
+  };
 
   return (
     <div className="profile-popup--container">
