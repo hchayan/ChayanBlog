@@ -81,9 +81,6 @@
       }
 
       .preview__articles {
-        grid-template-columns: repeat(1, 1fr);
-        min-width: $mobile-min-width;
-
         .preview__dummy {
           display: none;
         }
@@ -124,6 +121,21 @@
 
     .post-contents {
       padding: 0 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .preview {
+    .preview__articles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+@media screen and (max-width: 520px) {
+  .preview {
+    .preview__articles {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 }
