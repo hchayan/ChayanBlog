@@ -173,7 +173,7 @@
         min-width: $post-width;
         height: 100%;
         position: absolute;
-        top: 0;
+        top: 200px;
         left: 0;
 
         .post__column {
@@ -182,7 +182,7 @@
             width: 50px;
             height: 100%;
             position: absolute;
-            top: 80px;
+            top: 0px;
             left: -70px;
 
             .post-addon {
@@ -208,7 +208,7 @@
             width: 200px;
             height: 100%;
             position: absolute;
-            top: 80px;
+            top: 0px;
             right: -230px;
             margin: 0;
 

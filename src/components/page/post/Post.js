@@ -23,15 +23,17 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
 
   const checkBookmarked = async () => {
     try {
-      await dbService
-        .collection("bookmark")
-        .doc(userObj.uid)
-        .get()
-        .then(doc => {
-          if (doc.data().postsId.includes(articleObj.id)) {
-            setMarked(true);
-          }
-        });
+      if (userObj) {
+        await dbService
+          .collection("bookmark")
+          .doc(userObj.uid)
+          .get()
+          .then(doc => {
+            if (doc.data().postsId.includes(articleObj.id)) {
+              setMarked(true);
+            }
+          });
+      }
     } catch (error) {
       alert("북마크 정보를 불러오는데 실패했습니다.");
     }
