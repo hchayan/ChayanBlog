@@ -7,8 +7,9 @@ import PreviewMenu from "./PreviewMenu.js";
 import PreviewInfo from "./PreviewInfo.js";
 import PreviewArticles from "./PreviewArticles.js";
 
-const Preview = ({ articles, setArticles }) => {
+const Preview = ({ articles, setArticles, userObj }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [bookmarks, setBookMarks] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState(null);
   const [postCount, setPostCount] = useState(0);
   const [orderBy, setOrderBy] = useState(true);
@@ -35,6 +36,18 @@ const Preview = ({ articles, setArticles }) => {
 
         tmpArticles.unshift(aritlcleObject);
       });
+      console.log(userObj);
+      if (userObj) {
+        await dbService
+          .collection("bookmark")
+          .doc(userObj.uid)
+          .get()
+          .then(doc => {
+            console.log(doc.data());
+            setBookMarks(doc.data().postsId);
+          });
+      }
+
       setArticles(tmpArticles);
     } catch (error) {
       setError("게시글들을 불러오지 못했습니다 : " + error);
@@ -123,6 +136,7 @@ const Preview = ({ articles, setArticles }) => {
           articles={articles}
           filteredArticles={filteredArticles}
           error={error}
+          bookmarks={bookmarks}
         />
       </Route>
       <Route
@@ -133,6 +147,7 @@ const Preview = ({ articles, setArticles }) => {
             articles={articles}
             filteredArticles={filteredArticles}
             error={error}
+            bookmarks={bookmarks}
           />
         )}
       />

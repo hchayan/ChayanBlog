@@ -144,12 +144,22 @@
       height: 270px;
       background-color: #fff;
       border: 1px solid $bg-color-2;
+      position: relative;
       transition: 0.2s all;
       cursor: pointer;
 
       &:hover {
         background-color: rgba($bg-color-dark-0, 0.04);
         transform: translateY(-2px);
+      }
+
+      .article-marked {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        z-index: 2;
+        font-size: 2rem;
+        color: $color-g-3;
       }
 
       .article-thumbnail {

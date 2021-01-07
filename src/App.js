@@ -55,7 +55,11 @@ function App() {
           <Header loggedIn={loggedIn} userObj={userObj} articles={articles} />
           <Switch>
             <Route exact path="/">
-              <Contents articles={articles} setArticles={setArticles} />
+              <Contents
+                articles={articles}
+                setArticles={setArticles}
+                userObj={userObj}
+              />
             </Route>
             <Route path="/category">
               <Contents />

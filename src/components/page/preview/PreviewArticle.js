@@ -3,11 +3,15 @@ import MDEditor from "@uiw/react-md-editor";
 
 import { Link } from "react-router-dom";
 
-const PreviewArticle = ({ article }) => {
-  const id = `/post/${article.id}`;
+const PreviewArticle = ({ article, marked }) => {
   return (
     <Link to={`/post/${article.title.substring(2)}`}>
       <div className="preview__article">
+        {marked ? (
+          <div className="article-marked">
+            <i class="fas fa-bookmark"></i>
+          </div>
+        ) : null}
         {article.thumbnailId !== "" ? (
           <div className="article-thumbnail">
             <img src={article.thumbnailId} alt="thumbnail" />

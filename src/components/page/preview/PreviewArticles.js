@@ -1,7 +1,13 @@
 import React, { useMemo } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
-const PreviewArticles = ({ match, articles, filteredArticles, error }) => {
+const PreviewArticles = ({
+  match,
+  articles,
+  filteredArticles,
+  error,
+  bookmarks,
+}) => {
   return (
     <>
       {error ? (
@@ -12,7 +18,13 @@ const PreviewArticles = ({ match, articles, filteredArticles, error }) => {
         <div className="preview__articles">
           {filteredArticles &&
             filteredArticles.map(article => {
-              return <PreviewArticle key={article.id} article={article} />;
+              return (
+                <PreviewArticle
+                  key={article.id}
+                  article={article}
+                  marked={bookmarks.includes(article.id) ? true : false}
+                />
+              );
             })}
         </div>
       )}
