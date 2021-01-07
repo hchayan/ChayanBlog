@@ -13,13 +13,13 @@ import { Link, useHistory } from "react-router-dom";
 
 const Post = ({ match, userObj, articleObj, setArticleObj }) => {
   let history = useHistory();
+  const postID = match.params.id;
+  const tocRef = useRef();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [postInfo, setPostInfo] = useState({});
   const [marked, setMarked] = useState(false);
-  const postID = match.params.id;
-  const tocRef = useRef();
 
   const checkBookmarked = async () => {
     try {
@@ -45,25 +45,29 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
 
   const bookmarkPost = async () => {
     try {
-      const userBookmark = await dbService
-        .collection("bookmark")
-        .doc(userObj.uid);
-      if (!marked) {
-        userBookmark.update({
-          postsId: firebaseInstance.firestore.FieldValue.arrayUnion(
-            articleObj.id
-          ),
-        });
+      if (userObj) {
+        const userBookmark = await dbService
+          .collection("bookmark")
+          .doc(userObj.uid);
+        if (!marked) {
+          userBookmark.update({
+            postsId: firebaseInstance.firestore.FieldValue.arrayUnion(
+              articleObj.id
+            ),
+          });
+        } else {
+          userBookmark.update({
+            postsId: firebaseInstance.firestore.FieldValue.arrayRemove(
+              articleObj.id
+            ),
+          });
+        }
+        setMarked(prev => !prev);
       } else {
-        userBookmark.update({
-          postsId: firebaseInstance.firestore.FieldValue.arrayRemove(
-            articleObj.id
-          ),
-        });
+        alert("북마크를 하려면 로그인해야 합니다");
       }
-      setMarked(prev => !prev);
     } catch (error) {
-      console.log("북마크 작업 실패", error);
+      alert("북마크 작업 실패", error);
     }
   };
 
