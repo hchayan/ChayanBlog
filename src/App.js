@@ -59,6 +59,7 @@ function App() {
                 articles={articles}
                 setArticles={setArticles}
                 userObj={userObj}
+                loggedIn={loggedIn}
               />
             </Route>
             <Route path="/category">

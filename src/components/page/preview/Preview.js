@@ -7,7 +7,7 @@ import PreviewMenu from "./PreviewMenu.js";
 import PreviewInfo from "./PreviewInfo.js";
 import PreviewArticles from "./PreviewArticles.js";
 
-const Preview = ({ articles, setArticles, userObj }) => {
+const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [bookmarks, setBookMarks] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState(null);
@@ -36,17 +36,6 @@ const Preview = ({ articles, setArticles, userObj }) => {
 
         tmpArticles.unshift(aritlcleObject);
       });
-      console.log(userObj);
-      if (userObj) {
-        await dbService
-          .collection("bookmark")
-          .doc(userObj.uid)
-          .get()
-          .then(doc => {
-            console.log(doc.data());
-            setBookMarks(doc.data().postsId);
-          });
-      }
 
       setArticles(tmpArticles);
     } catch (error) {
@@ -117,6 +106,24 @@ const Preview = ({ articles, setArticles, userObj }) => {
   useEffect(() => {
     filterArticles();
   }, [articles, selectedCategory]);
+
+  const getUserBookMark = async () => {
+    if (loggedIn) {
+      await dbService
+        .collection("bookmark")
+        .doc(userObj.uid)
+        .get()
+        .then(doc => {
+          setBookMarks(doc.data().postsId);
+        });
+    } else {
+      setBookMarks([]);
+    }
+  };
+
+  useEffect(() => {
+    getUserBookMark();
+  }, [loggedIn]);
 
   return (
     <div className="preview">

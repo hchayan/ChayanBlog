@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
 const PreviewArticles = ({
@@ -8,6 +8,11 @@ const PreviewArticles = ({
   error,
   bookmarks,
 }) => {
+  const [refreshPage, setRefreshPage] = useState([]);
+  useMemo(() => {
+    setRefreshPage({});
+  }, [bookmarks]);
+
   return (
     <>
       {error ? (
