@@ -108,7 +108,7 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
   }, [articles, selectedCategory]);
 
   const getUserBookMark = async () => {
-    if (loggedIn) {
+    if (loggedIn && userObj) {
       await dbService
         .collection("bookmark")
         .doc(userObj.uid)
@@ -123,7 +123,7 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
 
   useEffect(() => {
     getUserBookMark();
-  }, [loggedIn]);
+  }, [loggedIn, userObj]);
 
   return (
     <div className="preview">

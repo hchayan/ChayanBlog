@@ -31,6 +31,7 @@ function App() {
         setUserObj(user);
       } else {
         setLoggedIn(false);
+        setUserObj(null);
       }
       setInit(true);
     });

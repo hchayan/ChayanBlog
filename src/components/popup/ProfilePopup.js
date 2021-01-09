@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { authService } from "../../blogFirebase.js";
 
-const ProfilePopup = ({ userObj, dbService, articles }) => {
+const ProfilePopup = ({ userObj, articles }) => {
   const commentCount = 0;
 
   // 프로필 닉네임 수정
   const [nameChangeState, setNameChangeState] = useState(false);
-  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const [newDisplayName, setNewDisplayName] = useState(
+    userObj ? userObj.displayName : null
+  );
   const [postCount, setPostCount] = useState(0);
 
   const onChange = e => {

@@ -31,17 +31,20 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
           .then(doc => {
             if (doc.data().postsId.includes(articleObj.id)) {
               setMarked(true);
+            } else {
+              setMarked(false);
             }
           });
       }
+      console.log("pass", userObj.uid);
     } catch (error) {
-      alert("북마크 정보를 불러오는데 실패했습니다.");
+      console.log("북마크 정보를 불러오는데 실패했습니다.");
     }
   };
 
   useEffect(() => {
     checkBookmarked();
-  }, []);
+  }, [loading]);
 
   const bookmarkPost = async () => {
     try {
