@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer>
       <p>Made By Chayan © 2020 - 2021</p>
-      <p>Contact me : chayans999@gmail.com</p>
+      <p>Contact me : help@chayan.io</p>
     </footer>
   );
 };
