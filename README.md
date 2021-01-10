@@ -19,7 +19,7 @@
 </p>
 
 ## 👨‍💻 서론
-[블로그 프로젝트 구현하기](https://dev.chayan.io/post/%EB%B8%94%EB%A1%9C%EA%B7%B8%20%EA%B5%AC%ED%98%84%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%ED%9A%8C%EA%B3%A0)
+[블로그 프로젝트 구현하기](https://dev.chayan.io/post/%EB%B8%94%EB%A1%9C%EA%B7%B8%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
 
 
 
