@@ -8,9 +8,10 @@ const PreviewMenu = ({
   setSearchKeyword,
   filterArticlesWithSearch,
   filterArticleWithBookMark,
+  onlyMarkCheck,
+  setOnlyMarkCheck,
 }) => {
   const [menuNav, setMenuNav] = useState([]);
-  const [onlyMarkCheck, setOnlyMarkCheck] = useState(true);
 
   const loadDBCategory = async () => {
     try {

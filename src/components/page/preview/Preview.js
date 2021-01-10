@@ -7,14 +7,23 @@ import PreviewMenu from "./PreviewMenu.js";
 import PreviewInfo from "./PreviewInfo.js";
 import PreviewArticles from "./PreviewArticles.js";
 
-const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
+const Preview = ({
+  articles,
+  setArticles,
+  userObj,
+  loggedIn,
+  bookmarks,
+  setBookMarks,
+}) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [bookmarks, setBookMarks] = useState([]);
+
   const [searchKeyword, setSearchKeyword] = useState(null);
   const [postCount, setPostCount] = useState(0);
   const [orderBy, setOrderBy] = useState(true);
 
   const [filteredArticles, setFilteredArticles] = useState(null);
+
+  const [onlyMarkCheck, setOnlyMarkCheck] = useState(false);
 
   const [error, setError] = useState(null);
 
@@ -64,6 +73,7 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
           "all" === selectedCategory
       );
 
+      setOnlyMarkCheck(false);
       if (newArticles.length === 0) {
         setFilteredArticles([]);
       } else {
@@ -121,7 +131,7 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
 
   useEffect(() => {
     filterArticles();
-  }, [articles, selectedCategory]);
+  }, [loggedIn, articles, selectedCategory]);
 
   useMemo(() => {
     reverseArticles();
@@ -143,6 +153,8 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
         setSearchKeyword={setSearchKeyword}
         filterArticlesWithSearch={filterArticlesWithSearch}
         filterArticleWithBookMark={filterArticleWithBookMark}
+        onlyMarkCheck={onlyMarkCheck}
+        setOnlyMarkCheck={setOnlyMarkCheck}
       />
       <PreviewInfo
         postCount={postCount}

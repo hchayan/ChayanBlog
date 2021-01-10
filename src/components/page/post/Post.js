@@ -6,7 +6,6 @@ import {
   firebaseInstance,
 } from "../../../blogFirebase.js";
 import TocNav from "../../../TocNav.js";
-import Comments from "../../comment/Comments.js";
 
 import MDEditor from "@uiw/react-md-editor";
 import { Link, useHistory } from "react-router-dom";

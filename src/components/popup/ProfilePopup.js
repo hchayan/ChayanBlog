@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { authService } from "../../blogFirebase.js";
 
-const ProfilePopup = ({ userObj, articles }) => {
-  const commentCount = 0;
-
+const ProfilePopup = ({ userObj, articles, bookmarks }) => {
   // 프로필 닉네임 수정
   const [nameChangeState, setNameChangeState] = useState(false);
   const [newDisplayName, setNewDisplayName] = useState(
     userObj ? userObj.displayName : null
   );
   const [postCount, setPostCount] = useState(0);
+  const [bookmarkCount, setBookmarkCount] = useState(0);
 
   const getPostCount = () => {
     setPostCount(articles.length);
+  };
+
+  const getBookmarkCount = () => {
+    setBookmarkCount(bookmarks.length);
   };
 
   const onChangeDisplayName = e => {
@@ -51,6 +54,7 @@ const ProfilePopup = ({ userObj, articles }) => {
 
   useEffect(() => {
     getPostCount();
+    getBookmarkCount();
   }, []);
 
   return (
@@ -97,7 +101,7 @@ const ProfilePopup = ({ userObj, articles }) => {
           <div className="profile-email">{userObj ? userObj.email : null}</div>
           <div className="profile-postInfo">
             <div className="post-count">글 {postCount}</div>
-            <div className="comment-count">댓글 {commentCount}</div>
+            <div className="comment-count">북마크 {bookmarkCount}</div>
           </div>
           <div className="profile-nav">
             <button className="profile-info-edit">내정보</button>

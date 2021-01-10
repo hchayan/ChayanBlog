@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import ProfilePopup from "./popup/ProfilePopup";
 
-const Header = ({ loggedIn, userObj, articles }) => {
+const Header = ({ loggedIn, userObj, articles, bookmarks }) => {
   const [profilePopup, setProfilePopup] = useState(false);
   const toggleProfilePopup = () => {
     setProfilePopup(!profilePopup);
   };
+
+  useEffect(() => {
+    setProfilePopup(false);
+  }, [loggedIn]);
 
   return (
     <div className="header">
@@ -47,7 +51,11 @@ const Header = ({ loggedIn, userObj, articles }) => {
 
               {profilePopup ? (
                 <div className="profile-popup">
-                  <ProfilePopup userObj={userObj} articles={articles} />
+                  <ProfilePopup
+                    userObj={userObj}
+                    articles={articles}
+                    bookmarks={bookmarks}
+                  />
                 </div>
               ) : null}
             </>

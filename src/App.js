@@ -23,6 +23,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(authService.cuurentUser);
 
   const [articles, setArticles] = useState([]);
+  const [bookmarks, setBookMarks] = useState([]);
 
   useEffect(() => {
     authService.onAuthStateChanged(user => {
@@ -53,7 +54,12 @@ function App() {
       ></Helmet>
       {init ? (
         <Router>
-          <Header loggedIn={loggedIn} userObj={userObj} articles={articles} />
+          <Header
+            loggedIn={loggedIn}
+            userObj={userObj}
+            articles={articles}
+            bookmarks={bookmarks}
+          />
           <Switch>
             <Route exact path="/">
               <Contents
@@ -61,6 +67,8 @@ function App() {
                 setArticles={setArticles}
                 userObj={userObj}
                 loggedIn={loggedIn}
+                bookmarks={bookmarks}
+                setBookMarks={setBookMarks}
               />
             </Route>
             <Route path="/category">
