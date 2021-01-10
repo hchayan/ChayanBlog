@@ -5,19 +5,6 @@ const CatePopup = ({ cates, setCates, setCatePopup }) => {
   const [inputCategory, setInputCategory] = useState("");
   const [dbCates, setdbCates] = useState([]);
 
-  const onChangeAddCategory = e => {
-    setInputCategory(e.target.value);
-  };
-
-  const addCategoryOnPost = async e => {
-    e.preventDefault();
-    if (!cates.includes(e.target.value)) {
-      setCates([e.target.value]);
-      //setCates([...cates, e.target.value]);
-    }
-    setCatePopup(false);
-  };
-
   const addDBCategory = async () => {
     await dbService
       .collection("statics")
@@ -37,6 +24,19 @@ const CatePopup = ({ cates, setCates, setCatePopup }) => {
       .get();
 
     setdbCates(dbLoadCategories.data().name);
+  };
+
+  const onChangeAddCategory = e => {
+    setInputCategory(e.target.value);
+  };
+
+  const addCategoryOnPost = async e => {
+    e.preventDefault();
+    if (!cates.includes(e.target.value)) {
+      setCates([e.target.value]);
+      //setCates([...cates, e.target.value]);
+    }
+    setCatePopup(false);
   };
 
   useEffect(() => {

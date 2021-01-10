@@ -7,12 +7,7 @@ import MDEditor, {
   TextApi,
 } from "@uiw/react-md-editor";
 
-const WriteForm = ({
-  userObj,
-  onChangeImage,
-  markdownContent,
-  setMarkdownContent,
-}) => {
+const WriteForm = ({ markdownContent, setMarkdownContent }) => {
   //custom md toolbar menu
   const title1 = {
     name: "title1",

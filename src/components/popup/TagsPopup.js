@@ -5,17 +5,6 @@ const TagsPopup = ({ tags, setTags }) => {
   const [inputTags, setInputTags] = useState("");
   const [dbTags, setdbTags] = useState([]);
 
-  const onChangeAddTag = e => {
-    setInputTags(e.target.value);
-  };
-
-  const addTagOnPost = async e => {
-    if (!tags.includes(e.target.value)) {
-      setTags([...tags, e.target.value]);
-    }
-  };
-
-  // db에 태그 이름 추가
   const addDBTag = async () => {
     await dbService
       .collection("statics")
@@ -32,6 +21,16 @@ const TagsPopup = ({ tags, setTags }) => {
     const dbLoadTags = await dbService.collection("statics").doc("tags").get();
 
     setdbTags(dbLoadTags.data().name);
+  };
+
+  const onChangeAddTag = e => {
+    setInputTags(e.target.value);
+  };
+
+  const addTagOnPost = async e => {
+    if (!tags.includes(e.target.value)) {
+      setTags([...tags, e.target.value]);
+    }
   };
 
   useEffect(() => {

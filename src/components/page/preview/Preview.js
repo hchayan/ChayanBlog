@@ -16,8 +16,21 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
 
   const [filteredArticles, setFilteredArticles] = useState(null);
 
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const getUserBookMark = async () => {
+    if (loggedIn && userObj) {
+      await dbService
+        .collection("bookmark")
+        .doc(userObj.uid)
+        .get()
+        .then(doc => {
+          setBookMarks(doc.data().postsId);
+        });
+    } else {
+      setBookMarks([]);
+    }
+  };
 
   const getArticles = async () => {
     try {
@@ -56,7 +69,6 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
       } else {
         setFilteredArticles(newArticles);
       }
-      setLoading(true);
     } catch (error) {
       setError("게시글들을 불러오지 못했습니다 : " + error);
     }
@@ -70,14 +82,7 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
     filteredArticles && setPostCount(filteredArticles.length);
   };
 
-  useMemo(() => {
-    reverseArticles();
-  }, [orderBy]);
-
-  useMemo(() => {
-    countPosts();
-  }, [filteredArticles]);
-
+  // Search
   const filterArticlesWithSearch = async keyword => {
     try {
       if (keyword === "title") {
@@ -107,19 +112,13 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
     filterArticles();
   }, [articles, selectedCategory]);
 
-  const getUserBookMark = async () => {
-    if (loggedIn && userObj) {
-      await dbService
-        .collection("bookmark")
-        .doc(userObj.uid)
-        .get()
-        .then(doc => {
-          setBookMarks(doc.data().postsId);
-        });
-    } else {
-      setBookMarks([]);
-    }
-  };
+  useMemo(() => {
+    reverseArticles();
+  }, [orderBy]);
+
+  useMemo(() => {
+    countPosts();
+  }, [filteredArticles]);
 
   useEffect(() => {
     getUserBookMark();
@@ -140,7 +139,6 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
       />
       <Route path={["/", "/category"]}>
         <PreviewArticles
-          articles={articles}
           filteredArticles={filteredArticles}
           error={error}
           bookmarks={bookmarks}
@@ -151,7 +149,6 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
         render={routerProps => (
           <PreviewArticles
             match={routerProps.match}
-            articles={articles}
             filteredArticles={filteredArticles}
             error={error}
             bookmarks={bookmarks}

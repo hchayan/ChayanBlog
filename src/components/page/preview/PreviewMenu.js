@@ -10,19 +10,6 @@ const PreviewMenu = ({
 }) => {
   const [menuNav, setMenuNav] = useState([]);
 
-  const onChangeSearch = e => {
-    setSearchKeyword(e.target.value);
-  };
-
-  const searchArticles = async keyword => {
-    await filterArticlesWithSearch(keyword);
-    setSearchKeyword("");
-  };
-
-  const onChangeCategory = e => {
-    setSelectedCategory(e.target.value);
-  };
-
   const loadDBCategory = async () => {
     try {
       const dbLoadCategories = await dbService
@@ -33,6 +20,19 @@ const PreviewMenu = ({
     } catch (error) {
       alert("카테고리 목록을 불러오는데 실패했습니다");
     }
+  };
+
+  const onChangeSearch = e => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const onChangeCategory = e => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const searchArticles = async keyword => {
+    await filterArticlesWithSearch(keyword);
+    setSearchKeyword("");
   };
 
   useEffect(() => {

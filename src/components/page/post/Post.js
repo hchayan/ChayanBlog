@@ -36,10 +36,7 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
             }
           });
       }
-      console.log("pass", userObj.uid);
-    } catch (error) {
-      console.log("북마크 정보를 불러오는데 실패했습니다.");
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

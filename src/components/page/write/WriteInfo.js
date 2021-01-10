@@ -20,6 +20,9 @@ const WriteInfo = ({
   setCategories,
   onSubmit,
 }) => {
+  const [tagPopup, setTagPopup] = useState(false); // 태그 창 열기
+  const [catePopup, setCatePopup] = useState(false); // 카테고리 창 열기
+
   // 게시글 제목 적용
   const onChangeTitle = e => {
     const {
@@ -55,20 +58,9 @@ const WriteInfo = ({
     }
   };
 
-  // 태그 제거
-  const removeTag = e => {
-    const name = e.target.parentNode.getAttribute("name");
-
-    setTags(tags => tags.filter(tag => tag !== name));
-  };
-
-  // 썸네일 이미지 업로드
   const deleteTumbnail = async () => {
     await storageService.refFromURL(thmubnailURL).delete();
   };
-
-  // 태그 창 열기
-  const [tagPopup, setTagPopup] = useState(false);
 
   const toggleTagPopup = () => {
     if (catePopup) {
@@ -78,21 +70,23 @@ const WriteInfo = ({
     setTagPopup(!tagPopup);
   };
 
-  // 카테고리 제거
-  const removeCate = e => {
-    const name = e.target.parentNode.getAttribute("name");
-
-    setCategories(categories => categories.filter(cate => cate !== name));
-  };
-
-  // 카테고리 창 열기
-  const [catePopup, setCatePopup] = useState(false);
-
   const toggleCatePopup = () => {
     if (tagPopup) {
       setTagPopup(!tagPopup);
     }
     setCatePopup(!catePopup);
+  };
+
+  const removeTag = e => {
+    const name = e.target.parentNode.getAttribute("name");
+
+    setTags(tags => tags.filter(tag => tag !== name));
+  };
+
+  const removeCate = e => {
+    const name = e.target.parentNode.getAttribute("name");
+
+    setCategories(categories => categories.filter(cate => cate !== name));
   };
 
   return (

@@ -8,9 +8,7 @@ import WriteInfo from "./WriteInfo";
 import WriteForm from "./WriteForm";
 import WriteAddon from "./WriteAddon";
 
-// ======================================================================
 const Write = ({ userObj, articleObj }) => {
-  // 게시글 정보
   const [thmubnailURL, setThumbnailURL] = useState("");
   const [objectURL, setObjectURL] = useState([]);
   const [tags, setTags] = useState([]);
@@ -209,8 +207,6 @@ const Write = ({ userObj, articleObj }) => {
           setMarkdownContent={setMarkdownContent}
         />
         <WriteForm
-          userObj={userObj}
-          onChangeImage={onChangeImage}
           markdownContent={markdownContent}
           setMarkdownContent={setMarkdownContent}
         />

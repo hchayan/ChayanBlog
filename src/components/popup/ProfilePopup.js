@@ -11,11 +11,19 @@ const ProfilePopup = ({ userObj, articles }) => {
   );
   const [postCount, setPostCount] = useState(0);
 
-  const onChange = e => {
+  const getPostCount = () => {
+    setPostCount(articles.length);
+  };
+
+  const onChangeDisplayName = e => {
     const {
       target: { value },
     } = e;
     setNewDisplayName(value);
+  };
+
+  const onChangeImg = async () => {
+    alert("프로필 이미지 변경 업데이트 예정");
   };
 
   const onClickNameChange = e => {
@@ -35,21 +43,10 @@ const ProfilePopup = ({ userObj, articles }) => {
     setNameChangeState(!nameChangeState);
   };
 
-  // 프로필 이미지 업로드
-  const onChangeImg = async () => {
-    alert("프로필 이미지 변경 업데이트 예정");
-  };
-
   // 로그아웃
   const onLogOutClick = () => {
     authService.signOut();
     alert("로그아웃 되었습니다");
-  };
-
-  const getPostCount = async () => {
-    articles.forEach(article => {
-      setPostCount(prev => prev + 1);
-    });
   };
 
   useEffect(() => {
@@ -83,7 +80,7 @@ const ProfilePopup = ({ userObj, articles }) => {
             {nameChangeState ? (
               <form onSubmit={onSubmitName}>
                 <input
-                  onChange={onChange}
+                  onChange={onChangeDisplayName}
                   type="text"
                   placeholder="닉네임"
                   value={newDisplayName}
