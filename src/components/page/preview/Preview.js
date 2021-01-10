@@ -104,6 +104,17 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
     }
   };
 
+  const filterArticleWithBookMark = async checked => {
+    if (checked) {
+      const newArticles = await filteredArticles.filter(article =>
+        bookmarks.includes(article.id)
+      );
+      setFilteredArticles(newArticles);
+    } else {
+      filterArticles();
+    }
+  };
+
   useEffect(() => {
     getArticles();
   }, []);
@@ -131,6 +142,7 @@ const Preview = ({ articles, setArticles, userObj, loggedIn }) => {
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         filterArticlesWithSearch={filterArticlesWithSearch}
+        filterArticleWithBookMark={filterArticleWithBookMark}
       />
       <PreviewInfo
         postCount={postCount}

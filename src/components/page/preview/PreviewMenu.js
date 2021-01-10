@@ -7,8 +7,10 @@ const PreviewMenu = ({
   searchKeyword,
   setSearchKeyword,
   filterArticlesWithSearch,
+  filterArticleWithBookMark,
 }) => {
   const [menuNav, setMenuNav] = useState([]);
+  const [onlyMarkCheck, setOnlyMarkCheck] = useState(true);
 
   const loadDBCategory = async () => {
     try {
@@ -30,14 +32,26 @@ const PreviewMenu = ({
     setSelectedCategory(e.target.value);
   };
 
+  const onChangeMarkCheck = () => {
+    setOnlyMarkCheck(prev => !prev);
+  };
+
   const searchArticles = async keyword => {
     await filterArticlesWithSearch(keyword);
     setSearchKeyword("");
   };
 
+  const checkedOnlyBookMark = () => {
+    filterArticleWithBookMark(onlyMarkCheck);
+  };
+
   useEffect(() => {
     loadDBCategory();
   }, []);
+
+  useEffect(() => {
+    checkedOnlyBookMark();
+  }, [onlyMarkCheck]);
 
   return (
     <div className="preview-menu">
@@ -58,6 +72,19 @@ const PreviewMenu = ({
               );
             })}
           </ul>
+        </div>
+        <div className="preview-options">
+          <div className="preview-option">
+            <input
+              type="checkbox"
+              id="preview-option-bookmark"
+              name="bookmark"
+              value="bookmark"
+              checked={onlyMarkCheck}
+              onChange={onChangeMarkCheck}
+            />
+            <label for="preview-option-bookmark">북마크한 글</label>
+          </div>
         </div>
       </div>
       <div className="preview-menu__column">
