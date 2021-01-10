@@ -153,6 +153,7 @@ const Preview = ({
         setSearchKeyword={setSearchKeyword}
         filterArticlesWithSearch={filterArticlesWithSearch}
         filterArticleWithBookMark={filterArticleWithBookMark}
+        loggedIn={loggedIn}
         onlyMarkCheck={onlyMarkCheck}
         setOnlyMarkCheck={setOnlyMarkCheck}
       />

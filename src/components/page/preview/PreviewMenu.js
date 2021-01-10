@@ -8,6 +8,7 @@ const PreviewMenu = ({
   setSearchKeyword,
   filterArticlesWithSearch,
   filterArticleWithBookMark,
+  loggedIn,
   onlyMarkCheck,
   setOnlyMarkCheck,
 }) => {
@@ -34,7 +35,11 @@ const PreviewMenu = ({
   };
 
   const onChangeMarkCheck = () => {
-    setOnlyMarkCheck(prev => !prev);
+    if (loggedIn) {
+      setOnlyMarkCheck(prev => !prev);
+    } else {
+      alert("로그인이 필요한 기능입니다");
+    }
   };
 
   const searchArticles = async keyword => {
