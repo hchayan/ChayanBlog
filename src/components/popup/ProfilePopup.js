@@ -11,7 +11,9 @@ const ProfilePopup = ({ userObj, articles, bookmarks }) => {
   const [bookmarkCount, setBookmarkCount] = useState(0);
 
   const getPostCount = () => {
-    setPostCount(articles.length);
+    setPostCount(
+      articles.filter(article => article.userId === userObj.uid).length
+    );
   };
 
   const getBookmarkCount = () => {

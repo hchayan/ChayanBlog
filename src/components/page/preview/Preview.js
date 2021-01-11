@@ -28,15 +28,19 @@ const Preview = ({
   const [error, setError] = useState(null);
 
   const getUserBookMark = async () => {
-    if (loggedIn && userObj) {
-      await dbService
-        .collection("bookmark")
-        .doc(userObj.uid)
-        .get()
-        .then(doc => {
-          setBookMarks(doc.data().postsId);
-        });
-    } else {
+    try {
+      if (loggedIn && userObj) {
+        await dbService
+          .collection("bookmark")
+          .doc(userObj.uid)
+          .get()
+          .then(doc => {
+            setBookMarks(doc.data().postsId);
+          });
+      } else {
+        setBookMarks([]);
+      }
+    } catch (error) {
       setBookMarks([]);
     }
   };

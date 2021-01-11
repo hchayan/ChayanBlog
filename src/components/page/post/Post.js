@@ -48,14 +48,15 @@ const Post = ({ match, userObj, articleObj, setArticleObj }) => {
         const userBookmark = await dbService
           .collection("bookmark")
           .doc(userObj.uid);
+
         if (!marked) {
-          userBookmark.update({
+          userBookmark.set({
             postsId: firebaseInstance.firestore.FieldValue.arrayUnion(
               articleObj.id
             ),
           });
         } else {
-          userBookmark.update({
+          userBookmark.set({
             postsId: firebaseInstance.firestore.FieldValue.arrayRemove(
               articleObj.id
             ),

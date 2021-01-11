@@ -1,5 +1,9 @@
 import React from "react";
-import { firebaseInstance, authService } from "../../../blogFirebase";
+import {
+  firebaseInstance,
+  authService,
+  dbService,
+} from "../../../blogFirebase";
 
 const AuthOuterForm = ({ newAccount, history }) => {
   const onSocialClick = async name => {
@@ -20,6 +24,9 @@ const AuthOuterForm = ({ newAccount, history }) => {
         .then(provider => {
           // 2. popup
           return authService.signInWithPopup(provider);
+        })
+        .then(() => {
+          dbService.collection("bookmark").add({ postsId: [] });
         })
         .then(() => {
           // 3. redirect to home
