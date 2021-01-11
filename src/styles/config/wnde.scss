@@ -33,7 +33,7 @@
   }
 
   h4 {
-    font-size: 1.5rem !important;
+    font-size: 1.1rem !important;
     margin-top: 40px !important ;
   }
 
@@ -56,6 +56,30 @@
       ul {
         list-style: square;
       }
+    }
+  }
+
+  table,
+  > table {
+    width: 100%;
+    display: inline-table !important;
+    border: 1px double $bg-color-3;
+    text-align: center;
+
+    th {
+      font-weight: bold;
+    }
+
+    tr,
+    td,
+    th {
+      border: 1px solid $bg-color-3;
+      padding: 3px 10px;
+    }
+
+    th,
+    tr:nth-child(2n) {
+      background-color: $bg-color-1;
     }
   }
 
