@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import Auth from "./components/page/auth/Auth";
 import Write from "./components/page/write/Write";
 import Post from "./components/page/post/Post";
+import Profile from "./components/page/profile/Profile";
 
 import { authService } from "./blogFirebase";
 
@@ -103,6 +104,9 @@ function App() {
                 </Route>
                 <Route exact path="/edit">
                   <Write userObj={userObj} articleObj={articleObj} />
+                </Route>
+                <Route excat path="/profile">
+                  <Profile userObj={userObj} />
                 </Route>
               </>
             )}
