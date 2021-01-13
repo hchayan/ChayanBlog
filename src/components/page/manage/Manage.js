@@ -28,11 +28,11 @@ const Manage = ({ userObj }) => {
   return (
     <div className="manage">
       <div className="manage__column">
-        <div className="matage-title">관리 및 설정</div>
+        <h2 className="manage-title">관리 및 설정</h2>
       </div>
       <div className="manage__column">
         <div className="manage-categories">
-          <div className="category-name">카테고리 목록</div>
+          <h2 className="category-name">카테고리 목록</h2>
           <div className="category-lists">
             {categories.map(category => (
               <div className="category-list">{category}</div>
@@ -42,7 +42,7 @@ const Manage = ({ userObj }) => {
       </div>
       <div className="manage__column">
         <div className="manage-tags">
-          <div className="tag-name">태그 목록</div>
+          <h2 className="tag-name">태그 목록</h2>
           <div className="tag-lists">
             {tags.map(tag => (
               <div className="tag-list">{tag}</div>
