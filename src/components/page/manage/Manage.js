@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import update from "immutability-helper";
 import { dbService } from "../../../blogFirebase.js";
+import ManageNode from "./ManageNode";
 
 const Manage = ({ userObj }) => {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
 
+  // load
   const getCategoryAndTag = () => {
     dbService
       .collection("statics")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          console.log(doc.id, doc.data().name);
           if (doc.id === "tags") {
             setTags(doc.data().name);
           } else if (doc.id === "categories") {
@@ -25,6 +27,22 @@ const Manage = ({ userObj }) => {
     getCategoryAndTag();
   }, []);
 
+  // dnd
+  const moveNode = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragNode = categories[dragIndex];
+      setCategories(
+        update(categories, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragNode],
+          ],
+        })
+      );
+    },
+    [categories]
+  );
+
   return (
     <div className="manage">
       <div className="manage__column">
@@ -34,8 +52,13 @@ const Manage = ({ userObj }) => {
         <div className="manage-categories">
           <h2 className="category-name">카테고리 목록</h2>
           <div className="category-lists">
-            {categories.map(category => (
-              <div className="category-list">{category}</div>
+            {categories.map((category, i) => (
+              <ManageNode
+                key={i}
+                index={i}
+                text={category}
+                moveNode={moveNode}
+              />
             ))}
           </div>
         </div>
@@ -44,8 +67,10 @@ const Manage = ({ userObj }) => {
         <div className="manage-tags">
           <h2 className="tag-name">태그 목록</h2>
           <div className="tag-lists">
-            {tags.map(tag => (
-              <div className="tag-list">{tag}</div>
+            {tags.map((tag, i) => (
+              <div key={i} className="tag-list">
+                {tag}
+              </div>
             ))}
           </div>
         </div>
