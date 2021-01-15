@@ -69,8 +69,16 @@ const Manage = ({ userObj }) => {
       </div>
       <div className="manage__column">
         <div className="manage-categories">
-          <h2 className="category-name">카테고리 목록</h2>
+          <h2 className="category-name">카테고리 관리</h2>
+
           <div className="category-lists">
+            <div className="category-add">
+              <input
+                type="text"
+                placeholder="추가할 카테고리명을 작성해주세요"
+              />
+              <input type="button" value="추가" />
+            </div>
             {categories.map((category, i) => (
               <ManageNode
                 key={category.id}
