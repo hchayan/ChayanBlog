@@ -15,9 +15,13 @@ const Manage = ({ userObj }) => {
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           if (doc.id === "tags") {
-            setTags(doc.data().name);
+            doc.data().name.forEach((text, i) => {
+              setTags(prev => [...prev, { id: i, text }]);
+            });
           } else if (doc.id === "categories") {
-            setCategories(doc.data().name);
+            doc.data().name.forEach((text, i) => {
+              setCategories(prev => [...prev, { id: i, text }]);
+            });
           }
         });
       });
@@ -28,7 +32,7 @@ const Manage = ({ userObj }) => {
   }, []);
 
   // dnd
-  const moveNode = useCallback(
+  const moveCategory = useCallback(
     (dragIndex, hoverIndex) => {
       const dragNode = categories[dragIndex];
       setCategories(
@@ -43,6 +47,21 @@ const Manage = ({ userObj }) => {
     [categories]
   );
 
+  const moveTag = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragNode = tags[dragIndex];
+      setTags(
+        update(tags, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragNode],
+          ],
+        })
+      );
+    },
+    [tags]
+  );
+
   return (
     <div className="manage">
       <div className="manage__column">
@@ -54,10 +73,11 @@ const Manage = ({ userObj }) => {
           <div className="category-lists">
             {categories.map((category, i) => (
               <ManageNode
-                key={i}
+                key={category.id}
                 index={i}
-                text={category}
-                moveNode={moveNode}
+                text={category.text}
+                moveNode={moveCategory}
+                accept="category"
               />
             ))}
           </div>
@@ -68,9 +88,13 @@ const Manage = ({ userObj }) => {
           <h2 className="tag-name">태그 목록</h2>
           <div className="tag-lists">
             {tags.map((tag, i) => (
-              <div key={i} className="tag-list">
-                {tag}
-              </div>
+              <ManageNode
+                key={tag.id}
+                index={i}
+                text={tag.text}
+                moveNode={moveTag}
+                accept="tag"
+              />
             ))}
           </div>
         </div>

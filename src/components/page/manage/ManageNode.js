@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-const ManageNode = ({ id, text, index, moveNode }) => {
+const ManageNode = ({ id, text, index, moveNode, accept }) => {
   const ref = useRef(null);
   const [, drop] = useDrop({
-    accept: "node",
+    accept: accept,
     hover(item, monitor) {
       if (!ref.current) {
         return;
@@ -37,13 +37,16 @@ const ManageNode = ({ id, text, index, moveNode }) => {
       item.index = hoverIndex;
     },
   });
+
   const [{ isDragging }, drag] = useDrag({
-    item: { type: "node", id, index },
+    item: { type: accept, id, index },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
   });
+
   const opacity = isDragging ? 0 : 1;
+
   drag(drop(ref));
 
   return (
