@@ -93,8 +93,12 @@ const Manage = ({ userObj }) => {
       </div>
       <div className="manage__column">
         <div className="manage-tags">
-          <h2 className="tag-name">태그 목록</h2>
+          <h2 className="tag-name">태그 관리</h2>
           <div className="tag-lists">
+            <div className="tag-add">
+              <input type="text" placeholder="추가할 태그명을 작성해주세요" />
+              <input type="button" value="추가" />
+            </div>
             {tags.map((tag, i) => (
               <ManageNode
                 key={tag.id}

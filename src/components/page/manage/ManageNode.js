@@ -50,7 +50,7 @@ const ManageNode = ({ id, text, index, moveNode, accept }) => {
   drag(drop(ref));
 
   return (
-    <div className="category-list" ref={ref} style={{ opacity }}>
+    <div className={`${accept}-list`} ref={ref} style={{ opacity }}>
       {text}
     </div>
   );
