@@ -1,29 +1,19 @@
-import { dbService } from "../../blogFirebase";
 import React, { useEffect, useState } from "react";
+import { addDBCategory, loadDBCategory } from "../db/CategoryDB.js";
 
 const CatePopup = ({ cates, setCates, setCatePopup }) => {
   const [inputCategory, setInputCategory] = useState("");
   const [dbCates, setdbCates] = useState([]);
 
-  const addDBCategory = async () => {
-    await dbService
-      .collection("statics")
-      .doc("categories")
-      .set({
-        name: [...dbCates, inputCategory],
-      });
+  const addCategory = async () => {
+    await addDBCategory(dbCates, inputCategory);
 
     setdbCates([...dbCates, inputCategory]);
     setInputCategory("");
   };
 
-  const loadDBCategory = async () => {
-    const dbLoadCategories = await dbService
-      .collection("statics")
-      .doc("categories")
-      .get();
-
-    setdbCates(dbLoadCategories.data().name);
+  const loadCategory = () => {
+    setdbCates(loadDBCategory());
   };
 
   const onChangeAddCategory = e => {
@@ -40,7 +30,7 @@ const CatePopup = ({ cates, setCates, setCatePopup }) => {
   };
 
   useEffect(() => {
-    loadDBCategory();
+    loadCategory();
   }, []);
 
   return (

@@ -2,33 +2,72 @@ import React, { useState, useEffect, useCallback } from "react";
 import update from "immutability-helper";
 import { dbService } from "../../../blogFirebase.js";
 import ManageNode from "./ManageNode";
+import {
+  saveDBCategory,
+  addDBCategory,
+  loadDBCategory,
+} from "components/db/CategoryDB.js";
 
 const Manage = ({ userObj }) => {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const [inputCategory, setInputCategory] = useState("");
+  const [inputTag, setInputTag] = useState("");
 
   // load
-  const getCategoryAndTag = () => {
-    dbService
-      .collection("statics")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          if (doc.id === "tags") {
-            doc.data().name.forEach((text, i) => {
-              setTags(prev => [...prev, { id: i, text }]);
-            });
-          } else if (doc.id === "categories") {
-            doc.data().name.forEach((text, i) => {
-              setCategories(prev => [...prev, { id: i, text }]);
-            });
-          }
-        });
-      });
+  const loadCategory = async () => {
+    const loadedDBCategory = await loadDBCategory();
+
+    loadedDBCategory.forEach((text, i) => {
+      setCategories(prev => [...prev, { id: i, text }]);
+    });
   };
 
+  const getDBCategory = async () => {
+    let dbCategories = [];
+    await categories.forEach(category => {
+      dbCategories.push(category.text);
+    });
+
+    return dbCategories;
+  };
+
+  // save
+  const saveCategory = async () => {
+    try {
+      const dbCategories = await getDBCategory();
+      await saveDBCategory(dbCategories);
+      alert("저장되었습니다.");
+    } catch (error) {
+      alert("저장중에 문제가 발생했습니다. " + error.message);
+    }
+  };
+
+  // onChange
+  const onChangeAddCategory = e => {
+    setInputCategory(e.target.value);
+  };
+
+  const onChangeAddTag = e => {
+    setInputTag(e.target.value);
+  };
+
+  // add
+  const addCategory = async () => {
+    const dbCategories = await getDBCategory();
+    await addDBCategory(dbCategories, inputCategory);
+
+    setCategories([
+      ...categories,
+      { id: categories.length, text: inputCategory },
+    ]);
+    setInputCategory("");
+  };
+
+  const addTag = async () => {};
+
   useEffect(() => {
-    getCategoryAndTag();
+    loadCategory();
   }, []);
 
   // dnd
@@ -43,6 +82,8 @@ const Manage = ({ userObj }) => {
           ],
         })
       );
+      // 변화있으면 저장
+      console.log(categories);
     },
     [categories]
   );
@@ -65,7 +106,13 @@ const Manage = ({ userObj }) => {
   return (
     <div className="manage">
       <div className="manage__column">
-        <h2 className="manage-title">관리 및 설정</h2>
+        <div className="manage-header">
+          <div className="manage-dummy"></div>
+          <h2 className="manage-title">관리 및 설정</h2>
+          <div className="manage-save" onClick={saveCategory}>
+            저장
+          </div>
+        </div>
       </div>
       <div className="manage__column">
         <div className="manage-categories">
@@ -75,9 +122,11 @@ const Manage = ({ userObj }) => {
             <div className="category-add">
               <input
                 type="text"
+                value={inputCategory}
+                onChange={onChangeAddCategory}
                 placeholder="추가할 카테고리명을 작성해주세요"
               />
-              <input type="button" value="추가" />
+              <input type="button" value="추가" onClick={addCategory} />
             </div>
             {categories.map((category, i) => (
               <ManageNode
