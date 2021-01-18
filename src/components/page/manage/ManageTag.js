@@ -24,10 +24,11 @@ const ManageTag = ({ tags, setTags, getTagNames }) => {
   const removeTag = async e => {
     try {
       const removeTag = e.target.parentNode.parentNode.childNodes[1].innerHTML;
+      if (window.confirm(`정말로 '${removeTag}' 를 삭제하시겠습니까 ?`)) {
+        setTags(tags.filter(tag => tag.text !== removeTag));
 
-      setTags(tags.filter(tag => tag.text !== removeTag));
-
-      alert("태그명이 삭제되었습니다.");
+        alert("태그명이 삭제되었습니다.");
+      }
     } catch (error) {
       alert("카테고리를 삭제하는데 실패했습니다. " + error.message);
     }

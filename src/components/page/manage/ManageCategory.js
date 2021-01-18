@@ -30,12 +30,13 @@ const ManageCategory = ({
     try {
       const removeCategory =
         e.target.parentNode.parentNode.childNodes[1].innerHTML;
+      if (window.confirm(`정말로 '${removeCategory}' 를 삭제하시겠습니까 ?`)) {
+        setCategories(
+          categories.filter(category => category.text !== removeCategory)
+        );
 
-      setCategories(
-        categories.filter(category => category.text !== removeCategory)
-      );
-
-      alert("카테고리명이 삭제되었습니다.");
+        alert("카테고리명이 삭제되었습니다.");
+      }
     } catch (error) {
       alert("카테고리를 삭제하는데 실패했습니다. " + error.message);
     }
