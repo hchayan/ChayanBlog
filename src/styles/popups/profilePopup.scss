@@ -20,6 +20,11 @@
     &:hover {
       color: $color-main-text;
     }
+
+    a {
+      font-size: 0.9rem;
+      color: inherit;
+    }
   }
 
   .profile-popup--container {
