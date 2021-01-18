@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Prompt } from "react-router-dom";
 import { saveDBCategory } from "components/db/CategoryDB.js";
 import { saveDBTag } from "components/db/TagDB.js";
 import ManageCategory from "./ManageCategory";
@@ -54,7 +54,7 @@ const Manage = ({ userObj, articles }) => {
     <div className="manage">
       <div className="manage__column">
         <div className="manage-header">
-          <div className="manage-dummy">{articles.length}</div>
+          <div className="manage-dummy"></div>
           <h2 className="manage-title">관리 및 설정</h2>
           <div className="manage-save" onClick={saveStatic}>
             저장
@@ -72,6 +72,10 @@ const Manage = ({ userObj, articles }) => {
       <div className="manage__column">
         <ManageTag tags={tags} setTags={setTags} getTagNames={getTagNames} />
       </div>
+      <Prompt
+        // when={isBlocking}
+        message="정말로 페이지를 나가시겠습니까?  페이지를 나가면 수정한 내용이 초기화됩니다"
+      />
     </div>
   );
 };
