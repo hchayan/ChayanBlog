@@ -3,14 +3,19 @@ import update from "immutability-helper";
 import ManageNode from "./ManageNode";
 import { addDBCategory, loadDBCategory } from "components/db/CategoryDB.js";
 
-const ManageCategory = ({ categories, setCategories, getCategoryNames }) => {
+const ManageCategory = ({
+  articles,
+  categories,
+  setCategories,
+  getCategoryNames,
+}) => {
   const [inputCategory, setInputCategory] = useState("");
 
   // load
   const loadCategory = async () => {
     const loadedDBCategory = await loadDBCategory();
 
-    loadedDBCategory.forEach((text, i) => {
+    await loadedDBCategory.forEach((text, i) => {
       setCategories(prev => [...prev, { id: i, text }]);
     });
   };
@@ -18,6 +23,22 @@ const ManageCategory = ({ categories, setCategories, getCategoryNames }) => {
   // onChange
   const onChangeAddCategory = e => {
     setInputCategory(e.target.value);
+  };
+
+  // remove
+  const removeCategory = async e => {
+    try {
+      const removeCategory =
+        e.target.parentNode.parentNode.childNodes[1].innerHTML;
+
+      setCategories(
+        categories.filter(category => category.text !== removeCategory)
+      );
+
+      alert("카테고리명이 삭제되었습니다.");
+    } catch (error) {
+      alert("카테고리를 삭제하는데 실패했습니다. " + error.message);
+    }
   };
 
   // add
@@ -36,7 +57,7 @@ const ManageCategory = ({ categories, setCategories, getCategoryNames }) => {
 
     const vaild = isVaildCategory(categoryNames);
     if (!vaild) {
-      await addDBCategory(categoryNames, inputCategory);
+      //await addDBCategory(categoryNames, inputCategory);
 
       setCategories([
         ...categories,
@@ -89,6 +110,7 @@ const ManageCategory = ({ categories, setCategories, getCategoryNames }) => {
             text={category.text}
             moveNode={moveCategory}
             accept="category"
+            removeList={removeCategory}
           />
         ))}
       </div>

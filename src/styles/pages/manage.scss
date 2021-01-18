@@ -1,8 +1,9 @@
 .manage {
   background-color: $bg-color-1;
-  padding-top: 70px;
+  padding: 70px 0;
   margin-bottom: -80px;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   min-width: $mobile-min-width;
 
   .manage__column {
@@ -113,9 +114,21 @@
           padding: 0.5rem 1rem;
           margin: 0 auto;
           margin-bottom: 0.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           background-color: white;
           cursor: move;
           opacity: 1;
+
+          .list-delete {
+            color: $bg-color-3;
+            cursor: pointer;
+
+            &:hover {
+              color: $color-delete;
+            }
+          }
         }
       }
     }
@@ -191,8 +204,20 @@
           margin: 0 auto;
           margin-bottom: 0.5rem;
           background-color: white;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           cursor: move;
           opacity: 1;
+
+          .list-delete {
+            color: $bg-color-3;
+            cursor: pointer;
+
+            &:hover {
+              color: $color-delete;
+            }
+          }
         }
       }
     }

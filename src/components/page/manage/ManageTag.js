@@ -20,6 +20,19 @@ const ManageTag = ({ tags, setTags, getTagNames }) => {
     setInputTag(e.target.value);
   };
 
+  // remove
+  const removeTag = async e => {
+    try {
+      const removeTag = e.target.parentNode.parentNode.childNodes[1].innerHTML;
+
+      setTags(tags.filter(tag => tag.text !== removeTag));
+
+      alert("태그명이 삭제되었습니다.");
+    } catch (error) {
+      alert("카테고리를 삭제하는데 실패했습니다. " + error.message);
+    }
+  };
+
   // add
   const isVaildTag = tagNames => {
     inputTag.trim();
@@ -67,7 +80,7 @@ const ManageTag = ({ tags, setTags, getTagNames }) => {
 
   return (
     <div className="manage-tags">
-      <h2 className="tag-name">카테고리 관리</h2>
+      <h2 className="tag-name">태그 관리</h2>
 
       <div className="tag-lists">
         <div className="tag-add">
@@ -86,6 +99,7 @@ const ManageTag = ({ tags, setTags, getTagNames }) => {
             text={tag.text}
             moveNode={moveTag}
             accept="tag"
+            removeList={removeTag}
           />
         ))}
       </div>

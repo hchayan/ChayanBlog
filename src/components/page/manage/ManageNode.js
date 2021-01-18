@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-const ManageNode = ({ id, text, index, moveNode, accept }) => {
+const ManageNode = ({ id, text, index, moveNode, accept, removeList }) => {
   const ref = useRef(null);
   const [, drop] = useDrop({
     accept: accept,
@@ -51,7 +51,11 @@ const ManageNode = ({ id, text, index, moveNode, accept }) => {
 
   return (
     <div className={`${accept}-list`} ref={ref} style={{ opacity }}>
-      {text}
+      <div className="list-dummy"></div>
+      <div className="list-name">{text}</div>
+      <div className="list-delete" title="삭제" onClick={removeList}>
+        <i class="far fa-trash-alt"></i>
+      </div>
     </div>
   );
 };

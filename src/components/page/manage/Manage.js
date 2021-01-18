@@ -63,6 +63,7 @@ const Manage = ({ userObj, articles }) => {
       </div>
       <div className="manage__column">
         <ManageCategory
+          articles={articles}
           categories={categories}
           setCategories={setCategories}
           getCategoryNames={getCategoryNames}
