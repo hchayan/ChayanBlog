@@ -42,7 +42,7 @@ const CatePopup = ({ cates, setCates, setCatePopup }) => {
           onChange={onChangeAddCategory}
           placeholder="추가할 카테고리를 적어주세요"
         />
-        <input type="button" value="추가" onClick={addDBCategory} />
+        <input type="button" value="추가" onClick={addCategory} />
       </div>
       <div className="cates-popup__column cates-list--btn">
         <select onChange={addCategoryOnPost}>

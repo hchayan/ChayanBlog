@@ -1,4 +1,3 @@
-import React from "react";
 import { dbService } from "../../blogFirebase";
 
 const saveDBCategory = async categories => {

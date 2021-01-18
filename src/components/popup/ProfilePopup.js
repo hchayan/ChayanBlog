@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { authService } from "../../blogFirebase.js";
 
 const ProfilePopup = ({ userObj, articles, bookmarks }) => {
@@ -106,7 +107,9 @@ const ProfilePopup = ({ userObj, articles, bookmarks }) => {
             <div className="comment-count">북마크 {bookmarkCount}</div>
           </div>
           <div className="profile-nav">
-            <button className="profile-info-edit">내정보</button>
+            <button className="profile-info-edit">
+              <Link to="/setting">설정</Link>
+            </button>
             <button className="profile-logout" onClick={onLogOutClick}>
               로그아웃
             </button>

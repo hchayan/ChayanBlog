@@ -1,13 +1,15 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { saveDBCategory } from "components/db/CategoryDB.js";
-import update from "immutability-helper";
-import ManageNode from "./ManageNode";
+import { saveDBTag } from "components/db/TagDB.js";
 import ManageCategory from "./ManageCategory";
+import ManageTag from "./ManageTag";
 
-const Manage = ({ userObj }) => {
+const Manage = ({ userObj, articles }) => {
+  let history = useHistory();
+
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
-  const [inputTag, setInputTag] = useState("");
 
   const getCategoryNames = async () => {
     let categoryNames = [];
@@ -18,43 +20,43 @@ const Manage = ({ userObj }) => {
     return categoryNames;
   };
 
+  const getTagNames = async () => {
+    let tagNames = [];
+    await tags.forEach(tag => {
+      tagNames.push(tag.text);
+    });
+
+    return tagNames;
+  };
+
   // save
   const saveCategory = async () => {
+    const categoryNames = await getCategoryNames();
+    await saveDBCategory(categoryNames);
+  };
+
+  const saveTag = async () => {
+    const tagNames = await getTagNames();
+    await saveDBTag(tagNames);
+  };
+
+  const saveStatic = async () => {
     try {
-      const categoryNames = await getCategoryNames();
-      await saveDBCategory(categoryNames);
-      alert("저장되었습니다.");
+      await saveCategory();
+      await saveTag();
+      alert("저장되었습니다");
     } catch (error) {
       alert("저장중에 문제가 발생했습니다. " + error.message);
     }
   };
 
-  const onChangeAddTag = e => {
-    setInputTag(e.target.value);
-  };
-
-  const moveTag = useCallback(
-    (dragIndex, hoverIndex) => {
-      const dragNode = tags[dragIndex];
-      setTags(
-        update(tags, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, dragNode],
-          ],
-        })
-      );
-    },
-    [tags]
-  );
-
   return (
     <div className="manage">
       <div className="manage__column">
         <div className="manage-header">
-          <div className="manage-dummy"></div>
+          <div className="manage-dummy">{articles.length}</div>
           <h2 className="manage-title">관리 및 설정</h2>
-          <div className="manage-save" onClick={saveCategory}>
+          <div className="manage-save" onClick={saveStatic}>
             저장
           </div>
         </div>
@@ -67,24 +69,7 @@ const Manage = ({ userObj }) => {
         />
       </div>
       <div className="manage__column">
-        <div className="manage-tags">
-          <h2 className="tag-name">태그 관리</h2>
-          <div className="tag-lists">
-            <div className="tag-add">
-              <input type="text" placeholder="추가할 태그명을 작성해주세요" />
-              <input type="button" value="추가" />
-            </div>
-            {tags.map((tag, i) => (
-              <ManageNode
-                key={tag.id}
-                index={i}
-                text={tag.text}
-                moveNode={moveTag}
-                accept="tag"
-              />
-            ))}
-          </div>
-        </div>
+        <ManageTag tags={tags} setTags={setTags} getTagNames={getTagNames} />
       </div>
     </div>
   );

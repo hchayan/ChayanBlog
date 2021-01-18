@@ -106,7 +106,7 @@ function App() {
                   <Write userObj={userObj} articleObj={articleObj} />
                 </Route>
                 <Route excat path="/setting">
-                  <Manage userObj={userObj} />
+                  <Manage userObj={userObj} articles={articles} />
                 </Route>
               </>
             )}
