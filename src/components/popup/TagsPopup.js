@@ -12,8 +12,9 @@ const TagsPopup = ({ tags, setTags }) => {
     setInputTag("");
   };
 
-  const loadTag = () => {
-    setdbTags(loadDBTag());
+  const loadTag = async () => {
+    const loadedTags = await loadDBTag();
+    setdbTags(loadedTags);
   };
 
   const onChangeAddTag = e => {

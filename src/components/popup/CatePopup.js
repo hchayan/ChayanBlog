@@ -12,8 +12,9 @@ const CatePopup = ({ cates, setCates, setCatePopup }) => {
     setInputCategory("");
   };
 
-  const loadCategory = () => {
-    setdbCates(loadDBCategory());
+  const loadCategory = async () => {
+    const loadedCategories = await loadDBCategory();
+    setdbCates(loadedCategories);
   };
 
   const onChangeAddCategory = e => {
