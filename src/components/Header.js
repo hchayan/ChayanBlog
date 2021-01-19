@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import ProfilePopup from "./popup/ProfilePopup";
 
 const Header = ({ loggedIn, userObj, articles, bookmarks }) => {
+  const profileRef = useRef();
   const [profilePopup, setProfilePopup] = useState(false);
-  const toggleProfilePopup = () => {
-    setProfilePopup(!profilePopup);
+
+  const handleClickProfileOutside = ({ target }) => {
+    if (profilePopup && !profileRef.current.contains(target)) {
+      setProfilePopup(false);
+      window.removeEventListener("click", handleClickProfileOutside);
+    }
   };
 
   useEffect(() => {
-    setProfilePopup(false);
-  }, [loggedIn]);
+    if (profilePopup) {
+      window.addEventListener("click", handleClickProfileOutside);
+    }
+  }, [profilePopup]);
 
   return (
     <div className="header">
@@ -41,7 +48,10 @@ const Header = ({ loggedIn, userObj, articles, bookmarks }) => {
                 )}
               </div>
 
-              <div className="header-profile" onClick={toggleProfilePopup}>
+              <div
+                className="header-profile"
+                onClick={() => setProfilePopup(true)}
+              >
                 {userObj && userObj.photoURL ? (
                   <img alt="프로필" src={userObj.photoURL} />
                 ) : (
@@ -50,7 +60,7 @@ const Header = ({ loggedIn, userObj, articles, bookmarks }) => {
               </div>
 
               {profilePopup ? (
-                <div className="profile-popup">
+                <div className="profile-popup" ref={profileRef}>
                   <ProfilePopup
                     userObj={userObj}
                     articles={articles}
