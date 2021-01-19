@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 import { storageService } from "../../../blogFirebase";
@@ -20,8 +20,37 @@ const WriteInfo = ({
   setCategories,
   onSubmit,
 }) => {
+  const categoryRef = useRef();
+  const tagRef = useRef();
   const [tagPopup, setTagPopup] = useState(false); // 태그 창 열기
   const [catePopup, setCatePopup] = useState(false); // 카테고리 창 열기
+
+  // model
+  const handleClickCategoryOutside = ({ target }) => {
+    if (catePopup && !categoryRef.current.contains(target)) {
+      setCatePopup(false);
+      window.removeEventListener("click", handleClickCategoryOutside);
+    }
+  };
+
+  const handleClickTagOutside = ({ target }) => {
+    if (tagPopup && !tagRef.current.contains(target)) {
+      setTagPopup(false);
+      window.removeEventListener("click", handleClickTagOutside);
+    }
+  };
+
+  useEffect(() => {
+    if (catePopup) {
+      window.addEventListener("click", handleClickCategoryOutside);
+    }
+  }, [catePopup]);
+
+  useEffect(() => {
+    if (tagPopup) {
+      window.addEventListener("click", handleClickTagOutside);
+    }
+  }, [tagPopup]);
 
   // 게시글 제목 적용
   const onChangeTitle = e => {
@@ -60,21 +89,6 @@ const WriteInfo = ({
 
   const deleteTumbnail = async () => {
     await storageService.refFromURL(thmubnailURL).delete();
-  };
-
-  const toggleTagPopup = () => {
-    if (catePopup) {
-      setCatePopup(!catePopup);
-    }
-
-    setTagPopup(!tagPopup);
-  };
-
-  const toggleCatePopup = () => {
-    if (tagPopup) {
-      setTagPopup(!tagPopup);
-    }
-    setCatePopup(!catePopup);
   };
 
   const removeTag = e => {
@@ -139,9 +153,15 @@ const WriteInfo = ({
                   cates={categories}
                   setCates={setCategories}
                   setCatePopup={setCatePopup}
+                  categoryRef={categoryRef}
                 />
               ) : null}
-              <div className="write-cate-tags" onClick={toggleCatePopup}>
+              <div
+                className="write-cate-tags"
+                onClick={() => {
+                  setCatePopup(true);
+                }}
+              >
                 카테고리 선택
               </div>
             </div>
@@ -172,8 +192,15 @@ const WriteInfo = ({
                   );
                 })}
               </div>
-              {tagPopup ? <TagsPopup tags={tags} setTags={setTags} /> : null}
-              <div className="write-add-tags" onClick={toggleTagPopup}>
+              {tagPopup ? (
+                <TagsPopup tags={tags} setTags={setTags} tagRef={tagRef} />
+              ) : null}
+              <div
+                className="write-add-tags"
+                onClick={() => {
+                  setTagPopup(true);
+                }}
+              >
                 태그 추가
               </div>
             </div>

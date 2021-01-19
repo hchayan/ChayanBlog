@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { addDBTag, loadDBTag } from "../db/TagDB.js";
 
-const TagsPopup = ({ tags, setTags }) => {
+const TagsPopup = ({ tags, setTags, tagRef }) => {
   const [inputTag, setInputTag] = useState("");
   const [dbTags, setdbTags] = useState([]);
 
@@ -32,7 +32,7 @@ const TagsPopup = ({ tags, setTags }) => {
   }, []);
 
   return (
-    <div className="tags-popup">
+    <div className="tags-popup" ref={tagRef}>
       <div className="tags-popup__column">
         <input
           type="text"

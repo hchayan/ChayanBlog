@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { addDBCategory, loadDBCategory } from "../db/CategoryDB.js";
 
-const CatePopup = ({ cates, setCates, setCatePopup }) => {
+const CatePopup = ({ cates, setCates, setCatePopup, categoryRef }) => {
   const [inputCategory, setInputCategory] = useState("");
   const [dbCates, setdbCates] = useState([]);
 
@@ -35,7 +35,7 @@ const CatePopup = ({ cates, setCates, setCatePopup }) => {
   }, []);
 
   return (
-    <div className="cates-popup">
+    <div className="cates-popup" ref={categoryRef}>
       <div className="cates-popup__column">
         <input
           type="text"
