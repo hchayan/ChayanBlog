@@ -27,7 +27,11 @@ const WriteInfo = ({
 
   // model
   const handleClickCategoryOutside = ({ target }) => {
-    if (catePopup && !categoryRef.current.contains(target)) {
+    if (
+      catePopup &&
+      categoryRef.current &&
+      !categoryRef.current.contains(target)
+    ) {
       setCatePopup(false);
       window.removeEventListener("click", handleClickCategoryOutside);
     }
