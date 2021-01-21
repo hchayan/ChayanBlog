@@ -9,9 +9,11 @@ const WriteAddon = ({
   setObjectURL,
   markdownContent,
   setMarkdownContent,
+  setIsUploadable,
 }) => {
   const uploadImage = async e => {
     try {
+      setIsUploadable(false);
       if (e) {
         const result = await onChangeImage(e);
 
@@ -29,6 +31,7 @@ const WriteAddon = ({
     } catch (error) {
       alert("이미지를 추가하는데 오류가 발생했습니다. 에러코드 : " + error);
     }
+    setIsUploadable(true);
   };
 
   return (

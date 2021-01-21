@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useHistory, Prompt } from "react-router-dom";
 
-import { dbService } from "../../../blogFirebase";
+import { dbService, storageService } from "../../../blogFirebase";
 
 import WriteInfo from "./WriteInfo";
 import WriteForm from "./WriteForm";
 import WriteAddon from "./WriteAddon";
 
 const Write = ({ userObj, articleObj }) => {
-  const [thmubnailURL, setThumbnailURL] = useState("");
+  const [thumbnailURL, setThumbnailURL] = useState("");
   const [objectURL, setObjectURL] = useState([]);
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -17,7 +17,16 @@ const Write = ({ userObj, articleObj }) => {
   const [markdownTitle, setMarkdownTitle] = useState(``);
   const [markdownContent, setMarkdownContent] = useState(``);
 
-  const [isBlocking, setIsBlocking] = useState(false);
+  const [isBlocking, setIsBlocking] = useState(true);
+  const [isUploadable, setIsUploadable] = useState(true);
+
+  // unmount 확인용
+  const thumbnailURLRef = useRef();
+  const objectURLRef = useRef();
+  const isBlockingRef = useRef();
+  thumbnailURLRef.current = thumbnailURL;
+  objectURLRef.current = objectURL;
+  isBlockingRef.current = isBlocking;
 
   let history = useHistory();
 
@@ -57,7 +66,6 @@ const Write = ({ userObj, articleObj }) => {
 
   useEffect(() => {
     checkUserVaild();
-    setIsBlocking(true);
   }, []);
 
   // 로컬 이미지 업로드
@@ -114,7 +122,7 @@ const Write = ({ userObj, articleObj }) => {
         } else {
           // 2.db에 게시글 정보 업로드
           await dbService.collection("posts").add({
-            thumbnailId: thmubnailURL,
+            thumbnailId: thumbnailURL,
             objId: objectURL,
             postTag: tags,
             postTypes: categories,
@@ -145,7 +153,7 @@ const Write = ({ userObj, articleObj }) => {
           alert(vaild);
         } else {
           await dbService.doc(`/posts/${articleObj.id}`).update({
-            thumbnailId: thmubnailURL,
+            thumbnailId: thumbnailURL,
             objId: objectURL,
             postTag: tags,
             postTypes: categories,
@@ -175,6 +183,23 @@ const Write = ({ userObj, articleObj }) => {
     }
   };
 
+  const unExpectedExit = async () => {
+    if (isBlockingRef.current) {
+      if (thumbnailURLRef.current.length > 0) {
+        await storageService.refFromURL(thumbnailURLRef.current).delete();
+      }
+      if (objectURLRef.current.length > 0) {
+        await objectURLRef.current.forEach(objectRef => {
+          storageService.refFromURL(objectRef).delete();
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    return () => unExpectedExit();
+  }, []);
+
   return (
     <div className="write">
       <Helmet>
@@ -183,7 +208,7 @@ const Write = ({ userObj, articleObj }) => {
       <div className="write__column">
         <WriteInfo
           userObj={userObj}
-          thmubnailURL={thmubnailURL}
+          thumbnailURL={thumbnailURL}
           onChangeImage={onChangeImage}
           setThumbnailURL={setThumbnailURL}
           markdownTitle={markdownTitle}
@@ -195,6 +220,9 @@ const Write = ({ userObj, articleObj }) => {
           tags={tags}
           setTags={setTags}
           onSubmit={onSubmit}
+          isUploadable={isUploadable}
+          setIsUploadable={setIsUploadable}
+          isBlocking={isBlocking}
         />
       </div>
       <div className="write__column">
@@ -205,6 +233,7 @@ const Write = ({ userObj, articleObj }) => {
           setObjectURL={setObjectURL}
           markdownContent={markdownContent}
           setMarkdownContent={setMarkdownContent}
+          setIsUploadable={setIsUploadable}
         />
         <WriteForm
           markdownContent={markdownContent}

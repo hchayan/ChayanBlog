@@ -12,13 +12,16 @@ const WriteInfo = ({
   setMarkdownTitle,
   markdownContent,
   setMarkdownContent,
-  thmubnailURL,
+  thumbnailURL,
   setThumbnailURL,
   tags,
   setTags,
   categories,
   setCategories,
   onSubmit,
+  isUploadable,
+  setIsUploadable,
+  isBlocking,
 }) => {
   const categoryRef = useRef();
   const tagRef = useRef();
@@ -42,6 +45,18 @@ const WriteInfo = ({
       setTagPopup(false);
       window.removeEventListener("click", handleClickTagOutside);
     }
+  };
+
+  const removeTag = e => {
+    const name = e.target.parentNode.getAttribute("name");
+
+    setTags(tags => tags.filter(tag => tag !== name));
+  };
+
+  const removeCate = e => {
+    const name = e.target.parentNode.getAttribute("name");
+
+    setCategories(categories => categories.filter(cate => cate !== name));
   };
 
   useEffect(() => {
@@ -69,11 +84,12 @@ const WriteInfo = ({
 
   const uploadThumbnail = async e => {
     try {
+      setIsUploadable(false);
       if (e) {
         const result = await onChangeImage(e);
 
-        if (thmubnailURL !== "") {
-          await deleteTumbnail();
+        if (thumbnailURL !== "") {
+          await deleteThumbnail();
         }
 
         // 업로드
@@ -89,22 +105,11 @@ const WriteInfo = ({
     } catch (error) {
       alert("썸네일 이미지를 업로드하는데 오류가 발생했습니다 : " + error);
     }
+    setIsUploadable(true);
   };
 
-  const deleteTumbnail = async () => {
-    await storageService.refFromURL(thmubnailURL).delete();
-  };
-
-  const removeTag = e => {
-    const name = e.target.parentNode.getAttribute("name");
-
-    setTags(tags => tags.filter(tag => tag !== name));
-  };
-
-  const removeCate = e => {
-    const name = e.target.parentNode.getAttribute("name");
-
-    setCategories(categories => categories.filter(cate => cate !== name));
+  const deleteThumbnail = async () => {
+    await storageService.refFromURL(thumbnailURL).delete();
   };
 
   return (
@@ -114,16 +119,20 @@ const WriteInfo = ({
           <div className="write-title__column addon"></div>
           <div className="write-title__column">게시글 작성</div>
           <div className="write-title__column submits">
-            <button type="submit">완료</button>
+            {isUploadable ? (
+              <button type="submit">완료</button>
+            ) : (
+              <button>대기</button>
+            )}
           </div>
         </div>
         <div className="write-contents">
           <div className="write-form__column">
             <div className="write-thumbnail">
               <div className="thumbnail-preview">
-                {thmubnailURL !== "" ? <img src={thmubnailURL} /> : null}
+                {thumbnailURL !== "" ? <img src={thumbnailURL} /> : null}
                 <label htmlFor="write-thumbnail">
-                  {thmubnailURL !== "" ? null : "썸네일 업로드"}
+                  {thumbnailURL !== "" ? null : "썸네일 업로드"}
                 </label>
                 <input
                   type="file"
