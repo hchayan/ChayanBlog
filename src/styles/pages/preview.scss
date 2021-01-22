@@ -76,6 +76,7 @@
           .preview-option-bookmark {
             height: 25px;
             width: 25px;
+
             border: 1px solid $bg-color-3;
             border-radius: 5px;
             outline: none;
@@ -85,6 +86,7 @@
             align-items: center;
 
             i {
+              margin-left: 1px;
               width: 15px;
               height: 15px;
               color: $bg-color-3;
@@ -104,40 +106,54 @@
 
       .search-bar {
         height: 100%;
-        form {
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          input[type="text"] {
-            height: 28px;
-            border: 1px solid $bg-color-2;
-            border-radius: 5px;
-            padding: 0 10px;
-            cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-            &::placeholder {
-              font-size: 0.75rem;
-            }
+        select {
+          height: 28px;
+          width: 50px;
+          margin: 0 5px;
+          border: 1px solid $bg-color-2;
+          padding: 0 3px;
+          outline: none;
+          -webkit-appearance: button;
+          -moz-appearance: button;
+          appearance: button;
+          cursor: pointer;
 
-            &:focus {
-              outline-color: $color-g-3;
-            }
+          &:hover {
+            background-color: rgba($bg-color-2, 0.5);
+          }
+        }
+        input[type="text"] {
+          height: 28px;
+          border: 1px solid $bg-color-2;
+          border-radius: 5px;
+          padding: 0 10px;
+          cursor: pointer;
+
+          &::placeholder {
+            font-size: 0.75rem;
           }
 
-          input[type="button"] {
-            height: 28px;
-            background-color: $bg-color-0;
-            margin: 0 5px;
-            border: 1px solid $bg-color-2;
-            border-radius: 5px;
-            cursor: pointer;
+          &:focus {
+            outline-color: $color-g-3;
+          }
+        }
 
-            &:hover {
-              background-color: $color-main-bg;
-              color: $bg-color-0;
-              border: 1px solid $color-main-bg;
-            }
+        input[type="button"] {
+          height: 28px;
+          background-color: $bg-color-0;
+          margin: 0 5px;
+          border: 1px solid $bg-color-2;
+          border-radius: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $color-main-bg;
+            color: $bg-color-0;
+            border: 1px solid $color-main-bg;
           }
         }
       }

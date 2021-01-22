@@ -13,6 +13,7 @@ const PreviewMenu = ({
   setOnlyMarkCheck,
 }) => {
   const [menuNav, setMenuNav] = useState([]);
+  const [selectedTag, setSelectedTag] = useState("title");
 
   const loadDBCategory = async () => {
     try {
@@ -32,6 +33,10 @@ const PreviewMenu = ({
 
   const onChangeCategory = e => {
     setSelectedCategory(e.target.value);
+  };
+
+  const onChangeTag = e => {
+    setSelectedTag(e.target.value);
   };
 
   const onChangeMarkCheck = () => {
@@ -101,19 +106,23 @@ const PreviewMenu = ({
       </div>
       <div className="preview-menu__column">
         <div className="search-bar">
-          <form>
-            <input
-              type="text"
-              onChange={onChangeSearch}
-              placeholder="원하는 제목을 검색하세요"
-              value={searchKeyword}
-            />
-            <input
-              type="button"
-              value="검색"
-              onClick={() => searchArticles("title")}
-            />
-          </form>
+          <select onChange={onChangeTag}>
+            <option value="title">제목</option>
+            <option value="tag">태그</option>
+          </select>
+          <input
+            type="text"
+            onChange={onChangeSearch}
+            placeholder={`원하는 ${
+              selectedTag === "title" ? "제목을" : "태그를"
+            } 검색하세요`}
+            value={searchKeyword}
+          />
+          <input
+            type="button"
+            value="검색"
+            onClick={() => searchArticles(selectedTag)}
+          />
         </div>
         <div className="menu-more"></div>
       </div>

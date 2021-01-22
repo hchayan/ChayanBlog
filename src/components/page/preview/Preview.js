@@ -99,19 +99,27 @@ const Preview = ({
   // Search
   const filterArticlesWithSearch = async keyword => {
     try {
+      let newArticles = [];
       if (keyword === "title") {
-        const newArticles = await articles.filter(
+        newArticles = await articles.filter(
           article =>
             (article.postTypes[0] === selectedCategory ||
               "all" === selectedCategory) &&
             article.title.toLowerCase().includes(searchKeyword.toLowerCase())
         );
+      } else if (keyword === "tag") {
+        newArticles = await articles.filter(
+          article =>
+            (article.postTypes[0] === selectedCategory ||
+              "all" === selectedCategory) &&
+            article.postTag.includes(searchKeyword)
+        );
+      }
 
-        if (newArticles.length === 0) {
-          setFilteredArticles([]);
-        } else {
-          setFilteredArticles(newArticles);
-        }
+      if (newArticles.length === 0) {
+        setFilteredArticles([]);
+      } else {
+        setFilteredArticles(newArticles);
       }
     } catch (error) {
       setError("게시글들을 불러오지 못했습니다 : " + error);
