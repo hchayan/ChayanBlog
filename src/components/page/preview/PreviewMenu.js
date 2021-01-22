@@ -81,15 +81,21 @@ const PreviewMenu = ({
         </div>
         <div className="preview-options">
           <div className="preview-option">
-            <input
-              type="checkbox"
-              id="preview-option-bookmark"
-              name="bookmark"
-              value="bookmark"
-              checked={onlyMarkCheck}
-              onChange={onChangeMarkCheck}
-            />
-            <label for="preview-option-bookmark">북마크한 글</label>
+            <div
+              className={
+                onlyMarkCheck
+                  ? "preview-option-bookmark checked"
+                  : "preview-option-bookmark"
+              }
+              onClick={onChangeMarkCheck}
+              title="북마크한 글"
+            >
+              {onlyMarkCheck ? (
+                <i class="fas fa-bookmark"></i>
+              ) : (
+                <i class="far fa-bookmark"></i>
+              )}
+            </div>
           </div>
         </div>
       </div>
