@@ -11,7 +11,7 @@ const PreviewArticles = ({ match, filteredArticles, error, bookmarks }) => {
       ) : (
         <div className="preview__articles">
           {filteredArticles &&
-            filteredArticles.map(article => {
+            filteredArticles.map((article, i) => {
               return (
                 <PreviewArticle
                   key={article.id}

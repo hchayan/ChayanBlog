@@ -1,5 +1,6 @@
 import React from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import { Link } from "react-router-dom";
 
@@ -14,7 +15,12 @@ const PreviewArticle = ({ article, marked }) => {
         ) : null}
         {article.thumbnailId !== "" ? (
           <div className="article-thumbnail">
-            <img src={article.thumbnailId} alt="thumbnail" />
+            <LazyLoadImage
+              alt="thumbnail"
+              src={article.thumbnailId}
+              effect="opacity"
+            />
+
             <div className="article-categories">
               {article.postTypes.map(type => {
                 return (
