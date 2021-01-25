@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Helmet } from "react-helmet";
+
 import AuthForm from "../../page/auth/AuthForm";
 import AuthOuterForm from "../../page/auth/AuthOuterForm";
 import { useHistory } from "react-router-dom";
@@ -10,9 +10,6 @@ const Auth = () => {
 
   return (
     <div className="auth">
-      <Helmet>
-        <title>로그인 | 차얀 블로그</title>
-      </Helmet>
       <div className="auth-container">
         <div className="auth-container__column">
           <div className="logo">

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -41,18 +40,6 @@ function App() {
 
   return (
     <div className="App">
-      <Helmet
-        meta={[
-          { name: "description", content: "Description of page" },
-          { property: "og:title", content: "차얀 블로그" },
-          {
-            property: "og:image",
-            content:
-              "https://firebasestorage.googleapis.com/v0/b/chayanblog.appspot.com/o/static%2Flogo.svg?alt=media&token=1506f45c-8be3-40b1-8bb1-2c55f750109e",
-          },
-          { property: "og:url", content: "https://dev.chayan.io" },
-        ]}
-      ></Helmet>
       {init ? (
         <Router>
           <Header
