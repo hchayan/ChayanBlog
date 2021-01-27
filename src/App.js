@@ -14,6 +14,9 @@ import Write from "./components/page/write/Write";
 import Post from "./components/page/post/Post";
 import Manage from "./components/page/manage/Manage";
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import { authService } from "./blogFirebase";
 
 function App() {
@@ -39,72 +42,68 @@ function App() {
   });
 
   return (
-    <div className="App">
-      {init ? (
-        <Router>
-          <Header
-            loggedIn={loggedIn}
-            userObj={userObj}
-            articles={articles}
-            bookmarks={bookmarks}
-          />
-          <Switch>
-            <Route exact path="/">
-              <Contents
-                articles={articles}
-                setArticles={setArticles}
-                userObj={userObj}
-                loggedIn={loggedIn}
-                bookmarks={bookmarks}
-                setBookMarks={setBookMarks}
-              />
-            </Route>
-            <Route path="/category">
-              <Contents />
-            </Route>
-
-            <Route exact path="/404">
-              404
-            </Route>
-
-            <Route
-              path="/post/:id"
-              render={routerProps => (
-                <Post
-                  match={routerProps.match}
-                  userObj={userObj}
-                  articleObj={articleObj}
-                  setArticleObj={setArticleObj}
-                />
-              )}
+    <DndProvider backend={HTML5Backend}>
+      <div className="App">
+        {init ? (
+          <Router>
+            <Header
+              loggedIn={loggedIn}
+              userObj={userObj}
+              articles={articles}
+              bookmarks={bookmarks}
             />
-
-            {!loggedIn ||
-            (userObj && userObj.uid !== process.env.REACT_APP_MASTERUID) ? (
-              <Route exact path="/login">
-                <Auth />
+            <Switch>
+              <Route exact path="/">
+                <Contents
+                  articles={articles}
+                  setArticles={setArticles}
+                  userObj={userObj}
+                  loggedIn={loggedIn}
+                  bookmarks={bookmarks}
+                  setBookMarks={setBookMarks}
+                />
               </Route>
-            ) : (
-              <>
-                <Route exact path="/write">
-                  <Write userObj={userObj} articleObj={{}} />
+
+
+              <Route
+                path="/post/:id"
+                render={routerProps => (
+                  <Post
+                    match={routerProps.match}
+                    userObj={userObj}
+                    articleObj={articleObj}
+                    setArticleObj={setArticleObj}
+                  />
+                )}
+              />
+
+              {!loggedIn ||
+              (userObj && userObj.uid !== process.env.REACT_APP_MASTERUID) ? (
+                <Route exact path="/login">
+                  <Auth />
                 </Route>
-                <Route exact path="/edit">
-                  <Write userObj={userObj} articleObj={articleObj} />
-                </Route>
-                <Route excat path="/setting">
-                  <Manage userObj={userObj} articles={articles} />
-                </Route>
-              </>
-            )}
-            <Redirect to="/" />
-          </Switch>
-          <Footer />
-        </Router>
-      ) : (
-        <div className="Loading">페이지 로딩중...</div>
-      )}
-    </div>
+              ) : (
+                <>
+                  <Route exact path="/write">
+                    <Write userObj={userObj} articleObj={{}} />
+                  </Route>
+                  <Route exact path="/edit">
+                    <Write userObj={userObj} articleObj={articleObj} />
+                  </Route>
+                  <Route excat path="/setting">
+                    <Manage userObj={userObj} articles={articles} />
+                  </Route>
+                </>
+              )}
+              <Redirect to="/" />
+            </Switch>
+            <Footer />
+          </Router>
+        ) : (
+          <div className="Loading">페이지 로딩중...</div>
+        )}
+      </div>
+    </DndProvider>
   );
 }
 
