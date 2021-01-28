@@ -223,7 +223,7 @@ const Write = ({ userObj, articleObj }) => {
         />
       </div>
       <div className="write__column">
-        <WriteAddon
+        <WriteForm
           userObj={userObj}
           onChangeImage={onChangeImage}
           objectURL={objectURL}
@@ -231,10 +231,6 @@ const Write = ({ userObj, articleObj }) => {
           markdownContent={markdownContent}
           setMarkdownContent={setMarkdownContent}
           setIsUploadable={setIsUploadable}
-        />
-        <WriteForm
-          markdownContent={markdownContent}
-          setMarkdownContent={setMarkdownContent}
         />
       </div>
       <Prompt

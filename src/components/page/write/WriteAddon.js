@@ -7,13 +7,14 @@ const WriteAddon = ({
   onChangeImage,
   objectURL,
   setObjectURL,
-  markdownContent,
-  setMarkdownContent,
   setIsUploadable,
+  imageURLText,
+  setImageURLText,
 }) => {
   const uploadImage = async e => {
     try {
       setIsUploadable(false);
+      console.log(e);
       if (e) {
         const result = await onChangeImage(e);
 
@@ -24,7 +25,7 @@ const WriteAddon = ({
           const response = await attachmentRef.putString(result, "data_url"); // (저장할파일, 데이터 형식)
           const imageURL = await response.ref.getDownloadURL();
 
-          setMarkdownContent(markdownContent + `![](${imageURL})`);
+          setImageURLText(imageURL);
           setObjectURL([...objectURL, imageURL]);
         }
       }

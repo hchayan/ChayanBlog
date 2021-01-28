@@ -1,10 +1,14 @@
 import React from "react";
-import { hydrate, render } from "react-dom";
+import ReactDOM from "react-dom";
 import "./styles/index.scss";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import App from "./App";
-const rootElement = document.getElementById("root");
-if (rootElement.hasChildNodes()) {
-  hydrate(<App />, rootElement);
-} else {
-  render(<App />, rootElement);
-}
+ReactDOM.hydrate(
+  <React.StrictMode>
+    <DndProvider backend={HTML5Backend}>
+      <App />
+    </DndProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
