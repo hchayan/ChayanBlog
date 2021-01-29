@@ -49,6 +49,7 @@ const WriteForm = ({
   const getImageURL = async (e, handle) => {
     const url = await uploadImage(e);
     handle.textApi.replaceSelection(`![](${url})\n`);
+    handle.close();
   };
 
   return (
@@ -87,23 +88,24 @@ const WriteForm = ({
           ),
           children: handle => {
             return (
-              <div style={{ width: 120, padding: 10 }}>
-                <div>My Custom Toolbar</div>
-                <div className="write-addon">
-                  <div className="write-addon__column add-image">
-                    <label htmlFor="local-image">파일 업로드</label>
-                    <input
-                      type="file"
-                      id="local-image"
-                      onChange={e => getImageURL(e, handle)}
-                      accept="image/*"
-                    />
-                  </div>
+              <div
+                className="addon-upload-image"
+                style={{ width: 250, padding: 10 }}
+              >
+                <div className="addon-upload-image-title">사진 업로드</div>
+
+                <input
+                  type="file"
+                  id="local-image"
+                  onChange={e => getImageURL(e, handle)}
+                  accept="image/*"
+                />
+                <div
+                  className="addon-upload-image-close"
+                  onClick={() => handle.close()}
+                >
+                  x 닫기
                 </div>
-                ;
-                <button type="button" onClick={() => handle.close()}>
-                  Close
-                </button>
               </div>
             );
           },
