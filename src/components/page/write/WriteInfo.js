@@ -89,7 +89,9 @@ const WriteInfo = ({
         const result = await onChangeImage(e);
 
         if (thumbnailURL !== "") {
-          await deleteThumbnail();
+          try {
+            await deleteThumbnail();
+          } catch (error) {}
         }
 
         // 업로드
