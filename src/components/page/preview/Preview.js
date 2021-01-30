@@ -27,6 +27,9 @@ const Preview = ({
 
   const [error, setError] = useState(null);
 
+  const [loadable, setLoadable] = useState(true);
+  const [articlesLimit, setArticlesLimit] = useState(0);
+
   const getUserBookMark = async () => {
     try {
       if (loggedIn && userObj) {
@@ -45,12 +48,12 @@ const Preview = ({
     }
   };
 
-  const getArticles = async () => {
+  const addArticles = async () => {
     try {
-      setArticles([]);
       const dbArticles = await dbService
         .collection("posts")
-        .orderBy("modifiedAt", "asc")
+        .orderBy("modifiedAt", "desc")
+
         .get();
 
       let tmpArticles = [];
@@ -60,13 +63,14 @@ const Preview = ({
           id: article.id,
         };
 
-        tmpArticles.unshift(aritlcleObject);
+        tmpArticles.push(aritlcleObject);
       });
 
       setArticles(tmpArticles);
     } catch (error) {
       setError("게시글들을 불러오지 못했습니다 : " + error);
     }
+    setLoadable(true);
   };
 
   const filterArticles = async () => {
@@ -138,7 +142,7 @@ const Preview = ({
   };
 
   useEffect(() => {
-    getArticles();
+    addArticles();
   }, []);
 
   useEffect(() => {
@@ -179,6 +183,10 @@ const Preview = ({
           filteredArticles={filteredArticles}
           error={error}
           bookmarks={bookmarks}
+          loadable={loadable}
+          setLoadable={setLoadable}
+          articlesLimit={articlesLimit}
+          setArticlesLimit={setArticlesLimit}
         />
       </Route>
       <Route

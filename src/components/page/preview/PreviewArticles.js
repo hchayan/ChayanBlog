@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PreviewArticle from "./PreviewArticle.js";
 
-const PreviewArticles = ({ match, filteredArticles, error, bookmarks }) => {
+const PreviewArticles = ({
+  match,
+  filteredArticles,
+  error,
+  bookmarks,
+  loadable,
+  setLoadable,
+  articlesLimit,
+  setArticlesLimit,
+}) => {
+  const onScroll = () => {
+    if (
+      window.scrollY + document.documentElement.clientHeight >
+      document.documentElement.scrollHeight - 10
+    ) {
+      if (loadable) {
+        console.log("bottom", articlesLimit);
+        setArticlesLimit(articlesLimit + 20);
+        setLoadable(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [loadable]);
+
   return (
     <>
       {error ? (
