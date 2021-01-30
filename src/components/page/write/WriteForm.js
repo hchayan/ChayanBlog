@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ogs from "open-graph-scraper-lite";
 
 import { v4 as uuidv4 } from "uuid";
 import { storageService } from "../../../blogFirebase";
@@ -20,6 +21,7 @@ const WriteForm = ({
   setMarkdownContent,
   setIsUploadable,
 }) => {
+  // 1. 이미지 업로드
   const uploadImage = async e => {
     try {
       setIsUploadable(false);
@@ -52,6 +54,17 @@ const WriteForm = ({
     handle.close();
   };
 
+  // 2. 오픈 그래프 양식
+  const [openGraphUrl, setOpenGraphUrl] = useState({ url: null });
+
+  const getOpengraph = inputUrl => {
+    setOpenGraphUrl({ url: inputUrl });
+    ogs(openGraphUrl).then(data => {
+      const { error, result, response } = data;
+      console.log(error, result, response);
+    });
+  };
+
   return (
     <MDEditor
       value={markdownContent}
@@ -75,6 +88,7 @@ const WriteForm = ({
           }
         ),
 
+        // upload local image
         commands.group([], {
           name: "update",
           groupName: "update",
@@ -102,6 +116,39 @@ const WriteForm = ({
                 />
                 <div
                   className="addon-upload-image-close"
+                  onClick={() => handle.close()}
+                >
+                  x 닫기
+                </div>
+              </div>
+            );
+          },
+          execute: (state, api) => {},
+
+          buttonProps: { "aria-label": "Insert title" },
+        }),
+
+        // get open graph
+        commands.group([], {
+          name: "opengraph",
+          groupName: "opengraph",
+          icon: <span>오픈그래프</span>,
+          children: handle => {
+            return (
+              <div
+                className="addon-opengraph"
+                style={{ width: 350, padding: 10 }}
+              >
+                <div className="addon-opengraph-title">오픈그래프 생성</div>
+
+                <input
+                  type="text"
+                  placeholder="오픈그래프 생성할 링크를 입력해주세요"
+                />
+                <div className="addon-opengraph-preview">미리보기</div>
+                <div className="addon-opengraph-add">본문에 추가하기</div>
+                <div
+                  className="addon-opengraph-close"
                   onClick={() => handle.close()}
                 >
                   x 닫기
