@@ -101,3 +101,35 @@
   }
   // mar
 }
+
+.react_tinylink_card {
+  display: flex !important;
+
+  .react_tinylink_card_media {
+    width: 100% !important;
+    height: 100% !important;
+
+    img {
+      display: none;
+    }
+  }
+
+  .react_tinylink_card_content_wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: normal;
+
+    .react_tinylink_card_content {
+      font-weight: normal !important;
+    }
+
+    footer {
+      background-color: inherit;
+      height: auto;
+      display: block;
+      font-weight: normal;
+    }
+  }
+}

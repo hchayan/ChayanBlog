@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ogs from "open-graph-scraper-lite";
+import { ReactTinyLink } from "react-tiny-link";
 
 import { v4 as uuidv4 } from "uuid";
 import { storageService } from "../../../blogFirebase";
@@ -55,14 +55,38 @@ const WriteForm = ({
   };
 
   // 2. 오픈 그래프 양식
-  const [openGraphUrl, setOpenGraphUrl] = useState({ url: null });
+  const [openGraphUrl, setOpenGraphUrl] = useState("");
+  const [openGraph, setOpenGraph] = useState(null);
+  const [ogLoading, setOgLoading] = useState(false);
 
-  const getOpengraph = inputUrl => {
-    setOpenGraphUrl({ url: inputUrl });
-    ogs(openGraphUrl).then(data => {
-      const { error, result, response } = data;
-      console.log(error, result, response);
-    });
+  const onChangeOpenGraphUrl = e => {
+    setOpenGraphUrl(e.target.value);
+  };
+
+  const getOpengraph = () => {
+    setOgLoading(true);
+    setOpenGraph(
+      <ReactTinyLink
+        cardSize="small"
+        showGraphic={true}
+        maxLine={2}
+        minLine={1}
+        url={openGraphUrl}
+      />
+    );
+    setOgLoading(false);
+  };
+
+  const addOpengraph = (e, handle) => {
+    const openGraphHTML = document
+      .querySelector(".addon-opengraph-preview")
+      .innerHTML.replace("><", ">\n<");
+
+    handle.textApi.replaceSelection(`${openGraphHTML}\n`);
+    handle.close();
+
+    setOpenGraphUrl("");
+    setOpenGraph(null);
   };
 
   return (
@@ -137,16 +161,49 @@ const WriteForm = ({
             return (
               <div
                 className="addon-opengraph"
-                style={{ width: 350, padding: 10 }}
+                style={{ width: 550, padding: 10 }}
               >
                 <div className="addon-opengraph-title">오픈그래프 생성</div>
 
                 <input
                   type="text"
                   placeholder="오픈그래프 생성할 링크를 입력해주세요"
+                  value={openGraphUrl}
+                  onChange={onChangeOpenGraphUrl}
                 />
-                <div className="addon-opengraph-preview">미리보기</div>
-                <div className="addon-opengraph-add">본문에 추가하기</div>
+                <div className="addon-opengraph-preview">
+                  {openGraph === null ? "미리보기" : openGraph}
+                </div>
+                {openGraph === null ? (
+                  !ogLoading ? (
+                    <div className="addon-opengraph-btns">
+                      <div
+                        className="addon-opengraph-btn"
+                        onClick={getOpengraph}
+                      >
+                        오픈그래프 생성하기
+                      </div>
+                    </div>
+                  ) : (
+                    "로딩중"
+                  )
+                ) : (
+                  <div className="addon-opengraph-btns">
+                    <div
+                      className="addon-opengraph-btn addon-opengraph-renew"
+                      onClick={getOpengraph}
+                    >
+                      오픈그래프 재생성하기
+                    </div>
+                    <div
+                      className="addon-opengraph-btn"
+                      onClick={e => addOpengraph(e, handle)}
+                    >
+                      본문에 추가하기
+                    </div>
+                  </div>
+                )}
+
                 <div
                   className="addon-opengraph-close"
                   onClick={() => handle.close()}
