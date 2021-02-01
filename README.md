@@ -19,7 +19,7 @@
    <progress value="80" max="100"></progress>
 </p>
 
-## 기술 스택
+## 📚 기술 스택
 > **Javascript + React(CRA) + Firebase**
 
 <br />
