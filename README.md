@@ -13,14 +13,16 @@
 
 <p align='middle'>
 📝 <strong>개인 정리 노트</strong> 및 <strong>포스트 정리</strong>를 위한 블로그 구축 프로젝트입니다<br/>
-    
-    
-    
    <br /><br />
-   <strong>현재 진행도 👨‍💻</strong><br/>
-    <progress value="80" max="100"></progress> &nbsp;80%
+   <strong>현재 진행도 👨‍💻</strong><br />
+   <strong>80%</strong>
+   <progress value="80" max="100"></progress>
 </p>
 
+## 기술 스택
+> **Javascript + React(CRA) + Firebase**
+
+<br />
 
 ## 👨‍💻 관련 포스트
 **[블로그 프로젝트 1차 회고](https://dev.chayan.io/post/%EB%B8%94%EB%A1%9C%EA%B7%B8%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%201%EC%B0%A8%20%ED%9A%8C%EA%B3%A0)**
