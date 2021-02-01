@@ -52,7 +52,7 @@ const Preview = ({
     try {
       const dbArticles = await dbService
         .collection("posts")
-        .orderBy("modifiedAt", "desc")
+        .orderBy("createdAt", "desc")
 
         .get();
 

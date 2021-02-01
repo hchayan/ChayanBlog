@@ -72,8 +72,7 @@ function App() {
               )}
             />
 
-            {!loggedIn ||
-            (userObj && userObj.uid !== process.env.REACT_APP_MASTERUID) ? (
+            {!loggedIn ? (
               <Route exact path="/login">
                 <Auth />
               </Route>
