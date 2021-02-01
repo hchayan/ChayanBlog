@@ -14,22 +14,18 @@
 <p align='middle'>
 📝 <strong>개인 정리 노트</strong> 및 <strong>포스트 정리</strong>를 위한 블로그 구축 프로젝트입니다<br/>
     
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65" height="20" role="img" aria-label="Javascript"><title>Javascript</title><linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r"><rect width="65" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#r)"><rect width="0" height="20" fill="#dfb317"/><rect x="0" width="65" height="20" fill="#dfb317"/><rect width="65" height="20" fill="url(#s)"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110"><text aria-hidden="true" x="325" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="550">Javascript</text><text x="325" y="140" transform="scale(.1)" fill="#fff" textLength="550">Javascript</text></g></svg>
     
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="73" height="20" role="img" aria-label="React(CRA)"><title>React(CRA)</title><linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r"><rect width="73" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#r)"><rect width="0" height="20" fill="#007ec6"/><rect x="0" width="73" height="20" fill="#007ec6"/><rect width="73" height="20" fill="url(#s)"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110"><text aria-hidden="true" x="365" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="630">React(CRA)</text><text x="365" y="140" transform="scale(.1)" fill="#fff" textLength="630">React(CRA)</text></g></svg>
     
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="53" height="20" role="img" aria-label="firebase"><title>firebase</title><linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r"><rect width="53" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#r)"><rect width="0" height="20" fill="#e05d44"/><rect x="0" width="53" height="20" fill="#e05d44"/><rect width="53" height="20" fill="url(#s)"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110"><text aria-hidden="true" x="265" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="430">firebase</text><text x="265" y="140" transform="scale(.1)" fill="#fff" textLength="430">firebase</text></g></svg>
-    
-    <br /><br />
+   <br /><br />
    <strong>현재 진행도 👨‍💻</strong><br/>
-    <progress value="80" max="100"></progress>&nbsp;80%
+    <progress value="80" max="100"></progress> &nbsp;80%
 </p>
 
 
 ## 👨‍💻 관련 포스트
-**[블로그 프로젝트 1차 회고](https://dev.chayan.io/post/블로그 프로젝트 1차 회고)**
+**[블로그 프로젝트 1차 회고](https://dev.chayan.io/post/%EB%B8%94%EB%A1%9C%EA%B7%B8%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%201%EC%B0%A8%20%ED%9A%8C%EA%B3%A0)**
 
-**[블로그 프로젝트 2차 회고](https://dev.chayan.io/post/블로그 프로젝트 2차 회고)**
+**[블로그 프로젝트 2차 회고](https://dev.chayan.io/post/%EB%B8%94%EB%A1%9C%EA%B7%B8%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%202%EC%B0%A8%20%ED%9A%8C%EA%B3%A0)**
 
 <br />
 
