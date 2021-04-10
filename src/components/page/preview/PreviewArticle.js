@@ -1,10 +1,11 @@
-import React from "react";
-import MDEditor from "@uiw/react-md-editor";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import React, { useState } from "react"
+import MDEditor from "@uiw/react-md-editor"
+import { LazyLoadImage } from "react-lazy-load-image-component"
 
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 const PreviewArticle = ({ article, marked }) => {
+  const [thumbnail, setThumbnail] = useState(article.thumbnailId)
   return (
     <Link to={`/post/${article.title.substring(2)}`}>
       <div className="preview__article">
@@ -17,8 +18,14 @@ const PreviewArticle = ({ article, marked }) => {
           <div className="article-thumbnail">
             <LazyLoadImage
               alt="thumbnail"
-              src={article.thumbnailId}
+              src={thumbnail}
               effect="opacity"
+              onError={() => {
+                console.log(thumbnail)
+                setThumbnail(
+                  "https://firebasestorage.googleapis.com/v0/b/chayanblog.appspot.com/o/static%2Fdefault_thumbnail.jpg?alt=media&token=fae106ba-84a8-40ec-a557-6563be34db74"
+                )
+              }}
             />
 
             <div className="article-categories">
@@ -27,7 +34,7 @@ const PreviewArticle = ({ article, marked }) => {
                   <div key={type} className="article-category">
                     {type}
                   </div>
-                );
+                )
               })}
             </div>
           </div>
@@ -39,7 +46,7 @@ const PreviewArticle = ({ article, marked }) => {
                   <div key={type} className="article-category">
                     {type}
                   </div>
-                );
+                )
               })}
             </div>
           </div>
@@ -58,7 +65,7 @@ const PreviewArticle = ({ article, marked }) => {
               <div key={tag} className="article-tag">
                 {tag}
               </div>
-            );
+            )
           })}
         </div>
 
@@ -81,7 +88,7 @@ const PreviewArticle = ({ article, marked }) => {
         </div>
       </div>
     </Link>
-  );
-};
+  )
+}
 
-export default PreviewArticle;
+export default PreviewArticle

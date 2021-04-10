@@ -137,5 +137,20 @@
     .preview__articles {
       grid-template-columns: repeat(1, 1fr);
     }
+
+    .preview-menu {
+      min-width: 410px;
+      flex-direction: column;
+      height: auto;
+      padding: 5px;
+      .preview-menu__column {
+        width: 100vw;
+        justify-content: space-between;
+        .search-bar {
+          width: 70vw;
+          justify-content: space-between;
+        }
+      }
+    }
   }
 }
